@@ -1,7 +1,8 @@
 body,footer {
 	color: #ffffff;
-	background-color: #191919;
+	background-color: #0C0C0C;
 	height: 100%;
+	font-family: 'Coming Soon', cursive;
 }
 /*
 .container-fluid {
@@ -33,6 +34,8 @@ body,footer {
 
 .navbar li a, .navbar .navbar-brand {
     color: #fff !important;
+	font-family: 'Covered By Your Grace', cursive;
+	font-weight:bold;
 }
 
 .navbar-nav li a:hover, .navbar-nav li.active a {
@@ -96,8 +99,22 @@ h4.pline:hover {
     padding: 0 0 15px 0;
     border: none;
     border-radius: 0;
+
 }
 
 .thumbnail img {
     margin-bottom: 10px;
+	
+}
+
+#home h1, #home p {
+	font-family: 'Satisfy', cursive;
+}
+
+h2 {
+	font-family: 'Covered By Your Grace', cursive;
+	font-weight: bold;
+}
+#about p {
+	color: #ffffff;
 }
