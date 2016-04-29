@@ -118,3 +118,31 @@ h2 {
 #about p {
 	color: #ffffff;
 }
+
+.arrow:hover {
+  -webkit-animation: pulse 1s linear infinite; 
+  -moz-animation:    pulse 1s linear infinite;
+  -o-animation:      pulse 1s linear infinite;
+  animation:         pulse 1s linear infinite; 
+}
+
+@-webkit-keyframes pulse {
+  0%   { -webkit-transform: scale(1.1); }
+  50%  { -webkit-transform: scale(0.8); }
+  100% { -webkit-transform: scale(1);   }
+}
+@-moz-keyframes pulse {
+  0%   { -moz-transform: scale(1.1); }
+  50%  { -moz-transform: scale(0.8); }
+  100% { -moz-transform: scale(1);   }
+}
+@-o-keyframes pulse {
+  0%   { -o-transform: scale(1.1); }
+  50%  { -o-transform: scale(0.8); }
+  100% { -o-transform: scale(1); }
+}
+@keyframes pulse {
+  0%   { transform: scale(1.1); }
+  50%  { transform: scale(0.8); }
+  100% { transform: scale(1); }
+}
