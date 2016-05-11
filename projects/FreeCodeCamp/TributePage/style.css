@@ -239,7 +239,7 @@ body {
 }
 
 .moon {
-  background: url("http://i.imgur.com/kXmTJO5.png") no-repeat center;
+  background: url("moon.png") no-repeat center;
   background-size: 655px 655px;
   height: 655px;
   width: 655px;
@@ -282,4 +282,12 @@ body {
   border: 5px solid #ad423f;
   padding: 10px;
   margin: 10px;
+}
+
+#auto kbd {
+  font-size: 8px;
+  position: relative;
+  margin: auto;
+  left: -10px;
+  right: 0;
 }
