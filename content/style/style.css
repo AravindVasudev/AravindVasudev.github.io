@@ -41,6 +41,7 @@ body,footer {
 .navbar-nav li a:hover, .navbar-nav li.active a {
     color: #F0DF2B !important;
     background-color: #fff !important;
+    
 }
 
 .navbar-default .navbar-toggle {

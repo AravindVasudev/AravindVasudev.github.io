@@ -1,0 +1,285 @@
+h1,
+h2 {
+  font-family: 'Oswald', sans-serif;
+}
+
+.land {
+  width: 100%;
+  height: 150px;
+  background-color: #526F35;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 10;
+}
+
+.rocket {
+  background: url("https://cdn4.iconfinder.com/data/icons/whsr-january-flaticon-set/512/rocket.png") no-repeat center;
+  position: fixed;
+  bottom: 30px;
+  margin: auto;
+  height: 512px;
+  width: 512px;
+  z-index: 9;
+  left: 0;
+  right: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  color: #ffffff !important;
+  font-family: 'Abel', sans-serif;
+}
+
+.panelCon {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.panel {
+  width: 100%;
+  background-color: #c9dbe9;
+  margin: 0;
+}
+
+.panel-space {
+  background: url("http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/stardust.png") repeat;
+}
+
+.panel h1 {
+  position: static;
+  top: 50%;
+  color: #b4c5d1;
+  margin: auto;
+  opacity: 0.4;
+}
+
+.cloud {
+  background: url("http://images.clipartpanda.com/white-cloud-clipart-whitecloud-hi.png") no-repeat center;
+  background-size: 300px 158px;
+  width: 300px;
+  height: 158px;
+  position: static;
+  padding: 100px 0;
+  z-index: 11;
+}
+
+.cloud1 {
+  -webkit-animation: moveclouds 15s linear infinite alternate;
+  -moz-animation: moveclouds 15s linear infinite alternate;
+  -o-animation: moveclouds 15s linear infinite alternate;
+}
+
+.cloud2 {
+  left: 200px;
+  -webkit-transform: scale(0.6);
+  -moz-transform: scale(0.6);
+  transform: scale(0.6);
+  opacity: 0.6;
+  -webkit-animation: moveclouds 25s linear infinite alternate-reverse;
+  -moz-animation: moveclouds 25s linear infinite alternate-reverse;
+  -o-animation: moveclouds 25s linear infinite alternate-reverse;
+}
+
+.cloud3 {
+  left: -250px;
+  top: -200px;
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  transform: scale(0.8);
+  opacity: 0.8;
+  -webkit-animation: moveclouds 20s linear infinite alternate;
+  -moz-animation: moveclouds 20s linear infinite alternate;
+  -o-animation: moveclouds 20s linear infinite alternate;
+}
+
+.cloud4 {
+  left: 470px;
+  top: -250px;
+  -webkit-transform: scale(0.75);
+  -moz-transform: scale(0.75);
+  transform: scale(0.75);
+  opacity: 0.75;
+  -webkit-animation: moveclouds 18s linear infinite alternate-reverse;
+  -moz-animation: moveclouds 18s linear infinite alternate-reverse;
+  -o-animation: moveclouds 18s linear infinite alternate-reverse;
+}
+
+.cloud5 {
+  left: -150px;
+  top: -150px;
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  transform: scale(0.8);
+  opacity: 0.8;
+  -webkit-animation: moveclouds 20s linear infinite alternate;
+  -moz-animation: moveclouds 20s linear infinite alternate;
+  -o-animation: moveclouds 20s linear infinite alternate;
+}
+
+@-webkit-keyframes moveclouds {
+  0% {
+    margin-left: 1000px;
+  }
+  100% {
+    margin-left: -1000px;
+  }
+}
+
+@-moz-keyframes moveclouds {
+  0% {
+    margin-left: 1000px;
+  }
+  100% {
+    margin-left: -1000px;
+  }
+}
+
+@-o-keyframes moveclouds {
+  0% {
+    margin-left: 1000px;
+  }
+  100% {
+    margin-left: -1000px;
+  }
+}
+
+.info-box {
+  background-color: #f9f9f9;
+  border: 15px solid #f2f2f2;
+  position: relative;
+  z-index: 10;
+  visibility: hidden;
+  margin: 0 75px;
+  -moz-box-shadow: 5px 5px 0px #999;
+  -webkit-box-shadow: 5px 5px 0px #999;
+  box-shadow: 5px 5px 0px #999;
+}
+
+#about {
+  height: 85%;
+  width: 75%;
+  margin: auto !important;
+  background: #d3d3d3 url("http://i.huffpost.com/gen/3233288/images/o-ABDUL-KALAM-facebook.jpg") no-repeat fixed center;
+  color: #fff;
+  background-size: cover;
+  /*    -webkit-filter: grayscale(100%);*/
+  padding: 10px;
+}
+
+.about-kalam h2 {
+  position: static;
+  margin-top: 95px;
+}
+
+.about-kalam p {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.about-kalam small {
+  float: right;
+}
+
+#a1 {
+  height: 300px;
+  width: 300px;
+  float: left;
+  bottom: -5px;
+  right: 0;
+  background: url("https://upload.wikimedia.org/wikipedia/commons/0/0a/Atlas_SLV-3_Agena_D_with_KH-7_11_(23_September_1964).jpg") no-repeat left;
+  background-size: cover;
+}
+
+#a2 {
+  height: 300px;
+  width: 300px;
+  float: right;
+  bottom: -105px;
+  background: url("http://s3.firstpost.in/wp-content/uploads/2012/04/agni-12.jpg") no-repeat left;
+  background-size: cover;
+}
+
+#a3 {
+  height: 300px;
+  width: 300px;
+  float: right;
+  bottom: -105px;
+  background: url("https://upload.wikimedia.org/wikipedia/commons/f/f6/Bharat_Ratna.jpg") no-repeat left;
+  background-size: cover;
+}
+
+#a4 {
+  height: 300px;
+  width: 300px;
+  float: left;
+  bottom: -5px;
+  background: url("https://gkdutta.files.wordpress.com/2015/07/apj-abdul-kalam-president-of-india.jpg") no-repeat left;
+  background-size: cover;
+}
+
+#a5 {
+  height: 300px;
+  width: 300px;
+  float: left;
+  bottom: -5px;
+  background: url("http://d1pcxoetpnw26i.cloudfront.net/thequint/2015-07/6e42610f-7db0-4111-b314-f87aace4c665/kalam.jpg") no-repeat center;
+  background-size: cover;
+}
+
+#a6 {
+  height: 300px;
+  width: 300px;
+  float: right;
+  bottom: -105px;
+  background: url("http://www.thehindu.com/thehindu/mp/2002/07/10/images/2002071000420103.jpg") no-repeat center;
+  background-size: cover;
+}
+
+.moon {
+  background: url("http://i.imgur.com/kXmTJO5.png") no-repeat center;
+  background-size: 655px 655px;
+  height: 655px;
+  width: 655px;
+  position: relative;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 10;
+}
+
+.moon-text {
+  display: none;
+  position: relative;
+  top: 40%;
+  margin: auto;
+  font-weight: bold;
+  text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+}
+
+.moon-footer {
+  display: none;
+  position: relative;
+  top: 90%;
+  margin: auto;
+}
+
+.block {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.6);
+  bottom: 0;
+  text-align: center;
+}
+
+#auto {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  border: 5px solid #ad423f;
+  padding: 10px;
+  margin: 10px;
+}
