@@ -17,7 +17,7 @@ h2 {
   background: url("https://cdn4.iconfinder.com/data/icons/whsr-january-flaticon-set/512/rocket.png") no-repeat center;
   position: fixed;
   bottom: 30px;
-  margin: auto;
+  margin: 0 auto;
   height: 512px;
   width: 512px;
   z-index: 9;
@@ -171,7 +171,7 @@ body {
 }
 
 .about-kalam h2 {
-  position: static;
+/*  position: static;*/
   margin-top: 95px;
 }
 
@@ -239,7 +239,7 @@ body {
 }
 
 .moon {
-  background: url("moon.png") no-repeat center;
+  background: url("https://raw.githubusercontent.com/AravindVasudev/AravindVasudev.github.io/master/projects/FreeCodeCamp/TributePage/moon.png") no-repeat center;
   background-size: 655px 655px;
   height: 655px;
   width: 655px;
@@ -283,11 +283,39 @@ body {
   padding: 10px;
   margin: 10px;
 }
-
 #auto kbd {
   font-size: 8px;
   position: relative;
   margin: auto;
   left: -10px;
   right: 0;
+}
+
+@media only screen and (max-width: 768px) {
+  #a1, #a2, #a3, #a4, #a5, #a6 {
+    height: 150px;
+    width: 150px;
+    background-size: 150px 150px;
+    bottom: 0px;
+  }
+  .rocket {
+/*    clear: both;*/
+    background-size: 300px 300px;
+    bottom: -24px;
+    left: 50%;
+transform: translateX(-50%);
+  }
+  
+  .moon {
+    background-size: 400px 400px;
+        left: 50%;
+transform: translateX(-50%);
+  }
+  
+  .break {
+    display: none;
+  }
+  .about-kalam h2 {
+    margin-top: 5px;
+  }
 }

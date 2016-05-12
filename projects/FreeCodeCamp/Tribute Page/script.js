@@ -9,8 +9,8 @@ $(document).ready(function () {
     }, 25000);
     return false;
   });
-  $(".panelCon").keypress(function (event) {
-    if (event.which == 32) {
+    $(".panelCon").keypress(function(event) {
+    if(event.which == 32) {
       $('body, html').stop();
     }
   });
