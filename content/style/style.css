@@ -1,52 +1,61 @@
-body,footer {
-	color: #ffffff;
-	background-color: #0C0C0C;
-	height: 100%;
-	font-family: 'Coming Soon', cursive;
+body,
+footer {
+  color: #ffffff;
+  background-color: #0C0C0C;
+  height: 100%;
+  font-family: 'Coming Soon', cursive;
 }
-/*
-.container-fluid {
-    padding: 60px 50px;
+
+::-webkit-scrollbar {
+  width: 5px;
 }
-*/
+
+::-webkit-scrollbar-track {
+  background-color: #0C0C0C;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #F0DF2B;
+}
+
 .jumbotron {
-	margin-bottom: 0;
-	height: 500px;
-	padding: 100px 25px;
-	background-color: #F0DF2B;
-	color: #3b3a36;
-    
+  margin-bottom: 0;
+  height: 500px;
+  padding: 100px 25px;
+  background-color: #F0DF2B;
+  color: #3b3a36;
 }
 
 .navbar {
-    background-color: #F0DF2B;
-    z-index: 9999;
-    font-size: 12px !important;
-    line-height: 1.42857143 !important;
-    letter-spacing: 4px;
-    border-radius: 0;
-	padding: 15px 0px;
-    border: 0;
-	margin-bottom: 0;
-	font-size: 12px;
-    letter-spacing: 4px;
+  background-color: #F0DF2B;
+  z-index: 9999;
+  font-size: 12px !important;
+  line-height: 1.42857143 !important;
+  letter-spacing: 4px;
+  border-radius: 0;
+  padding: 15px 0px;
+  border: 0;
+  margin-bottom: 0;
+  font-size: 12px;
+  letter-spacing: 4px;
 }
 
-.navbar li a, .navbar .navbar-brand {
-    color: #fff !important;
-	font-family: 'Covered By Your Grace', cursive;
-	font-weight:bold;
+.navbar li a,
+.navbar .navbar-brand {
+  color: #fff !important;
+  font-family: 'Covered By Your Grace', cursive;
+  font-weight: bold;
 }
 
-.navbar-nav li a:hover, .navbar-nav li.active a {
-    color: #F0DF2B !important;
-    background-color: #fff !important;
-    
+.navbar-nav li a:hover,
+.navbar-nav li.active a {
+  color: #F0DF2B !important;
+  background-color: #fff !important;
 }
 
 .navbar-default .navbar-toggle {
-    border-color: transparent;
-    color: #fff !important;
+  border-color: transparent;
+  color: #fff !important;
 }
 
 .tilt {
@@ -56,7 +65,7 @@ body,footer {
   -ms-transition: all 0.5s ease;
   transition: all 0.5s ease;
 }
- 
+
 .tilt:hover {
   -webkit-transform: scale(1.1);
   -moz-transform: scale(1.1);
@@ -65,6 +74,7 @@ body,footer {
   transform: scale(1.08);
 }
 
+
 /*
 .bw img{
   -webkit-filter: grayscale(100%);
@@ -72,9 +82,10 @@ body,footer {
 */
 
 a {
-	text-decoration: none !important;
-	color: #3b3a36;
+  text-decoration: none !important;
+  color: #3b3a36;
 }
+
 
 /*
 h4.pline {
@@ -91,59 +102,86 @@ h4.pline:hover {
 }*/
 
 .about {
-	background-color: #F0DF2B;
-	padding: 60px 50px; 
-	color: #3b3a36;
+  background-color: #F0DF2B;
+  padding: 60px 50px;
+  color: #3b3a36;
 }
 
 .thumbnail {
-    padding: 0 0 15px 0;
-    border: none;
-    border-radius: 0;
-
+  padding: 0 0 15px 0;
+  border: none;
+  border-radius: 0;
 }
 
 .thumbnail img {
-    margin-bottom: 10px;
-	
+  margin-bottom: 10px;
 }
 
-#home h1, #home p {
-	font-family: 'Satisfy', cursive;
+#home h1,
+#home p {
+  font-family: 'Satisfy', cursive;
 }
 
 h2 {
-	font-family: 'Covered By Your Grace', cursive;
-	font-weight: bold;
+  font-family: 'Covered By Your Grace', cursive;
+  font-weight: bold;
 }
+
 #about p {
-	color: #ffffff;
+  color: #ffffff;
 }
 
 .arrow:hover {
-  -webkit-animation: pulse 1s linear infinite; 
-  -moz-animation:    pulse 1s linear infinite;
-  -o-animation:      pulse 1s linear infinite;
-  animation:         pulse 1s linear infinite; 
+  -webkit-animation: pulse 1s linear infinite;
+  -moz-animation: pulse 1s linear infinite;
+  -o-animation: pulse 1s linear infinite;
+  animation: pulse 1s linear infinite;
 }
 
 @-webkit-keyframes pulse {
-  0%   { -webkit-transform: scale(1.1); }
-  50%  { -webkit-transform: scale(0.8); }
-  100% { -webkit-transform: scale(1);   }
+  0% {
+    -webkit-transform: scale(1.1);
+  }
+  50% {
+    -webkit-transform: scale(0.8);
+  }
+  100% {
+    -webkit-transform: scale(1);
+  }
 }
+
 @-moz-keyframes pulse {
-  0%   { -moz-transform: scale(1.1); }
-  50%  { -moz-transform: scale(0.8); }
-  100% { -moz-transform: scale(1);   }
+  0% {
+    -moz-transform: scale(1.1);
+  }
+  50% {
+    -moz-transform: scale(0.8);
+  }
+  100% {
+    -moz-transform: scale(1);
+  }
 }
+
 @-o-keyframes pulse {
-  0%   { -o-transform: scale(1.1); }
-  50%  { -o-transform: scale(0.8); }
-  100% { -o-transform: scale(1); }
+  0% {
+    -o-transform: scale(1.1);
+  }
+  50% {
+    -o-transform: scale(0.8);
+  }
+  100% {
+    -o-transform: scale(1);
+  }
 }
+
 @keyframes pulse {
-  0%   { transform: scale(1.1); }
-  50%  { transform: scale(0.8); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
