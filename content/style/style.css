@@ -12,18 +12,26 @@ main {
   -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
   position: fixed !important;
-  -webkit-animation: spin 3s ease-in-out infinite;
-  animation: spin 3s ease-in-out infinite;
+  -webkit-animation: spins 3s ease-in-out infinite;
+  animation: spins 3s ease-in-out infinite;
 }
 
-@-webkit-keyframes spin {
+@-webkit-keyframes spins {
+  0% {
+    -webkit-transform: rotateZ(-45deg);
+    transform: rotateZ(-45deg);
+  }
   100% {
     -webkit-transform: rotateZ(315deg);
     transform: rotateZ(315deg);
   }
 }
 
-@keyframes spin {
+@keyframes spins {
+  0% {
+    -webkit-transform: rotateZ(-45deg);
+    transform: rotateZ(-45deg);
+  }
   100% {
     -webkit-transform: rotateZ(315deg);
     transform: rotateZ(315deg);
@@ -42,11 +50,11 @@ main {
   transform: rotate(45deg);
   text-align: center;
   transform-origin: top right;
-  -webkit-animation: spin 3s ease-in-out infinite;
-  animation: spins 3s ease-in-out infinite;
+  -webkit-animation: spinText 3s ease-in-out infinite;
+  animation: spinText 3s ease-in-out infinite;
 }
 
-@-webkit-keyframes spins {
+@-webkit-keyframes spinText {
   0%,
   100% {
     -webkit-transform: rotateZ(0deg);
@@ -58,7 +66,7 @@ main {
   }
 }
 
-@keyframes spins {
+@keyframes spinText {
   0%,
   100% {
     -webkit-transform: rotateZ(0deg);
@@ -88,6 +96,7 @@ footer {
   width: 100%;
   color: #141414;
 }
+
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
   main {
