@@ -6,7 +6,7 @@ $(function () {
         } else if (Notification.permission === "granted") {
             var n = new Notification("Thanks!", {
                 body: "You'll be notified as soon as the website is complete",
-                icon: "../images/thumbsup.jpg"
+                icon: "http://lasvegastribune.net/wp-content/uploads/2016/02/donald-trump-thumbs-up.jpg",
             });
         }
         else if (Notification.permission !== 'denied') {
@@ -14,7 +14,7 @@ $(function () {
       if (permission === "granted") {
         var notification = new Notification("Thanks!", {
                 body: "You'll be notified as soon as the website is complete",
-                icon: "../images/thumbsup.jpg"
+                icon: "http://lasvegastribune.net/wp-content/uploads/2016/02/donald-trump-thumbs-up.jpg",
             });
       }
     });
