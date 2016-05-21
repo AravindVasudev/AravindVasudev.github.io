@@ -1,109 +1,18 @@
-html,
 body {
-  margin: 0;
-  padding: 0;
-  color: #191919;
+    margin: 0;
+    padding: 0;
+    background-color: #008080;
+    font-size: 11px;
+    font-family: Tahoma, Verdana;
+    color: #070707;
 }
 
-main {
-  height: 400px;
-  width: 400px;
-  border: 10px inset #323232;
-  -webkit-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  position: fixed !important;
-  -webkit-animation: spins 3s ease-in-out infinite;
-  animation: spins 3s ease-in-out infinite;
+.box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
 }
 
-@-webkit-keyframes spins {
-  0% {
-    -webkit-transform: rotateZ(-45deg);
-    transform: rotateZ(-45deg);
-  }
-  100% {
-    -webkit-transform: rotateZ(315deg);
-    transform: rotateZ(315deg);
-  }
-}
-
-@keyframes spins {
-  0% {
-    -webkit-transform: rotateZ(-45deg);
-    transform: rotateZ(-45deg);
-  }
-  100% {
-    -webkit-transform: rotateZ(315deg);
-    transform: rotateZ(315deg);
-  }
-}
-
-.under-construction {
-  /*  padding: 20px;*/
-  position: absolute;
-  top: 45%;
-  left: 10%;
-  transform: translate(-50%, -50%);
-  font-family: monospace;
-  font-size: 200%;
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  text-align: center;
-  transform-origin: top right;
-  -webkit-animation: spinText 3s ease-in-out infinite;
-  animation: spinText 3s ease-in-out infinite;
-}
-
-@-webkit-keyframes spinText {
-  0%,
-  100% {
-    -webkit-transform: rotateZ(0deg);
-    transform: rotateZ(0deg);
-  }
-  50% {
-    -webkit-transform: rotateZ(-360deg);
-    transform: rotateZ(-360deg);
-  }
-}
-
-@keyframes spinText {
-  0%,
-  100% {
-    -webkit-transform: rotateZ(0deg);
-    transform: rotateZ(0deg);
-  }
-  50% {
-    -webkit-transform: rotateZ(-360deg);
-    transform: rotateZ(-360deg);
-  }
-}
-
-.absolute-centered {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-}
-
-footer {
-  position: absolute;
-  bottom: 0;
-  z-index: 9999;
-  text-align: center !important;
-  height: 80px;
-  width: 100%;
-  color: #141414;
-}
-
-@media only screen and (max-width: 768px) {
-  /* For mobile phones: */
-  main {
-    height: 200px;
-    width: 200px;
-  }
-  .under-construction {
-    font-size: 80%;
-  }
-}
