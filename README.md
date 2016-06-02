@@ -1,3 +1,4 @@
-<h1>My Git Repo's Front Page</h1>
+My Git Repo's Front Page
+========================
 
-<p>A Front Page for my awesome (:p) Git Projects(Upcoming)</p>
+A Front Page for my awesome :stuck_out_tongue_winking_eye: Git Projects(Upcoming)
