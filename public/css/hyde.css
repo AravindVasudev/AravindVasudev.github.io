@@ -98,7 +98,7 @@ html {
 a.sidebar-nav-item:hover,
 a.sidebar-nav-item:focus {
   text-decoration: none;
-  border-bottom: 2px solid white;
+  border-right: 2px solid white;
 }
 .sidebar-nav-item.active {
   font-weight: bold;
