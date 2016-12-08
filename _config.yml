@@ -1,7 +1,7 @@
 # Dependencies
 markdown:         redcarpet
 highlighter:      pygments
-gems:             [jekyll-paginate, jekyll-sitemap]
+gems:             [jekyll-paginate, jekyll-sitemap, jekyll-archives]
 
 # Permalinks
 permalink:        pretty
@@ -24,3 +24,5 @@ version:          2.1.0
 
 github:
   repo:           https://github.com/AravindVasudev/AravindVasudev.github.io
+
+paginate_path: "/blog/page:num/"
