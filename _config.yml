@@ -1,15 +1,16 @@
 # Dependencies
 markdown:         redcarpet
 highlighter:      pygments
+gems:             [jekyll-paginate]
 
 # Permalinks
 permalink:        pretty
 #relative_permalinks: true
 
 # Setup
-title:            'Aravind Vasudev\'s Blog'
-tagline:          'Programming = Life'
-description:      'Just another programmer\'s blog'
+title:            "Aravind Vasudev"
+tagline:          "Just another programmer's blog"
+description:      "Programming = Life"
 baseurl:          /
 
 author:
