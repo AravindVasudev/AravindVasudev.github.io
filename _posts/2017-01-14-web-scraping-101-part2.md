@@ -138,3 +138,5 @@ will output:
 That's it, folks! We have successfully generated an Excel file with the scraped
 result. If you have any problem following the tutorial, please do post it in the
 comments below.
+
+GITHUB link to the completed project: [GITHUB](https://github.com/AravindVasudev/AUScraper)
