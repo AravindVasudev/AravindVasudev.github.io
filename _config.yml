@@ -17,7 +17,10 @@ baseurl:          /
 
 author:
   name:           'Aravind Vasudevan'
-  url:            https://github.com/AravindVasudev
+  url:            https://aravindvasudevan.me
+
+url: https://aravindvasudevan.me
+enforce_ssl: aravindvasudevan.me
 
 paginate:         5
 
