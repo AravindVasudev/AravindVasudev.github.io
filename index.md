@@ -21,6 +21,6 @@ corners of Computer Science.
 
 You can check out some of my projects here: [GITHUB](https://github.com/AravindVasudev)
 
-Reach out to me at `aravindv96 [at] yahoo [dot] com`
+Reach out to me at <a href="mailto:sayhi@aravindvasudevan.me">`sayhi [at] aravindvasudevan [dot] me`</a>
 
 --------------------------------------------------------------------------------
