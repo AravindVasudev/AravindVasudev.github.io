@@ -9,8 +9,8 @@ disqus_shortname: 'aravind-vasudev-blog'
 author:
   name: 'Aravind Vasudevan'
   email: email@aravindvasudevan.me
-  twitter_username: aravind8896
-  facebook_username: aravind8896
+  #twitter_username: aravind8896
+  #facebook_username: aravind8896
   github_username:  AravindVasudev
   linkedin_username:  aravindvasudev
 
