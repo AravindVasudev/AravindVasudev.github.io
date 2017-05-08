@@ -1,8 +1,8 @@
 ---
-layout:     post
-title:      "How to create a context menu using JQuery in 3 steps !"
-date:       2016-12-08 14:30:00 +0530
-comments:   true
+title:  "How to create a context menu using JQuery in 3 steps !"
+date:   2016-12-08 14:30:00 +0530
+categories: [programming]
+tags: [web, programming, tricks]
 ---
 
 Say Google Drive or WhatsApp web or any other web application with native feel,
@@ -18,6 +18,7 @@ Here's my method of doing this using JQuery & Bootstrap (Basic knowledge of HTML
   CSS and JS is enough for this tutorial)
 
 --------------------------------------------------------------------------------
+
 ### Step 1: Include JQuery and Bootstrap
 
 Copy the below lines to the `<head>` section.

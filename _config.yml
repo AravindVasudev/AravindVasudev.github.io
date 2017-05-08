@@ -1,33 +1,39 @@
-# Dependencies
-markdown:         kramdown
-redcarpet:
-  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]
-highlighter:      pygments
-gems:             [jekyll-paginate, jekyll-sitemap, jekyll-archives, jemoji]
-
-# Permalinks
-permalink:        pretty
-#relative_permalinks: true
-
-# Setup
-title:            "Aravind Vasudev"
-tagline:          "Just another programmer's blog"
-description:      "Programming = Life"
-baseurl:          /
+# Site settings
+title: "Aravind Vasudevan | Yet another programmer's blog"
+description: "Student · Full Stack Developer · Machine Learning Enthusiast"
+url: 'https://aravindvasudevan.me'
+baseurl: '/'
+google_analytics: 'UA-83211075-2'
+disqus_shortname: 'aravind-vasudev-blog'
 
 author:
-  name:           'Aravind Vasudevan'
-  url:            https://aravindvasudevan.me
+  name: 'Aravind Vasudevan'
+  email: email@aravindvasudevan.me
+  twitter_username: aravind8896
+  facebook_username: aravind8896
+  github_username:  AravindVasudev
+  linkedin_username:  aravindvasudev
 
-url: https://aravindvasudevan.me
-enforce_ssl: aravindvasudevan.me
+defaults:
+  -
+    scope:
+      path: ''
+      type: 'posts'
+    values:
+        layout: 'post'
 
-paginate:         5
+# Build settings
+destination: _site
+paginate: 10
+permalink: /:year/:title/
+markdown: kramdown
+highlighter: rouge
 
-# Custom vars
-version:          2.1.0
+kramdown:
+  # use Github Flavored Markdown
+  input: GFM
+  # do not replace newlines by <br>s
+  hard_wrap: false
 
-github:
-  repo:           https://github.com/AravindVasudev/AravindVasudev.github.io
-
-paginate_path: "/blog/page:num/"
+gems: ['jekyll-paginate', 'jemoji']
+exclude: ['README.md', 'Gemfile', 'Gemfile.lock', 'screenshot.png']

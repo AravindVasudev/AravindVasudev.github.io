@@ -1,11 +1,11 @@
 ---
-layout:     post
-title:      "Web Scraping 101 (part 2): Build an Anna University Result Scraper"
-date:       2017-01-14 2:51:00 +0530
-comments:   true
+title:  "Web Scraping 101 (part 2): Build an Anna University Result Scraper"
+date:   2017-01-14 2:51:00 +0530
+categories: [programming]
+tags: [php, web scraping]
 ---
 
-This is the follow-up to [Web Scraping 101: Build a simple web scraper using PHP](/2017/01/13/web-scraping-101/).
+This is the follow-up to [Web Scraping 101: Build a simple web scraper using PHP](../web-scraping-101/).
 If you haven't seen it yet, I'd highly recommend you to read that before continuing.
 
 In this tutorial, we will be building a simple web scraper that extracts the
@@ -13,20 +13,21 @@ result from Anna University's website. This tutorial is strictly for educational
 purposes.
 
 --------------------------------------------------------------------------------
-##AU Scraper
+
+## AU Scraper
 
 We are going to do this in 4 simple steps:
 
-###Step 1: read the website and create the DOM
+### Step 1: read the website and create the DOM
 
 Anna University provides a nice little endpoint using which we can view our result
 by sending a GET Request.
 
-```
+```ruby
 http://aucoe.annauniv.edu/cgi-bin/result/cgrade.pl?regno=[register_number]
 ```
 
-If you have gone through the [previous post](/2017/01/13/web-scraping-101/), the below needs no explanation.
+If you have gone through the [previous post](../web-scraping-101/), the below needs no explanation.
 
 <script src="https://gist.github.com/AravindVasudev/807a9860088f1be5489d07b57c18344a.js?file=AUScraper_1.php"></script>
 
@@ -35,13 +36,13 @@ pretty messed up. If you have tried running the above code, you'd have noticed t
 it throws many errors at `loadHTML()` line. This is because libxml library used by
 PHP throws an error when the HTML it receives is not structured properly.
 
-![](/public/images/auscraper_1.png)
+![](/images/blog/auscraper_1.png)
 
 To get over this, we use [`libxml_use_internal_errors()`](http://php.net/manual/en/function.libxml-use-internal-errors.php) function which stops the libxml from throwing errors to the standard error.
 
 <script src="https://gist.github.com/AravindVasudev/807a9860088f1be5489d07b57c18344a.js?file=AUScraper_2.php"></script>
 
-###Step 2: Extract the data
+### Step 2: Extract the data
 
 As we have seen already, the structure of the site is pretty messed up. So, we
 need to find a pattern to extract the relevant data. Going through the site once
@@ -56,7 +57,7 @@ to `getElementsByTagName` in previous post.
 
 The XPath query we will be using is
 
-```
+```python
 //td[@bgcolor="#fffaea"]
 ```
 
@@ -77,9 +78,9 @@ XPath query.
 
 In the above code, data inside each selected node is stored into an array.
 
-![](/public/images/auscraper_2.png)
+![](/images/blog/auscraper_2.png)
 
-###Step 3: Clean the data
+### Step 3: Clean the data
 
 Not all the data that we have retrieved is useful to us. Before we proceed to
 generate excel, let us first sanitize the data a little more.
@@ -90,16 +91,16 @@ is the grade.
 
 <script src="https://gist.github.com/AravindVasudev/807a9860088f1be5489d07b57c18344a.js?file=AUScraper_4.php"></script>
 
-![](/public/images/auscraper_3.png)
+![](/images/blog/auscraper_3.png)
 
-###Step 4: Store it to Excel
+### Step 4: Store it to Excel
 
 There are various external libraries to do this, but for simplicity, we are doing
 this with raw PHP.
 
 To generate an excel file, first we need to include some headers.
 
-```
+```javascript
 header("Content-Type: application/vnd.ms-excel");
 header("Content-disposition: attachment; filename=result.xls");
 header("Pragma: no-cache");
@@ -120,20 +121,20 @@ in a row is separated using tabs `\t` and each row is separated using line break
 
 example:
 
-```
+```ruby
 echo 'Name' . "\t" . 'Phone' . "\n";
 echo 'Joey Tribbiani' . "\t" . '12345678' . "\n";
 ```
 
 will output:
-![](/public/images/auscraper_4.png)
+![](/images/blog/auscraper_4.png)
 
 Now, storing `$result` to Excel:
 
 <script src="https://gist.github.com/AravindVasudev/807a9860088f1be5489d07b57c18344a.js?file=AUScraper_5.php"></script>
 
 will output:
-![](/public/images/auscraper_5.png)
+![](/images/blog/auscraper_5.png)
 
 That's it, folks! We have successfully generated an Excel file with the scraped
 result. If you have any problem following the tutorial, please do post it in the
