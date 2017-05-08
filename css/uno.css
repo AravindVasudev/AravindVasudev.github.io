@@ -1103,6 +1103,7 @@ pre {
 	margin-left: 40%; }
 
 .content-wrapper__inner {
+	display:none;
 	margin: 0 10%;
 	padding: 50px 0; }
 
