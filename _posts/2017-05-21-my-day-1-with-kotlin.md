@@ -1,6 +1,6 @@
 ---
 title:  "My day 1 of learning Kotlin"
-date:   2017-05-20 5:00:00 +0530
+date:   2017-05-21 5:00:00 +0530
 categories: [programming, android, kotlin]
 tags: [kotlin]
 ---
