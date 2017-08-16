@@ -5,7 +5,7 @@ categories: [programming, android, kotlin]
 tags: [kotlin]
 ---
 
-![](/images/blog/kotlin_1.png)
+![](/images/blog/kotlin_1.png){:height="100px"}
 
 I was reluctant to learn Android until now because of Java. With all the new
 languages out there, Java's verbose nature and lack of syntactic sugar is not the
