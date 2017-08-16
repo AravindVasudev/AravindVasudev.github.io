@@ -1,6 +1,3 @@
----
-layout: null
----
 $(document).ready(function () {
   $('a.blog-button').click(function (e) {
     $('.content-wrapper__inner').css('display', 'block')
@@ -20,7 +17,7 @@ $(document).ready(function () {
     $('.panel-cover').addClass('panel-cover--collapsed')
   }
 
-  if (window.location.pathname !== '{{ site.baseurl }}' && window.location.pathname !== '{{ site.baseurl }}index.html') {
+  if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') {
     $('.panel-cover').addClass('panel-cover--collapsed')
     $('.content-wrapper__inner').css('display', 'block')
   }
