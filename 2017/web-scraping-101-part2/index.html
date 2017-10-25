@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Web Scraping 101 (part 2): Build an Anna University Result Scraper</title>
+  <meta name="description" content="Student · Full Stack Developer · Machine Learning Enthusiast">
+  <meta name="author" content="Aravind Vasudevan">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Aravind Vasudevan | Yet another programmer's blog">
+  <meta name="twitter:description" content="Student · Full Stack Developer · Machine Learning Enthusiast">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Aravind Vasudevan | Yet another programmer's blog">
+  <meta property="og:description" content="Student · Full Stack Developer · Machine Learning Enthusiast">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png">
+  <link rel="manifest" href="/images/favicons/manifest.json">
+  <link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" color="#212121">
+  <link rel="shortcut icon" href="/images/favicons/favicon.ico">
+  <meta name="apple-mobile-web-app-title" content="Aravind Vasudevan">
+  <meta name="application-name" content="Aravind Vasudevan">
+  <meta name="msapplication-config" content="/images/favicons/browserconfig.xml">
+  <meta name="theme-color" content="#212121">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://aravindvasudevan.me//2017/web-scraping-101-part2/">
+  <link rel="alternate" type="application/rss+xml" title="Aravind Vasudevan | Yet another programmer's blog" href="/feed.xml">
+
+    <!-- Enforce SSL -->
+  <script type="text/javascript">
+    var host = "aravindvasudevan.me";
+    if ((host == window.location.host) && (window.location.protocol != "https:"))
+        window.location.protocol = "https";
+  </script>
+</head>
+
+
+  <body>
+    <span class="mobile btn-mobile-menu">
+  <i class="icon icon-list btn-mobile-menu__icon"></i>
+  <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+</span>
+
+<header class="panel-cover" style="background-image: url(/images/cover.jpg)">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+        <a href="/" title="link to home of Aravind Vasudevan | Yet another programmer's blog">
+          <img src="/images/profile.jpg" class="user-image" alt="My Profile Photo">
+          <h1 class="panel-cover__title panel-title">Aravind Vasudevan</h1>
+        </a>
+        <hr class="panel-cover__divider">
+        <p class="panel-cover__description">Student · Full Stack Developer · Machine Learning Enthusiast</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary">
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="/#blog" title="link to blog" class="blog-button">Blog</a></li>
+            </ul>
+          </nav>
+
+          <nav class="cover-navigation navigation--social">
+            <ul class="navigation">
+
+            
+
+            
+
+            
+              <!-- LinkedIn -->
+              <li class="navigation__item">
+                <a href="https://www.linkedin.com/in/aravindvasudev" title="aravindvasudev on LinkedIn" target="_blank">
+                  <i class="icon icon-social-linkedin"></i>
+                  <span class="label">LinkedIn</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- GitHub -->
+              <li class="navigation__item">
+                <a href="https://www.github.com/AravindVasudev" title="AravindVasudev on GitHub" target="_blank">
+                  <i class="icon icon-social-github"></i>
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- Email -->
+              <li class="navigation__item">
+                <a href="mailto:email@aravindvasudevan.me" title="Email email@aravindvasudevan.me" target="_blank">
+                  <i class="icon icon-mail"></i>
+                  <span class="label">Email</span>
+                </a>
+              </li>
+            
+
+            <!-- RSS -->
+            <li class="navigation__item">
+              <a href="/feed.xml" title="Subscribe" target="_blank">
+                <i class="icon icon-rss"></i>
+                <span class="label">RSS</span>
+              </a>
+            </li>
+
+            </ul>
+          </nav>
+
+          <!-- About Me Page -->
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="/about/" title="About Me" class="blog-button">About Me</a></li>
+            </ul>
+          </nav>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+      <div class="content-wrapper__inner">
+        <article class="post-container post-container--single">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="14 Jan 2017" class="post-meta__date date">14 Jan 2017</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#php">php</a> <a href="/tags/#web scraping">web scraping</a> </span>
+    </div>
+    <h1 class="post-title">Web Scraping 101 (part 2): Build an Anna University Result Scraper</h1>
+  </header>
+
+  <section class="post">
+    <p>This is the follow-up to <a href="../web-scraping-101/">Web Scraping 101: Build a simple web scraper using PHP</a>.
+If you haven’t seen it yet, I’d highly recommend you to read that before continuing.</p>
+
+<p>In this tutorial, we will be building a simple web scraper that extracts the
+result from Anna University’s website. This tutorial is strictly for educational
+purposes.</p>
+
+<hr />
+
+<h2 id="au-scraper">AU Scraper</h2>
+
+<p>We are going to do this in 4 simple steps:</p>
+
+<h3 id="step-1-read-the-website-and-create-the-dom">Step 1: read the website and create the DOM</h3>
+
+<p>Anna University provides a nice little endpoint using which we can view our result
+by sending a GET Request.</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">aucoe</span><span class="p">.</span><span class="nf">annauniv</span><span class="p">.</span><span class="nf">edu</span><span class="o">/</span><span class="n">cgi</span><span class="o">-</span><span class="n">bin</span><span class="o">/</span><span class="n">result</span><span class="o">/</span><span class="n">cgrade</span><span class="p">.</span><span class="nf">pl?</span><span class="n">regno</span><span class="o">=</span><span class="p">[</span><span class="n">register_number</span><span class="p">]</span>
+</code></pre>
+</div>
+
+<p>If you have gone through the <a href="../web-scraping-101/">previous post</a>, the below needs no explanation.</p>
+
+<script src="https://gist.github.com/AravindVasudev/807a9860088f1be5489d07b57c18344a.js?file=AUScraper_1.php"></script>
+
+<p>Going through the source of the site, we can see that structure of the site is
+pretty messed up. If you have tried running the above code, you’d have noticed that
+it throws many errors at <code class="highlighter-rouge">loadHTML()</code> line. This is because libxml library used by
+PHP throws an error when the HTML it receives is not structured properly.</p>
+
+<p><img src="/images/blog/auscraper_1.png" alt="" /></p>
+
+<p>To get over this, we use <a href="http://php.net/manual/en/function.libxml-use-internal-errors.php"><code class="highlighter-rouge">libxml_use_internal_errors()</code></a> function which stops the libxml from throwing errors to the standard error.</p>
+
+<script src="https://gist.github.com/AravindVasudev/807a9860088f1be5489d07b57c18344a.js?file=AUScraper_2.php"></script>
+
+<h3 id="step-2-extract-the-data">Step 2: Extract the data</h3>
+
+<p>As we have seen already, the structure of the site is pretty messed up. So, we
+need to find a pattern to extract the relevant data. Going through the site once
+more, we can see that all the fields we need are enclosed within a <code class="highlighter-rouge">&lt;td&gt;</code> tag
+with <code class="highlighter-rouge">bgcolor="#fffaea"</code> attribute.</p>
+
+<p>To extract an element using its attribute, we can use <a href="http://php.net/manual/en/domxpath.query.php"><code class="highlighter-rouge">query</code></a>
+method of <a href="http://php.net/manual/en/class.domxpath.php"><code class="highlighter-rouge">DOMXPath</code></a> class. <code class="highlighter-rouge">query</code>
+method takes in a XPath(XPath is a query language for selecting nodes from an XML document.)
+and returns a <a href="http://php.net/manual/en/class.domnodelist.php"><code class="highlighter-rouge">DOMNodeList</code></a> similar
+to <code class="highlighter-rouge">getElementsByTagName</code> in previous post.</p>
+
+<p>The XPath query we will be using is</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="o">//</span><span class="n">td</span><span class="p">[</span><span class="nd">@bgcolor</span><span class="o">=</span><span class="s">"#fffaea"</span><span class="p">]</span>
+</code></pre>
+</div>
+
+<p>The above XPath query is broken down below:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Expression</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">//</td>
+      <td>makes the selection throughout the document.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">td</td>
+      <td>selects all the <code class="highlighter-rouge">td</code> nodes.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">@</td>
+      <td>Selects attributes</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">td[@bgcolor=”#fffaea”]</td>
+      <td>Selects all <code class="highlighter-rouge">td</code> with <code class="highlighter-rouge">bgcolor="#fffaea"</code> attribute</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>First, we have to create a <code class="highlighter-rouge">DOMXPath</code> object. <code class="highlighter-rouge">DOMXPath's</code> constructor takes in
+<code class="highlighter-rouge">DOMDocument</code> object. Then, we have to call the <code class="highlighter-rouge">query</code> method with the above
+XPath query.</p>
+
+<script src="https://gist.github.com/AravindVasudev/807a9860088f1be5489d07b57c18344a.js?file=AUScraper_3.php"></script>
+
+<p>In the above code, data inside each selected node is stored into an array.</p>
+
+<p><img src="/images/blog/auscraper_2.png" alt="" /></p>
+
+<h3 id="step-3-clean-the-data">Step 3: Clean the data</h3>
+
+<p>Not all the data that we have retrieved is useful to us. Before we proceed to
+generate excel, let us first sanitize the data a little more.</p>
+
+<p>From the above code’s result, we can clearly see that, from <code class="highlighter-rouge">$extracted[6]</code> to the
+end of the array, every <code class="highlighter-rouge">3Nth element</code> is the subject code and <code class="highlighter-rouge">3N + 1th element</code>
+is the grade.</p>
+
+<script src="https://gist.github.com/AravindVasudev/807a9860088f1be5489d07b57c18344a.js?file=AUScraper_4.php"></script>
+
+<p><img src="/images/blog/auscraper_3.png" alt="" /></p>
+
+<h3 id="step-4-store-it-to-excel">Step 4: Store it to Excel</h3>
+
+<p>There are various external libraries to do this, but for simplicity, we are doing
+this with raw PHP.</p>
+
+<p>To generate an excel file, first we need to include some headers.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">header</span><span class="p">(</span><span class="s2">"Content-Type: application/vnd.ms-excel"</span><span class="p">);</span>
+<span class="nx">header</span><span class="p">(</span><span class="s2">"Content-disposition: attachment; filename=result.xls"</span><span class="p">);</span>
+<span class="nx">header</span><span class="p">(</span><span class="s2">"Pragma: no-cache"</span><span class="p">);</span>
+<span class="nx">header</span><span class="p">(</span><span class="s2">"Expires: 0"</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>The explanation below can be skipped:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Header</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Content-Type: application/vnd.ms-excel</td>
+      <td>Sets the MIME Type for Excel</td>
+    </tr>
+    <tr>
+      <td>Content-disposition: attachment; filename=result.xls</td>
+      <td>Sets the file as downloadable with the name <code class="highlighter-rouge">result.xls</code></td>
+    </tr>
+    <tr>
+      <td>Pragma: no-cache</td>
+      <td>When the no-cache directive is present in a request message, an application SHOULD forward the request toward the origin server even if it has a cached copy of what is being requested.</td>
+    </tr>
+    <tr>
+      <td>Expires: 0</td>
+      <td>The Expires header contains the date/time after which the response is considered stale. Invalid dates, like the value 0, represent a date in the past and mean that the resource is already expired.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Now, anything to the standard output will be stored as <code class="highlighter-rouge">.xls</code>. Each cell value
+in a row is separated using tabs <code class="highlighter-rouge">\t</code> and each row is separated using line breaks <code class="highlighter-rouge">\n</code>.</p>
+
+<p>example:</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="n">echo</span> <span class="s1">'Name'</span> <span class="o">.</span> <span class="s2">"</span><span class="se">\t</span><span class="s2">"</span> <span class="o">.</span> <span class="s1">'Phone'</span> <span class="o">.</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="n">echo</span> <span class="s1">'Joey Tribbiani'</span> <span class="o">.</span> <span class="s2">"</span><span class="se">\t</span><span class="s2">"</span> <span class="o">.</span> <span class="s1">'12345678'</span> <span class="o">.</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p>will output:
+<img src="/images/blog/auscraper_4.png" alt="" /></p>
+
+<p>Now, storing <code class="highlighter-rouge">$result</code> to Excel:</p>
+
+<script src="https://gist.github.com/AravindVasudev/807a9860088f1be5489d07b57c18344a.js?file=AUScraper_5.php"></script>
+
+<p>will output:
+<img src="/images/blog/auscraper_5.png" alt="" /></p>
+
+<p>That’s it, folks! We have successfully generated an Excel file with the scraped
+result. If you have any problem following the tutorial, please do post it in the
+comments below.</p>
+
+<p>GITHUB link to the completed project: <a href="https://github.com/AravindVasudev/AUScraper">GITHUB</a></p>
+
+  </section>
+  <section id="disqus_thread"></section><!-- /#disqus_thread -->
+</article>
+
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'https://aravindvasudevan.me/2017/web-scraping-101-part2/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = '/2017/web-scraping-101-part2'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      };
+
+      (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//aravind-vasudev-blog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+       })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+      </div>
+
+      <footer class="footer">
+  <span class="footer__copyright">&copy; 2017 Aravind Vasudevan. All rights reserved.</span>
+</footer> 
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+    </div>
+  </body>
+</html>
