@@ -1,187 +1,56 @@
+---
+layout: null
+sitemap:
+  exclude: 'yes'
+---
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  
-    
+  {% for post in site.posts %}
+    {% unless post.published == false %}
     <url>
-      <loc>https://aravindvasudevan.me/2017/moving-to-antergos/</loc>
-      
-        <lastmod>2017-08-15T01:00:00+05:30</lastmod>
-      
-      
+      <loc>{{ site.url }}{{ post.url }}</loc>
+      {% if post.sitemap.lastmod %}
+        <lastmod>{{ post.sitemap.lastmod | date: "%Y-%m-%d" }}</lastmod>
+      {% elsif post.date %}
+        <lastmod>{{ post.date | date_to_xmlschema }}</lastmod>
+      {% else %}
+        <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+      {% endif %}
+      {% if post.sitemap.changefreq %}
+        <changefreq>{{ post.sitemap.changefreq }}</changefreq>
+      {% else %}
         <changefreq>monthly</changefreq>
-      
-      
+      {% endif %}
+      {% if post.sitemap.priority %}
+        <priority>{{ post.sitemap.priority }}</priority>
+      {% else %}
         <priority>0.5</priority>
-      
+      {% endif %}
     </url>
-    
-  
-    
+    {% endunless %}
+  {% endfor %}
+  {% for page in site.pages %}
+    {% unless page.sitemap.exclude == "yes" or page.robots contains "noindex" %}
     <url>
-      <loc>https://aravindvasudevan.me/2017/my-day-1-with-kotlin/</loc>
-      
-        <lastmod>2017-05-21T05:00:00+05:30</lastmod>
-      
-      
+      <loc>{{ site.url }}{{ page.url | remove: "index.html" }}</loc>
+      {% if page.sitemap.lastmod %}
+        <lastmod>{{ page.sitemap.lastmod | date: "%Y-%m-%d" }}</lastmod>
+      {% elsif page.date %}
+        <lastmod>{{ page.date | date_to_xmlschema }}</lastmod>
+      {% else %}
+        <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+      {% endif %}
+      {% if page.sitemap.changefreq %}
+        <changefreq>{{ page.sitemap.changefreq }}</changefreq>
+      {% else %}
         <changefreq>monthly</changefreq>
-      
-      
-        <priority>0.5</priority>
-      
-    </url>
-    
-  
-    
-    <url>
-      <loc>https://aravindvasudevan.me/2017/web-scraping-101-part2/</loc>
-      
-        <lastmod>2017-01-14T02:51:00+05:30</lastmod>
-      
-      
-        <changefreq>monthly</changefreq>
-      
-      
-        <priority>0.5</priority>
-      
-    </url>
-    
-  
-    
-    <url>
-      <loc>https://aravindvasudevan.me/2017/web-scraping-101/</loc>
-      
-        <lastmod>2017-01-13T12:48:00+05:30</lastmod>
-      
-      
-        <changefreq>monthly</changefreq>
-      
-      
-        <priority>0.5</priority>
-      
-    </url>
-    
-  
-    
-    <url>
-      <loc>https://aravindvasudevan.me/2016/How-to-create-a-context-menu/</loc>
-      
-        <lastmod>2016-12-08T14:30:00+05:30</lastmod>
-      
-      
-        <changefreq>monthly</changefreq>
-      
-      
-        <priority>0.5</priority>
-      
-    </url>
-    
-  
-    
-    <url>
-      <loc>https://aravindvasudevan.me/2016/hello-world/</loc>
-      
-        <lastmod>2016-12-08T13:50:00+05:30</lastmod>
-      
-      
-        <changefreq>monthly</changefreq>
-      
-      
-        <priority>0.5</priority>
-      
-    </url>
-    
-  
-  
-    
-    <url>
-      <loc>https://aravindvasudevan.me/about/</loc>
-      
-        <lastmod>2017-10-26T04:06:49+05:30</lastmod>
-      
-      
-        <changefreq>monthly</changefreq>
-      
-      
+      {% endif %}
+      {% if page.sitemap.priority %}
+        <priority>{{ page.sitemap.priority }}</priority>
+      {% else %}
         <priority>0.3</priority>
-      
+      {% endif %}
     </url>
-    
-  
-    
-    <url>
-      <loc>https://aravindvasudevan.me/categories/</loc>
-      
-        <lastmod>2017-10-26T04:06:49+05:30</lastmod>
-      
-      
-        <changefreq>monthly</changefreq>
-      
-      
-        <priority>0.3</priority>
-      
-    </url>
-    
-  
-    
-    <url>
-      <loc>https://aravindvasudevan.me/feed.xml</loc>
-      
-        <lastmod>2017-10-26T04:06:49+05:30</lastmod>
-      
-      
-        <changefreq>monthly</changefreq>
-      
-      
-        <priority>0.3</priority>
-      
-    </url>
-    
-  
-    
-    <url>
-      <loc>https://aravindvasudevan.me/</loc>
-      
-        <lastmod>2017-10-26T04:06:49+05:30</lastmod>
-      
-      
-        <changefreq>monthly</changefreq>
-      
-      
-        <priority>0.3</priority>
-      
-    </url>
-    
-  
-    
-    <url>
-      <loc>https://aravindvasudevan.me/js/main.js</loc>
-      
-        <lastmod>2017-10-26T04:06:49+05:30</lastmod>
-      
-      
-        <changefreq>monthly</changefreq>
-      
-      
-        <priority>0.3</priority>
-      
-    </url>
-    
-  
-    
-  
-    
-    <url>
-      <loc>https://aravindvasudevan.me/tags/</loc>
-      
-        <lastmod>2017-10-26T04:06:49+05:30</lastmod>
-      
-      
-        <changefreq>monthly</changefreq>
-      
-      
-        <priority>0.3</priority>
-      
-    </url>
-    
-  
+    {% endunless %}
+  {% endfor %}
 </urlset>
