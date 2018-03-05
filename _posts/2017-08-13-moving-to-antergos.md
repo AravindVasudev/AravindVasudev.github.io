@@ -6,7 +6,7 @@ tags: [linux, arch]
 ---
 
 Nine months ago, I decided that I had enough with Windows and planned to 
-completely move to GNU/Linux (Yeah, it's not Linux, it's GNU/Linux :wink: ). 
+completely move to GNU/Linux (Yeah, it's not Linux, it's GNU/Linux). 
 Since I own only one laptop, I do not prefer distro jumping and needed to 
 settle down with something. After googling for a while, I picked Ubuntu.
 
@@ -74,12 +74,10 @@ internet. If you couldn't find something that you want in Arch's official repo,
 I'm pretty sure that it is available in AUR. AUR is so freaking huge that you 
 don't have to worry about adding PPAs anymore.
 
-![](/images/blog/aur_size.jpg)
+![](/images/blog/intelligent_life_arch_linux.png)
 
 Hope this blog helps users who face the same issues as I did. Since I haven't 
 always been a GNU/Linux nerd, I know what issues Windows users face when they to 
 move out. I have been already helping out some my friends to move to GNU/Linux and I am
 glad to help out more users. If you have any questions or issues, please post 
 them in comments. Until then, `keep calm && sudo !!` .
-
-![](/images/blog/zo_uses_arch.png)

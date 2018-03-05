@@ -5,8 +5,6 @@ categories: [programming, android, kotlin]
 tags: [kotlin]
 ---
 
-![](/images/blog/kotlin_1.png){:height="100px"}
-
 I was reluctant to learn Android until now because of Java. With all the new
 languages out there, Java's verbose nature and lack of syntactic sugar is not the
 most pleasing language to code in. Even though language alternatives like Scala,
@@ -23,6 +21,7 @@ internet community. I couldn't care less about it until I came across these:
 Kotlin to Android is what Swift to iOS is. After seeing how close it is to the
 languages I already know, I gave it a shot.
 
+![](/images/blog/kotlin_1.png)
 --------------------------------------------------------------------------------
 
 ## What is Kotlin?
