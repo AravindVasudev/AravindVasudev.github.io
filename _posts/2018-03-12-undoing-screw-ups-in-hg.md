@@ -12,7 +12,7 @@ my internship is nearing, I'm making a list of fixes that I learned during this 
 --------------------------------------------------------------------------------
 
 ## Adding all files
-Most of us have a muscle memory to do this:
+Most of us have a muscle memory of doing this:
 
 ```php
 git/hg add .
@@ -24,7 +24,7 @@ will have to look twice for a ignore file before adding everything. Trust me on 
 you don't want to look like a halfwit who is just discovering what a version control is 
 at your internship.
 
-But if you have added mindlessly added everything, here is how you undo it:
+But if you have mindlessly added everything, here is how you undo it:
 
 ```php
 hg update -C
