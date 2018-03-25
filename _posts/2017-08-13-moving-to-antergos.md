@@ -2,7 +2,7 @@
 title:  "Moving to Antergos from Ubuntu"
 date:   2017-08-15 1:00:00 +0530
 categories: [linux]
-tags: [linux, arch]
+tags: [linux]
 ---
 
 Nine months ago, I decided that I had enough with Windows and planned to 
