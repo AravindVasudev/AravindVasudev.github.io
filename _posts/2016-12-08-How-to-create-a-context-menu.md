@@ -1,8 +1,8 @@
 ---
 title:  "How to create a context menu using JQuery in 3 steps !"
 date:   2016-12-08 14:30:00 +0530
-categories: [programming]
-tags: [web, tricks]
+categories: [UI]
+tags: [UI]
 ---
 
 Say Google Drive or WhatsApp web or any other web application with native feel,
