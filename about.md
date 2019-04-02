@@ -10,6 +10,6 @@ stuff in programming.
 
 You can check out some of my works [here <i class="icon icon-social-github"></i>](https://github.com/AravindVasudev).
 
-Reach out to me at <a href="mailto:email@aravindvasu.dev">`email@aravindvasu.dev</a>
+Reach out to me at <a href="mailto:email@aravindvasu.dev">`email@aravindvasu.dev`</a>
 
 --------------------------------------------------------------------------------
