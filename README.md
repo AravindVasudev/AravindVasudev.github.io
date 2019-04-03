@@ -1,1 +1,1 @@
-(def domain "[https://aravindvasudev.github.io/](https://aravindvasudev.github.io/)")
+(def domain "[https://aravindvasu.dev/](https://aravindvasu.dev/)")
