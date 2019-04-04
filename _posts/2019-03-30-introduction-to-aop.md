@@ -4,7 +4,7 @@ date:   2019-03-30 00:00:00 +0530
 categories: [aop]
 tags: [aop]
 ---
-In a medium to large codebase, many-a-time, you might notice code that doesn't belong there by design but is necessary. This can be anything from simple logging to transaction handling. As the codebase scales, this keeps adding up to a point where the code becomes laborious to manage.
+In a medium to large codebase, many-a-time, you might notice code that shouldn't be in some class/method by design but is necessary. This can be anything from simple logging to transaction handling. As the codebase scales, this keeps adding up to a point where the code becomes laborious to manage.
 
 ![codebase on fire!](/images/blog/aop_1.png)
 
