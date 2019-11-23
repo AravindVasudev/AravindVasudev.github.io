@@ -10,7 +10,7 @@ at Zoho Corp (Zoho CRM). I have hands-on experience working on enterprise-scale
 applications. I also love working on Machine Learning projects in my free time.
 
 ### Quick Links
-- [Resume](https://github.com/AravindVasudev/resume/blob/master/aravind_vasudevan.pdf)
+- [Resume](https://github.com/AravindVasudev/resume/raw/master/aravind_vasudevan.pdf)
 - [Github Projects](https://github.com/AravindVasudev)
 - [LinkedIn](https://www.linkedin.com/in/aravindvasudev/)
 
