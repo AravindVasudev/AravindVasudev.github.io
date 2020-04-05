@@ -4,13 +4,14 @@ layout: default
 
 # Hi there!
 
-I am Aravind Vasudevan, a software engineering graduate student at Carnegie Mellon
-University's School of Computer Science. I am particularly specializing in 
-Scalable Systems. I also have a year of experience working as a backend engineer at Zoho CRM and a couple of internship experiences.
-I also love working on Machine Learning projects in my free time.
+I am Aravind Vasudevan, a software engineering graduate student at Carnegie
+Mellon University School of Computer Science. I specialize in various aspects
+of software engineering from architecting a software system, designing it to be
+scalable, to building efficient DevOps pipelines. Before coming to CMU, I was a 
+backend developer at Zoho CRM where worked on building tools and frameworks to
+migrate to a microservice architecture.
 
-I am actively looking for a Software Engineering Internship for Summer 2020.
-If you are interested in hiring me, please contact me via <a href="mailto:avasude2@andrew.cmu.edu">`avasude2@andrew.cmu.edu`</a>.
+Reach out to me: <a href="mailto:avasude2@andrew.cmu.edu">`avasude2@andrew.cmu.edu`</a>.
 
 ### Quick Links
 - [Resume](https://github.com/AravindVasudev/resume/raw/master/aravind_vasudevan.pdf)
