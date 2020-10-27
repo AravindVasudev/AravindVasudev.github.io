@@ -4,7 +4,6 @@ layout: default
 
 # Hi there!
 
-Hi there!
 I am Aravind Vasudevan, a software engineering graduate student at Carnegie Mellon University School of Computer Science. I specialize in designing end-to-end distributed systems from engineering efficient architecture to building streamlined DevOps pipelines. 
 
 Previously I worked as a full-time backend engineer for Zoho CRM, where I built frameworks to migrate a monolithic backend into microservices. I found roadblocks in our redesigning process and devised strategies to decouple the refactor into several split over releases.
