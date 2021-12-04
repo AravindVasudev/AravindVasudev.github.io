@@ -13,7 +13,7 @@ made another "light-weight" version of .vimrc and aliased to 'vi' for minor edit
 my system and for using it in a colleague's / ssh machine. I then realized that I've made
 a perfect .vimrc for a novice to build upon. Here, I present to you my sexy and slim .vimrc:
 
-<script src="https://gist.github.com/AravindVasudev/42c4df8fba9ffb607b3bdff74b711ebe.js"></script>
+{{< gist AravindVasudev 42c4df8fba9ffb607b3bdff74b711ebe >}}
 
 Though I'd recommend you to add a theme to this as I did in my original [.vimrc](https://github.com/AravindVasudev/dotfiles/blob/master/virc),
 this is pretty much enough for learning and to build upon. This is simple, self-contained, 

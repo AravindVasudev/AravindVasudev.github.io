@@ -23,13 +23,13 @@ Here's my method of doing this using JQuery & Bootstrap (Basic knowledge of HTML
 
 Copy the below lines to the `<head>` section.
 
-<script src="https://gist.github.com/AravindVasudev/57ea11305141188c1af1c53969bbc976.js?file=include-dependencies.html"></script>
+{{< gist AravindVasudev 57ea11305141188c1af1c53969bbc976 include-dependencies.html >}}
 
 ### Step 2: Create a Bootstrap Dropdown Menu
 
 Dropdown Menu in Bootstrap is created by making the class of a `<ul>` element `.dropdown-menu`
 
-<script src="https://gist.github.com/AravindVasudev/57ea11305141188c1af1c53969bbc976.js?file=contextmenu.html"></script>
+{{< gist AravindVasudev 57ea11305141188c1af1c53969bbc976 contextmenu.html >}}
 
 `.context-menu` class is created by us using which we'll add style and script.
 
@@ -38,16 +38,18 @@ Dropdown Menu in Bootstrap is created by making the class of a `<ul>` element `.
 Add the contextmenu event to any block element. If you want this to work throughout the page,
 add the event handler to the html and body.
 
-<script src="https://gist.github.com/AravindVasudev/57ea11305141188c1af1c53969bbc976.js?file=contextmenu.js"></script>
+{{< gist AravindVasudev 57ea11305141188c1af1c53969bbc976 contextmenu.js >}}
 
 ### That's it!
 
 Here's the complete solution:
-<script src="https://gist.github.com/AravindVasudev/57ea11305141188c1af1c53969bbc976.js?file=index.html"></script>
+{{< gist AravindVasudev 57ea11305141188c1af1c53969bbc976 index.html >}}
 
 Finally, style the `.context-menu` to match your site's theme.
 
 ### Demo
 
+{{< rawhtml >}}
 <p data-height="362" data-theme-id="0" data-slug-hash="JbZJjL" data-default-tab="result" data-user="AravindVasudev" data-embed-version="2" data-pen-title="ContextMenu" class="codepen">See the Pen <a href="http://codepen.io/AravindVasudev/pen/JbZJjL/">ContextMenu</a> by Aravind (<a href="http://codepen.io/AravindVasudev">@AravindVasudev</a>) on <a href="http://codepen.io">CodePen</a>.</p>
 <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+{{< /rawhtml >}}

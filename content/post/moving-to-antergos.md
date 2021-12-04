@@ -34,7 +34,7 @@ I couldn't boot into the system. I was completely pissed off but was able to fix
 it with about half an hour of googling. The issue was that Windows was set as 
 hard drive boot in UEFI boot order in BIOS. Changing this to Antergos fixes the 
 issue(I never thought Windows could be this fucking annoying even after 
-removing it). [ [fix](https://forum.antergos.com/topic/6192/antergos-keeps-restarting-at-boot-after-fresh-install/7){:target="_blank"} ]
+removing it). [ [fix](https://forum.antergos.com/topic/6192/antergos-keeps-restarting-at-boot-after-fresh-install/7) ]
 
 ### 2. Stuck with a blank screen at boot
 
@@ -43,7 +43,7 @@ blinking cursor. After 3 hours of flipping tables, I finally realized that the
 issue was with my Nvidia graphics card. My graphics card supported Nvidia 
 Optimus which allowed the OS to use both the discrete and integrated graphics 
 card. To make this work, I had to turn off "Install Graphic Drivers" option during
-installation and manually install Nvidia drivers with Bumblebee. [ [fix](https://antergos.com/wiki/it/hardware/bumblebee-for-nvidia-optimus/){:target="_blank"} ]
+installation and manually install Nvidia drivers with Bumblebee. [ [fix](https://antergos.com/wiki/it/hardware/bumblebee-for-nvidia-optimus/) ]
 
 ### 3. WiFi issue
 
@@ -51,13 +51,13 @@ From the day 1 of GNU/Linux, this issue that keeps me reluctant from suggesting 
 everyone. My laptop came with Realtek RTL8723BE WiFi card which works 
 perfectly on Windows, but on GNU/Linux, it is a fucking nightmare. Even though it has partial
 fixes, it still has some connecting issues with weak signal and isn't as fast as
-in Windows. [ [fix](https://iamjagjeetubhi.wordpress.com/2016/06/19/install-realtek-rtl8723be-wifi-drivers-in-arch-linux/){:target="_blank"} ]
+in Windows. [ [fix](https://iamjagjeetubhi.wordpress.com/2016/06/19/install-realtek-rtl8723be-wifi-drivers-in-arch-linux/) ]
 
 ### 4. Cannot enable Natural Scrolling through GNOME settings
 
 For some reason, enabling Natural Scrolling through GNOME settings didn't work.
 To fix this, I installed Synaptics input driver and manually configured with the
-help of Arch Wiki. [ [fix](https://wiki.archlinux.org/index.php/Touchpad_Synaptics#Natural_scrolling){:target="_blank"} ]
+help of Arch Wiki. [ [fix](https://wiki.archlinux.org/index.php/Touchpad_Synaptics#Natural_scrolling) ]
 
 --------------------------------------------------------------------------------
 

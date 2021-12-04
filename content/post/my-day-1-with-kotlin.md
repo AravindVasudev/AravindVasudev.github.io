@@ -15,8 +15,8 @@ A couple of days back, the Android team announced first-class support for kotlin
 and I started seeing a lot of Kotlin praise and tutorial coming up across the
 internet community. I couldn't care less about it until I came across these:
 
-  * [Kotlin is like Typescript](https://gi-no.github.io/kotlin-is-like-typescript/){:target="_blank"}
-  * [Swift is like Kotlin](http://nilhcem.com/swift-is-like-kotlin/){:target="_blank"}
+  * [Kotlin is like Typescript](https://gi-no.github.io/kotlin-is-like-typescript/)
+  * [Swift is like Kotlin](http://nilhcem.com/swift-is-like-kotlin/)
 
 Kotlin to Android is what Swift to iOS is. After seeing how close it is to the
 languages I already know, I gave it a shot.
@@ -384,7 +384,7 @@ display.text = "Hello world!" // same as ((TextView) findViewById(R.id.display))
 ```
 
 Below is the link to a simple calculator program that uses kotlin-android-extensions:
-[https://github.com/AravindVasudev/Kalculator](https://github.com/AravindVasudev/Kalculator){:target="_blank"}
+[https://github.com/AravindVasudev/Kalculator](https://github.com/AravindVasudev/Kalculator)
 
 --------------------------------------------------------------------------------
 
@@ -392,34 +392,34 @@ Below is the link to a simple calculator program that uses kotlin-android-extens
 Here are some links that helped me get through my day 1 of Kotlin:
 
   * Installation
-    * [Android Studio Canary 1](https://developer.android.com/studio/preview/index.html){:target="_blank"}
-    * [Kotlin Command Line Installation](https://kotlinlang.org/docs/tutorials/command-line.html){:target="_blank"}
+    * [Android Studio Canary 1](https://developer.android.com/studio/preview/index.html)
+    * [Kotlin Command Line Installation](https://kotlinlang.org/docs/tutorials/command-line.html)
 
   * Comparisons with
-    * [Java](https://kotlinlang.org/docs/reference/comparison-to-java.html){:target="_blank"}
-    * [Swift](http://nilhcem.com/swift-is-like-kotlin/){:target="_blank"}
-    * [Swift](https://ragunathjawahar.wordpress.com/2015/03/18/my-first-ios-app-while-learning-kotlin-for-android/){:target="_blank"}
-    * [Typescript](https://gi-no.github.io/kotlin-is-like-typescript/){:target="_blank"}
+    * [Java](https://kotlinlang.org/docs/reference/comparison-to-java.html)
+    * [Swift](http://nilhcem.com/swift-is-like-kotlin/)
+    * [Swift](https://ragunathjawahar.wordpress.com/2015/03/18/my-first-ios-app-while-learning-kotlin-for-android/)
+    * [Typescript](https://gi-no.github.io/kotlin-is-like-typescript/)
 
   * Tutorials
-    * [Google IO '17](https://www.youtube.com/watch?v=X1RVYt2QKQE){:target="_blank"}
-    * [learnxinyminutes.com](https://learnxinyminutes.com/docs/kotlin/){:target="_blank"}
-    * [hackernoon.com](https://hackernoon.com/my-first-experiences-with-kotlin-b3fcf5e111f7){:target="_blank"}
-    * [kotlinlang.org](https://kotlinlang.org/docs/reference/){:target="_blank"}
+    * [Google IO '17](https://www.youtube.com/watch?v=X1RVYt2QKQE)
+    * [learnxinyminutes.com](https://learnxinyminutes.com/docs/kotlin/)
+    * [hackernoon.com](https://hackernoon.com/my-first-experiences-with-kotlin-b3fcf5e111f7)
+    * [kotlinlang.org](https://kotlinlang.org/docs/reference/)
 
   * Kotlin Android extensions
-    * [kotlinlang.org](https://kotlinlang.org/docs/tutorials/android-plugin.html){:target="_blank"}
-    * [ragunathjawahar.wordpress.com](https://ragunathjawahar.wordpress.com/2015/03/23/kotlin-findviewbyid-dead-as-dinosaurs/){:target="_blank"}
+    * [kotlinlang.org](https://kotlinlang.org/docs/tutorials/android-plugin.html)
+    * [ragunathjawahar.wordpress.com](https://ragunathjawahar.wordpress.com/2015/03/23/kotlin-findviewbyid-dead-as-dinosaurs/)
 
   * Kotlin Android examples
-    * [Calculator](https://github.com/AravindVasudev/Kalculator){:target="_blank"}
-    * [developer.android.com](https://developer.android.com/samples/index.html?language=kotlin){:target="_blank"}
+    * [Calculator](https://github.com/AravindVasudev/Kalculator)
+    * [developer.android.com](https://developer.android.com/samples/index.html?language=kotlin)
 
   * Kotlin on Web
-    * [Spring support](https://spring.io/blog/2017/01/04/introducing-kotlin-support-in-spring-framework-5-0){:target="_blank"}
+    * [Spring support](https://spring.io/blog/2017/01/04/introducing-kotlin-support-in-spring-framework-5-0)
     * Frontend
-      * [dzone.com](https://dzone.com/articles/kotlin-for-front-end-developers){:target="_blank"}
-      * [kotlinlang.org](https://kotlinlang.org/docs/tutorials/javascript/working-with-javascript.html){:target="_blank"}
+      * [dzone.com](https://dzone.com/articles/kotlin-for-front-end-developers)
+      * [kotlinlang.org](https://kotlinlang.org/docs/tutorials/javascript/working-with-javascript.html)
 
-  * [Kotlin Native](https://blog.jetbrains.com/kotlin/2017/04/kotlinnative-tech-preview-kotlin-without-a-vm/){:target="_blank"}
-  * [Google Blog](https://android-developers.googleblog.com/2017/05/android-announces-support-for-kotlin.html){:target="_blank"}
+  * [Kotlin Native](https://blog.jetbrains.com/kotlin/2017/04/kotlinnative-tech-preview-kotlin-without-a-vm/)
+  * [Google Blog](https://android-developers.googleblog.com/2017/05/android-announces-support-for-kotlin.html)

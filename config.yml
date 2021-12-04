@@ -6,6 +6,7 @@ googleAnalytics: "UA-83211075-2"
 disqusShortname: "aravind-vasudev-blog"
 pygmentsUseClasses: true
 pygmentsCodefences: true
+enableEmoji: true
 
 markup:
   highlight:
@@ -20,7 +21,7 @@ markup:
 
 privacy:
   disqus:
-    disable: true
+    disable: false
   googleAnalytics:
     anonymizeIP: true
     respectDoNotTrack: true
