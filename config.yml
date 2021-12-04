@@ -1,0 +1,62 @@
+baseurl: "/"
+title: "Yet another programmer's blog'"
+theme: ghostwriter
+languageCode: en-us
+googleAnalytics: "UA-83211075-2"
+disqusShortname: "aravind-vasudev-blog"
+pygmentsUseClasses: true
+pygmentsCodefences: true
+enableEmoji: true
+
+markup:
+  highlight:
+    codeFences: true
+    guessSyntax: false
+    hl_Lines: ""
+    lineNoStart: 1
+    lineNos: false
+    lineNumbersInTable: true
+    noClasses: true
+    tabWidth: 2
+
+privacy:
+  disqus:
+    disable: false
+  googleAnalytics:
+    anonymizeIP: true
+    respectDoNotTrack: true
+    useSessionStorage: false
+
+author:
+  name: "Aravind Vasudevan"
+  profile: "https://github.com/AravindVasudev"
+
+params:
+  mainSections:
+    - post
+  intro: true
+  headline: "Aravind Vasudevan"
+  description: "An inquisitive polyglot developer and Machine Learning enthusiast."
+  github: "https://github.com/AravindVasudev"
+  linkedin: "https://linkedin.com/in/aravindvasudev/"
+  email: aravind_vasudevan@outlook.com
+  opengraph: true
+  shareTwitter: false
+  rss: true
+  shareFacebook: false
+  shareLinkedIn: true
+  dateFormat: "Mon, Jan 2, 2006"
+  readingTime: true
+  readingTimeText: "Estimated reading time:"
+
+permalinks:
+  post: "/:year/:filename/"
+
+menu:
+  main:
+    - name: Blog
+      url: /
+      weight: 1
+    - name: About
+      url: /about/
+      weight: 2
