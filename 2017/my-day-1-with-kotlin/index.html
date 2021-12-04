@@ -1,0 +1,476 @@
+<!doctype html><html prefix="og: http://ogp.me/ns#">
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<title>My day 1 of learning Kotlin &#183; Aravind Vasudevan</title>
+<meta name=description content="I was reluctant to learn Android until now because of Java. With all the new languages out there, Java&rsquo;s verbose nature and lack of syntactic sugar is not the most pleasing language to code in. Even though language alternatives like Scala, Clojure, and Kotlin exist for Android, I stuck with hybrid app development due to the lack of proper documentation for these alternatives.
+A couple of days back, the Android team announced first-class support for kotlin and I started seeing a lot of Kotlin praise and tutorial coming up across the internet community.">
+<meta name=HandheldFriendly content="True">
+<meta name=MobileOptimized content="320">
+<meta name=generator content="Hugo 0.89.4">
+<meta name=robots content="index,follow">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta property="og:title" content="My day 1 of learning Kotlin">
+<meta property="og:description" content="I was reluctant to learn Android until now because of Java. With all the new languages out there, Java&rsquo;s verbose nature and lack of syntactic sugar is not the most pleasing language to code in. Even though language alternatives like Scala, Clojure, and Kotlin exist for Android, I stuck with hybrid app development due to the lack of proper documentation for these alternatives.
+A couple of days back, the Android team announced first-class support for kotlin and I started seeing a lot of Kotlin praise and tutorial coming up across the internet community.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="/2017/my-day-1-with-kotlin/">
+<link rel=stylesheet href=/dist/site.css>
+<link rel=stylesheet href=/dist/syntax.css>
+<link rel=stylesheet href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
+<link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css integrity=sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN crossorigin=anonymous>
+</head>
+<body>
+<script type=application/javascript>var dnt=navigator.doNotTrack||window.doNotTrack||navigator.msDoNotTrack,doNotTrack=dnt=="1"||dnt=="yes";doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-83211075-2','auto'),ga('set','anonymizeIp',!0),ga('send','pageview'))</script>
+<div id=wrapper>
+<header class=site-header>
+<div class=container>
+<div class=site-title-wrapper>
+<h1 class=site-title>
+<a href=/>Yet another programmer's blog'</a>
+</h1>
+<a class=button-square href=/index.xml aria-label=RSS><i class="fa fa-rss" aria-hidden=true></i></a>
+<a class="button-square button-social hint--top" data-hint=Github aria-label=Github href=https://github.com/AravindVasudev rel=me>
+<i class="fa fa-github-alt" aria-hidden=true></i>
+</a>
+<a class="button-square button-social hint--top" data-hint=LinkedIn aria-label=LinkedIn href=https://linkedin.com/in/aravindvasudev/ rel=me>
+<i class="fa fa-linkedin" aria-hidden=true></i>
+</a>
+<a class="button-square button-social hint--top" data-hint=Email aria-label="Send an Email" href=mailto:aravind_vasudevan@outlook.com>
+<i class="fa fa-envelope" aria-hidden=true></i>
+</a>
+</div>
+<ul class=site-nav>
+<li class=site-nav-item>
+<a href=/>Blog</a>
+</li>
+<li class=site-nav-item>
+<a href=/about/>About</a>
+</li>
+</ul>
+</div>
+</header>
+<div id=container>
+<div class=container>
+<article class=post-container itemscope itemtype=http://schema.org/BlogPosting>
+<header class=post-header>
+<h1 class=post-title itemprop="name headline">My day 1 of learning Kotlin</h1>
+<p class=post-date>
+<span>Published <time datetime=2017-05-21 itemprop=datePublished>Sun, May 21, 2017</time></span>
+<span>by</span>
+<span itemscope itemprop=author itemtype=https://schema.org/Person>
+<span itemprop=name>
+<a href=https://github.com/AravindVasudev itemprop=url rel=author>Aravind Vasudevan</a>
+</span>
+</span>
+</p>
+<p class="post-reading post-line">
+<span>Estimated reading time: 9 min</span>
+</p>
+</header>
+<div class="post-content clearfix" itemprop=articleBody>
+<p>I was reluctant to learn Android until now because of Java. With all the new
+languages out there, Java&rsquo;s verbose nature and lack of syntactic sugar is not the
+most pleasing language to code in. Even though language alternatives like Scala,
+Clojure, and Kotlin exist for Android, I stuck with hybrid app development due to
+the lack of proper documentation for these alternatives.</p>
+<p>A couple of days back, the Android team announced first-class support for kotlin
+and I started seeing a lot of Kotlin praise and tutorial coming up across the
+internet community. I couldn&rsquo;t care less about it until I came across these:</p>
+<ul>
+<li><a href=https://gi-no.github.io/kotlin-is-like-typescript/>Kotlin is like Typescript</a></li>
+<li><a href=http://nilhcem.com/swift-is-like-kotlin/>Swift is like Kotlin</a></li>
+</ul>
+<p>Kotlin to Android is what Swift to iOS is. After seeing how close it is to the
+languages I already know, I gave it a shot.</p>
+<h2 id=imagesblogkotlin_1png><img src=/images/blog/kotlin_1.png alt></h2>
+<h2 id=what-is-kotlin>What is Kotlin?</h2>
+<p>Kotlin is a static-typed programming language that can be compiled to run on
+JVM, Javascript, and Native support for MacOS, Linux, and iOS on the way.
+Kotlin is a relatively new language and hence unlike Java, it has awesome
+features such as lambda expressions, string templates, data classes, nullable
+types, getters and setters as property(similar to computed properties in swift),
+etc still being completely compatible with Java. Hence, Kotlin can be thrown
+into to an existing Java project without making any changes.</p>
+<p>After spending a day with it, here are some notable things about Kotlin that I
+learnt:</p>
+<h3 id=semicolon>Semicolon</h3>
+<p>Semicolons are optional in Kotlin like in many scripting languages.</p>
+<h3 id=main>main()</h3>
+<p>Unlike Java, the main entry function in kotlin is a standalone function in the
+package scope.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=kn>package</span> <span class=nn>my.program</span>
+
+<span class=n>fun</span> <span class=nf>main</span><span class=o>(</span><span class=n>args</span><span class=o>:</span> <span class=n>Array</span><span class=o>&lt;</span><span class=n>String</span><span class=o>&gt;)</span> <span class=o>{</span>
+    <span class=n>println</span><span class=o>(</span><span class=s>&#34;Hello, world!&#34;</span><span class=o>)</span>
+<span class=o>}</span>
+</code></pre></div><h3 id=variable-declaration>Variable Declaration</h3>
+<p>The variable declaration in Kotlin is done using <code>var</code> and <code>val</code> with the type
+specified after the variable name with a colon.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=n>val</span> <span class=n>foo</span><span class=o>:</span> <span class=n>Int</span> <span class=o>=</span> <span class=n>10</span> <span class=c1>// cannot be reassigned
+</span><span class=c1></span><span class=n>var</span> <span class=n>bar</span><span class=o>:</span> <span class=n>Int</span> <span class=o>=</span> <span class=n>5</span> <span class=c1>// can be reassigned
+</span></code></pre></div><p>Kotlin has automatic type inference system and hence we don&rsquo;t have to specify
+the datatype explicitly when it can be inferred.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=c1>// The above code can be rewritten as follows
+</span><span class=c1></span><span class=n>val</span> <span class=n>foo</span> <span class=o>=</span> <span class=n>10</span> <span class=c1>// cannot be reassigned
+</span><span class=c1></span><span class=n>var</span> <span class=n>bar</span> <span class=o>=</span> <span class=n>5</span> <span class=c1>// can be reassigned
+</span></code></pre></div><h3 id=multiline-string-and-string-templates>Multiline String and String Templates</h3>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=n>val</span> <span class=n>multiLineString</span> <span class=o>=</span> <span class=s>&#34;&#34;&#34;
+</span><span class=s>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+</span><span class=s>Cras odio felis, pulvinar in eros vitae, pharetra auctor magna.
+</span><span class=s>Pellentesque sit amet nisi vitae lorem scelerisque semper.
+</span><span class=s>&#34;&#34;&#34;</span>
+
+<span class=n>val</span> <span class=n>templateString</span> <span class=o>=</span> <span class=s>&#34;The number is $foo, ${bar}&#34;</span>
+<span class=n>println</span><span class=o>(</span><span class=n>templateString</span><span class=o>)</span> <span class=c1>// The number is 10, 5
+</span></code></pre></div><h3 id=functions>Functions</h3>
+<p>Functions in Kotlin are declared using the keyword <code>fun</code>.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=n>fun</span> <span class=nf>foo</span><span class=o>(</span><span class=n>name</span><span class=o>:</span> <span class=n>String</span><span class=o>,</span> <span class=n>favoriteColor</span><span class=o>:</span> <span class=n>String</span> <span class=o>=</span> <span class=s>&#34;red&#34;</span><span class=o>):</span> <span class=n>String</span> <span class=o>{</span>
+  <span class=k>return</span> <span class=s>&#34;$name likes $favoriteColor&#34;</span>
+<span class=o>}</span>
+
+<span class=n>println</span><span class=o>(</span><span class=n>foo</span><span class=o>(</span><span class=s>&#34;Aravind&#34;</span><span class=o>))</span> <span class=c1>// Aravind likes red
+</span><span class=c1></span><span class=n>println</span><span class=o>(</span><span class=n>foo</span><span class=o>(</span><span class=s>&#34;Aravind&#34;</span><span class=o>,</span> <span class=s>&#34;green&#34;</span><span class=o>))</span> <span class=c1>// Aravind likes green
+</span><span class=c1></span><span class=n>println</span><span class=o>(</span><span class=n>foo</span><span class=o>(</span><span class=s>&#34;Aravind&#34;</span><span class=o>,</span> <span class=n>favoriteColor</span><span class=o>=</span><span class=s>&#34;blue&#34;</span><span class=o>))</span> <span class=c1>// Aravind likes blue
+</span><span class=c1></span>
+<span class=c1>// Functions with single line can be written with an equal sign in Kotlin.
+</span><span class=c1></span><span class=n>fun</span> <span class=nf>foo1</span><span class=o>(</span><span class=n>name</span><span class=o>:</span> <span class=n>String</span><span class=o>,</span> <span class=n>favoriteColor</span><span class=o>:</span> <span class=n>String</span> <span class=o>=</span> <span class=s>&#34;red&#34;</span><span class=o>)</span> <span class=o>=</span> <span class=s>&#34;$name likes $favoriteColor&#34;</span>
+
+<span class=c1>// A function can get variable arguments using the `vararg` keyword
+</span><span class=c1></span><span class=n>fun</span> <span class=nf>bar</span><span class=o>(</span><span class=n>vararg</span> <span class=n>numbers</span><span class=o>:</span> <span class=n>Int</span><span class=o>):</span> <span class=n>Int</span> <span class=o>{</span>
+  <span class=k>return</span> <span class=n>numbers</span><span class=o>.</span><span class=na>size</span>
+<span class=o>}</span>
+
+<span class=n>println</span><span class=o>(</span><span class=n>bar</span><span class=o>(</span><span class=n>1</span><span class=o>,</span> <span class=n>2</span><span class=o>,</span> <span class=n>3</span><span class=o>))</span> <span class=c1>// 3
+</span><span class=c1></span><span class=n>println</span><span class=o>(</span><span class=n>bar</span><span class=o>(</span><span class=n>4</span><span class=o>,</span> <span class=n>5</span><span class=o>,</span> <span class=n>6</span><span class=o>,</span> <span class=n>7</span><span class=o>,</span> <span class=n>8</span><span class=o>))</span> <span class=c1>// 5
+</span><span class=c1></span>
+<span class=c1>// Lambda expressions can be created in Kotlin as follows
+</span><span class=c1></span><span class=n>val</span> <span class=n>add</span> <span class=o>=</span> <span class=o>{</span><span class=n>a</span><span class=o>:</span> <span class=n>Int</span><span class=o>,</span> <span class=n>b</span><span class=o>:</span> <span class=n>Int</span> <span class=o>-&gt;</span> <span class=n>a</span> <span class=o>+</span> <span class=n>b</span><span class=o>}</span>
+<span class=c1>// the types can be assigned directly to the variable
+</span><span class=c1></span><span class=n>val</span> <span class=n>subtract</span><span class=o>:</span> <span class=o>(</span><span class=n>Int</span><span class=o>,</span> <span class=n>Int</span><span class=o>)</span> <span class=o>-&gt;</span> <span class=n>Int</span> <span class=o>=</span> <span class=o>{</span><span class=n>a</span><span class=o>,</span> <span class=n>b</span> <span class=o>-&gt;</span> <span class=n>a</span> <span class=o>-</span> <span class=n>b</span><span class=o>}</span>
+<span class=c1>// If the expression has only one argument, `it` can be used as the argument directly.
+</span><span class=c1></span><span class=n>val</span> <span class=n>negate</span><span class=o>:</span> <span class=o>(</span><span class=n>Int</span><span class=o>)</span> <span class=o>-&gt;</span> <span class=n>Int</span> <span class=o>=</span> <span class=o>{</span> <span class=o>-</span><span class=n>it</span> <span class=o>}</span>
+
+<span class=n>println</span><span class=o>(</span><span class=n>add</span><span class=o>(</span><span class=n>1</span><span class=o>,</span> <span class=n>2</span><span class=o>))</span> <span class=c1>// 3
+</span><span class=c1></span><span class=n>println</span><span class=o>(</span><span class=n>subtract</span><span class=o>(</span><span class=n>1</span><span class=o>,</span> <span class=n>2</span><span class=o>))</span> <span class=c1>// -1
+</span><span class=c1></span><span class=n>println</span><span class=o>(</span><span class=n>negate</span><span class=o>(</span><span class=n>1</span><span class=o>))</span> <span class=c1>// -1
+</span><span class=c1></span>
+<span class=c1>// High Order functions can be created in Kotlin as follows
+</span><span class=c1></span><span class=n>fun</span> <span class=nf>twice</span><span class=o>(</span><span class=n>f</span><span class=o>:</span> <span class=o>(</span><span class=n>Int</span><span class=o>,</span> <span class=n>Int</span><span class=o>)</span> <span class=o>-&gt;</span> <span class=n>Int</span><span class=o>):</span> <span class=o>(</span><span class=n>Int</span><span class=o>,</span> <span class=n>Int</span><span class=o>)</span> <span class=o>-&gt;</span> <span class=n>Int</span> <span class=o>{</span>
+  <span class=k>return</span> <span class=o>{</span><span class=n>a</span><span class=o>,</span> <span class=n>b</span> <span class=o>-&gt;</span> <span class=n>f</span><span class=o>(</span><span class=n>a</span><span class=o>,</span> <span class=n>b</span><span class=o>)</span> <span class=o>*</span> <span class=n>2</span><span class=o>}</span>
+<span class=o>}</span>
+
+<span class=n>val</span> <span class=n>addTwice</span> <span class=o>=</span> <span class=n>twice</span><span class=o>(</span><span class=n>add</span><span class=o>)</span>
+<span class=n>println</span><span class=o>(</span><span class=n>addTwice</span><span class=o>(</span><span class=n>1</span><span class=o>,</span> <span class=n>2</span><span class=o>))</span> <span class=c1>// 6
+</span></code></pre></div><h3 id=nullable-types>Nullable types</h3>
+<p>Kotlin&rsquo;s type system by default does not allow variables to have null value. For
+a variable to hold null, it must be explicitly specified as nullable. A variable
+can be declared as nullable by appending <code>?</code> to its type.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=n>var</span> <span class=n>nullableVar</span><span class=o>:</span> <span class=n>String</span><span class=o>?</span> <span class=o>=</span> <span class=s>&#34;foo&#34;</span> <span class=c1>// Can be null
+</span><span class=c1></span><span class=n>var</span> <span class=n>nonNullableVar</span><span class=o>:</span> <span class=n>String</span> <span class=o>=</span> <span class=s>&#34;bar&#34;</span> <span class=c1>// Cannot be null
+</span><span class=c1></span>
+<span class=n>nullableVar</span> <span class=o>=</span> <span class=kc>null</span>
+<span class=n>nonNullableVar</span> <span class=o>=</span> <span class=kc>null</span> <span class=c1>// compilation error
+</span><span class=c1></span>
+<span class=c1>// Nullable Variables cannot be used directly
+</span><span class=c1></span><span class=n>println</span><span class=o>(</span><span class=n>nonNullableVar</span><span class=o>.</span><span class=na>length</span><span class=o>)</span> <span class=c1>// 3
+</span><span class=c1></span><span class=n>println</span><span class=o>(</span><span class=n>nullableVar</span><span class=o>.</span><span class=na>length</span><span class=o>)</span> <span class=c1>// error: variable &#39;nullableVar&#39; can be null
+</span><span class=c1></span>
+<span class=c1>// The value in the nullable type can be accessed using safe calls
+</span><span class=c1>// When this method is used, the statement returns null if the value is null
+</span><span class=c1>// hence, here the statement&#39;s return type is Int?
+</span><span class=c1></span><span class=n>println</span><span class=o>(</span><span class=n>nullableVar</span><span class=o>?.</span><span class=na>length</span><span class=o>)</span> <span class=c1>// 3
+</span><span class=c1></span>
+<span class=c1>// The value can also be accessed using Elvis operator
+</span><span class=c1>// When accessed with this operator, if the variable is null, then the value after
+</span><span class=c1>// the operator is returned
+</span><span class=c1></span><span class=n>println</span><span class=o>(</span><span class=n>nullableVar</span><span class=o>?.</span><span class=na>length</span> <span class=o>?:</span> <span class=o>-</span><span class=n>1</span><span class=o>)</span> <span class=c1>// 3
+</span><span class=c1></span>
+<span class=c1>// The third option is `!!` operator. This operator resolves to default Java&#39;s
+</span><span class=c1>// behavior where when the variable is null, a NPE is thrown.
+</span><span class=c1></span><span class=n>println</span><span class=o>(</span><span class=n>nullableVar</span><span class=o>!!.</span><span class=na>length</span><span class=o>)</span> <span class=c1>// 3
+</span></code></pre></div><h3 id=classes>Classes</h3>
+<p>Kotlin classes are declared using the <code>class</code> keyword. Kotlin classes can have an
+optional primary constructor for which the declaration goes in the header.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=kd>class</span> <span class=nc>Foo</span> <span class=o>{</span>
+  <span class=o>...</span>
+<span class=o>}</span>
+
+<span class=c1>// Classes with primary constructor.
+</span><span class=c1>// The primary constructor is declared in the header itself
+</span><span class=c1></span><span class=kd>class</span> <span class=nc>Bar</span> <span class=nf>constructor</span><span class=o>(</span><span class=n>name</span><span class=o>:</span> <span class=n>String</span><span class=o>)</span> <span class=o>{</span>
+  <span class=o>...</span>
+<span class=o>}</span>
+
+<span class=c1>// If the primary constructor does not have any annotations or visibility modifiers, the constructor keyword can be omitted:
+</span><span class=c1></span><span class=kd>class</span> <span class=nf>Bar</span><span class=o>(</span><span class=n>name</span><span class=o>:</span> <span class=n>String</span><span class=o>)</span> <span class=o>{</span>
+  <span class=o>...</span>
+<span class=o>}</span>
+
+<span class=c1>// By default, all Kotlin classes are final and can be made inheritable using the open keyword
+</span><span class=c1></span><span class=n>open</span> <span class=kd>class</span> <span class=nc>Base</span> <span class=o>{}</span>
+<span class=kd>class</span> <span class=nc>Derived</span> <span class=o>:</span> <span class=n>Base</span><span class=o>()</span> <span class=o>{}</span>
+
+<span class=c1>// The value to the super constructor can be passed from the primary constructor as follows
+</span><span class=c1></span><span class=n>open</span> <span class=kd>class</span> <span class=nf>Base2</span><span class=o>(</span><span class=n>a</span><span class=o>:</span> <span class=n>Int</span><span class=o>)</span> <span class=o>{}</span>
+<span class=kd>class</span> <span class=nf>Derived2</span><span class=o>(</span><span class=n>a</span><span class=o>:</span> <span class=n>Int</span><span class=o>)</span> <span class=o>:</span> <span class=n>Base2</span><span class=o>(</span><span class=n>a</span><span class=o>)</span> <span class=o>{}</span>
+
+<span class=c1>// Objects in Kotlin are created directly without the new keyword like in swift and python
+</span><span class=c1></span><span class=n>val</span> <span class=n>base</span> <span class=o>=</span> <span class=n>Base</span><span class=o>()</span>
+</code></pre></div><h3 id=data-class>Data Class</h3>
+<p>Data Classes are special classes in Kotlin that are created to just hold data.
+Data classes can be created as following</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=n>data</span> <span class=kd>class</span> <span class=nf>User</span><span class=o>(</span><span class=n>val</span> <span class=n>name</span><span class=o>:</span> <span class=n>String</span><span class=o>,</span> <span class=n>val</span> <span class=n>age</span><span class=o>:</span> <span class=n>Int</span><span class=o>)</span>
+<span class=n>val</span> <span class=n>aravind</span> <span class=o>=</span> <span class=n>User</span><span class=o>(</span><span class=s>&#34;Aravind&#34;</span><span class=o>,</span> <span class=n>20</span><span class=o>)</span>
+<span class=n>println</span><span class=o>(</span><span class=n>aravind</span><span class=o>)</span> <span class=c1>// User(name=Aravind, age=20)
+</span><span class=c1></span>
+<span class=c1>// Data classes in Kotlin can be initialized into separate variables using
+</span><span class=c1>// destructuring declarations, which is similar to Javascript(ES6)&#39;s
+</span><span class=c1>// Destructuring assignment
+</span><span class=c1></span><span class=n>val</span> <span class=o>(</span><span class=n>name</span><span class=o>,</span> <span class=n>age</span><span class=o>)</span> <span class=o>=</span> <span class=n>aravind</span>
+<span class=nf>println</span><span class=o>(</span><span class=s>&#34;Hi, $name&#34;</span><span class=o>)</span> <span class=c1>// Hi, Aravind
+</span></code></pre></div><h3 id=singletons>Singletons</h3>
+<p>Singleton classes can be created in Kotlin using the <code>object</code> keyword.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=n>object</span> <span class=n>Example</span> <span class=o>{</span>
+    <span class=n>fun</span> <span class=nf>foo</span><span class=o>():</span> <span class=n>String</span> <span class=o>{</span>
+        <span class=k>return</span> <span class=s>&#34;Hello World!&#34;</span>
+    <span class=o>}</span>
+<span class=o>}</span>
+
+<span class=n>println</span><span class=o>(</span><span class=n>Example</span><span class=o>.</span><span class=na>foo</span><span class=o>())</span>
+</code></pre></div><h3 id=conditionals>Conditionals</h3>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java>
+<span class=c1>// Kotlin has no ternary operator(?:) and normal if statement is used as
+</span><span class=c1>// replacement
+</span><span class=c1></span><span class=n>val</span> <span class=n>max</span> <span class=o>=</span> <span class=k>if</span> <span class=o>(</span><span class=n>a</span> <span class=o>&gt;</span> <span class=n>b</span><span class=o>)</span> <span class=n>a</span> <span class=k>else</span> <span class=n>b</span>
+
+<span class=c1>// Kotlin uses `when` statement instead of switch
+</span><span class=c1></span><span class=n>when</span> <span class=o>(</span><span class=n>x</span><span class=o>)</span> <span class=o>{</span>
+  <span class=n>0</span> <span class=o>-&gt;</span> <span class=n>println</span><span class=o>(</span><span class=s>&#34;0&#34;</span><span class=o>)</span>
+  <span class=n>1</span> <span class=o>-&gt;</span> <span class=n>println</span><span class=o>(</span><span class=s>&#34;1&#34;</span><span class=o>)</span>
+  <span class=n>2</span><span class=o>,</span> <span class=n>3</span> <span class=o>-&gt;</span> <span class=n>println</span><span class=o>(</span><span class=s>&#34;2 or 3&#34;</span><span class=o>)</span>
+  <span class=n>in</span> <span class=n>4</span><span class=o>..</span><span class=na>10</span> <span class=o>-&gt;</span> <span class=n>print</span><span class=o>(</span><span class=s>&#34;between 4 to 10&#34;</span><span class=o>)</span>
+  <span class=k>else</span> <span class=o>-&gt;</span> <span class=n>println</span><span class=o>(</span><span class=s>&#34;&gt; 10&#34;</span><span class=o>)</span>
+<span class=o>}</span>
+
+<span class=c1>// Since single line functions in Kotlin can be declared with `=` symbol, functions
+</span><span class=c1>// can have `when` as their single statement
+</span><span class=c1></span><span class=n>fun</span> <span class=nf>check</span><span class=o>(</span><span class=n>x</span><span class=o>:</span> <span class=n>Int</span><span class=o>)</span> <span class=o>=</span> <span class=n>when</span><span class=o>(</span><span class=n>x</span><span class=o>)</span> <span class=o>{</span>
+  <span class=n>0</span> <span class=o>-&gt;</span> <span class=n>println</span><span class=o>(</span><span class=s>&#34;0&#34;</span><span class=o>)</span>
+  <span class=n>1</span> <span class=o>-&gt;</span> <span class=n>println</span><span class=o>(</span><span class=s>&#34;1&#34;</span><span class=o>)</span>
+  <span class=n>2</span><span class=o>,</span> <span class=n>3</span> <span class=o>-&gt;</span> <span class=n>println</span><span class=o>(</span><span class=s>&#34;2 or 3&#34;</span><span class=o>)</span>
+  <span class=n>in</span> <span class=n>4</span><span class=o>..</span><span class=na>10</span> <span class=o>-&gt;</span> <span class=n>print</span><span class=o>(</span><span class=s>&#34;between 4 to 10&#34;</span><span class=o>)</span>
+  <span class=k>else</span> <span class=o>-&gt;</span> <span class=n>println</span><span class=o>(</span><span class=s>&#34;&gt; 10&#34;</span><span class=o>)</span>
+<span class=o>}</span>
+
+<span class=c1>// The for statement in Kotlin works similar to python&#39;s for statement.
+</span><span class=c1></span><span class=k>for</span> <span class=o>(</span><span class=n>item</span> <span class=n>in</span> <span class=n>collection</span><span class=o>)</span> <span class=n>print</span><span class=o>(</span><span class=n>item</span><span class=o>)</span>
+
+<span class=k>for</span><span class=o>(</span><span class=n>i</span> <span class=n>in</span> <span class=n>0</span><span class=o>..</span><span class=na>9</span><span class=o>)</span> <span class=o>{</span>
+    <span class=n>print</span><span class=o>(</span><span class=n>i</span><span class=o>)</span> <span class=c1>// 0123456789
+</span><span class=c1></span><span class=o>}</span>
+
+<span class=c1>// The other constructs such as while, do-while, break and continue are similar
+</span><span class=c1>// to most of the C-based languages.
+</span></code></pre></div><h3 id=collections>Collections</h3>
+<p>Kotlin does not have dedicated syntax constructs for creating lists or sets.
+They are created using methods from its standard library. Moreover, Kotlin
+distinguishes between mutable and immutable collections.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=c1>// In the below examples, type need not be explicitly set but it is done for understanding
+</span><span class=c1></span>
+<span class=c1>// Lists
+</span><span class=c1></span><span class=n>val</span> <span class=n>immutableList</span><span class=o>:</span> <span class=n>List</span><span class=o>&lt;</span><span class=n>Int</span><span class=o>&gt;</span> <span class=o>=</span> <span class=n>listOf</span><span class=o>(</span><span class=n>1</span><span class=o>,</span> <span class=n>2</span><span class=o>,</span> <span class=n>3</span><span class=o>)</span> <span class=c1>// Created using `listof` function.
+</span><span class=c1></span><span class=n>val</span> <span class=n>mutableList</span><span class=o>:</span> <span class=n>MutableList</span><span class=o>&lt;</span><span class=n>Int</span><span class=o>&gt;</span> <span class=o>=</span> <span class=n>mutableListOf</span><span class=o>(</span><span class=n>4</span><span class=o>,</span> <span class=n>5</span><span class=o>,</span> <span class=n>6</span><span class=o>)</span> <span class=c1>// Created using `mutableListOf` function.
+</span><span class=c1></span>
+<span class=n>println</span><span class=o>(</span><span class=n>immutableList</span><span class=o>)</span> <span class=c1>// [1, 2, 3]
+</span><span class=c1></span><span class=n>println</span><span class=o>(</span><span class=n>immutableList</span><span class=o>.</span><span class=na>first</span><span class=o>())</span> <span class=c1>// 1
+</span><span class=c1></span><span class=n>println</span><span class=o>(</span><span class=n>immutableList</span><span class=o>.</span><span class=na>last</span><span class=o>())</span> <span class=c1>// 3
+</span><span class=c1></span>
+<span class=n>mutableList</span><span class=o>.</span><span class=na>add</span><span class=o>(</span><span class=n>7</span><span class=o>)</span>
+<span class=n>println</span><span class=o>(</span><span class=n>mutableList</span><span class=o>)</span> <span class=c1>// [4, 5, 6, 7]
+</span><span class=c1></span>
+<span class=c1>// Sets
+</span><span class=c1></span><span class=n>val</span> <span class=n>immutableSet</span><span class=o>:</span> <span class=n>Set</span><span class=o>&lt;</span><span class=n>Int</span><span class=o>&gt;</span> <span class=o>=</span> <span class=n>setOf</span><span class=o>(</span><span class=n>1</span><span class=o>,</span> <span class=n>2</span><span class=o>,</span> <span class=n>3</span><span class=o>,</span> <span class=n>3</span><span class=o>,</span> <span class=n>3</span><span class=o>,</span> <span class=n>3</span><span class=o>,</span> <span class=n>3</span><span class=o>)</span>
+<span class=n>val</span> <span class=n>mutableSet</span><span class=o>:</span> <span class=n>MutableSet</span><span class=o>&lt;</span><span class=n>Int</span><span class=o>&gt;</span> <span class=o>=</span> <span class=n>mutableSetOf</span><span class=o>(</span><span class=n>1</span><span class=o>,</span> <span class=n>2</span><span class=o>,</span> <span class=n>3</span><span class=o>,</span> <span class=n>2</span><span class=o>,</span> <span class=n>4</span><span class=o>)</span>
+
+<span class=n>println</span><span class=o>(</span><span class=n>immutableSet</span><span class=o>)</span> <span class=c1>// [1, 2, 3]
+</span><span class=c1></span><span class=n>println</span><span class=o>(</span><span class=n>immutableSet</span><span class=o>.</span><span class=na>contains</span><span class=o>(</span><span class=n>3</span><span class=o>))</span> <span class=c1>// true
+</span><span class=c1></span>
+<span class=c1>// Maps
+</span><span class=c1></span><span class=n>val</span> <span class=n>immutableMap</span><span class=o>:</span> <span class=n>Map</span><span class=o>&lt;</span><span class=n>String</span><span class=o>,</span> <span class=n>Int</span><span class=o>&gt;</span> <span class=o>=</span> <span class=n>mapOf</span><span class=o>(</span><span class=s>&#34;a&#34;</span> <span class=n>to</span> <span class=n>1</span><span class=o>,</span> <span class=s>&#34;b&#34;</span> <span class=n>to</span> <span class=n>2</span><span class=o>,</span> <span class=s>&#34;c&#34;</span> <span class=n>to</span> <span class=n>3</span><span class=o>)</span>
+<span class=n>val</span> <span class=n>mutableMap</span><span class=o>:</span> <span class=n>MutableMap</span><span class=o>&lt;</span><span class=n>String</span><span class=o>,</span> <span class=n>Int</span><span class=o>&gt;</span> <span class=o>=</span> <span class=n>mutableMapOf</span><span class=o>(</span><span class=s>&#34;a&#34;</span> <span class=n>to</span> <span class=n>1</span><span class=o>,</span> <span class=s>&#34;b&#34;</span> <span class=n>to</span> <span class=n>2</span><span class=o>,</span> <span class=s>&#34;c&#34;</span> <span class=n>to</span> <span class=n>3</span><span class=o>)</span>
+
+<span class=n>println</span><span class=o>(</span><span class=n>immutableMap</span><span class=o>)</span> <span class=c1>// {a=1, b=2, c=3}
+</span><span class=c1></span><span class=n>println</span><span class=o>(</span><span class=n>immutableMap</span><span class=o>[</span><span class=s>&#34;c&#34;</span><span class=o>])</span> <span class=c1>// 3
+</span><span class=c1></span>
+<span class=n>mutableMap</span><span class=o>[</span><span class=s>&#34;d&#34;</span><span class=o>]</span> <span class=o>=</span> <span class=n>4</span>
+<span class=nf>println</span><span class=o>(</span><span class=n>immutableMap</span><span class=o>)</span> <span class=c1>// {a=1, b=2, c=3, d=4}
+</span><span class=c1></span><span class=n>println</span><span class=o>(</span><span class=n>mutableMap</span><span class=o>[</span><span class=s>&#34;d&#34;</span><span class=o>])</span> <span class=c1>// 4
+</span></code></pre></div><h3 id=smart-casts>Smart Casts</h3>
+<p>In Kotlin, the type of a variable can be check with <code>is</code> keyword. The cool
+thing about this is that Kotlin tracks these is-checks and casts automatically
+when needed.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=n>fun</span> <span class=nf>foo</span><span class=o>(</span><span class=n>x</span><span class=o>:</span> <span class=n>Any</span><span class=o>)</span> <span class=o>{</span>
+    <span class=k>if</span> <span class=o>(</span><span class=n>x</span> <span class=n>is</span> <span class=n>String</span><span class=o>)</span> <span class=o>{</span>
+        <span class=n>println</span><span class=o>(</span><span class=n>x</span><span class=o>)</span> <span class=c1>// x is automatically cast to String
+</span><span class=c1></span>    <span class=o>}</span>
+    <span class=k>if</span> <span class=o>(</span><span class=n>x</span> <span class=n>is</span> <span class=n>Int</span><span class=o>)</span> <span class=o>{</span>
+      <span class=n>println</span><span class=o>(</span><span class=n>x</span> <span class=o>+</span> <span class=n>1</span><span class=o>)</span> <span class=c1>// x is automatically cast to Integer
+</span><span class=c1></span>    <span class=o>}</span>
+<span class=o>}</span>
+
+<span class=n>foo</span><span class=o>(</span><span class=s>&#34;hi&#34;</span><span class=o>)</span> <span class=c1>// hi
+</span><span class=c1></span><span class=n>foo</span><span class=o>(</span><span class=n>3</span><span class=o>)</span> <span class=c1>// 4
+</span><span class=c1></span>
+<span class=c1>// The above can be rewritten with when statement
+</span><span class=c1></span><span class=n>fun</span> <span class=nf>bar</span><span class=o>(</span><span class=n>x</span><span class=o>:</span> <span class=n>Any</span><span class=o>)</span> <span class=o>=</span> <span class=n>when</span><span class=o>(</span><span class=n>x</span><span class=o>)</span> <span class=o>{</span>
+  <span class=n>is</span> <span class=n>String</span> <span class=o>-&gt;</span> <span class=n>println</span><span class=o>(</span><span class=n>x</span><span class=o>)</span>
+  <span class=n>is</span> <span class=n>Int</span> <span class=o>-&gt;</span> <span class=n>println</span><span class=o>(</span><span class=n>x</span> <span class=o>+</span> <span class=n>1</span><span class=o>)</span>
+  <span class=k>else</span> <span class=o>-&gt;</span> <span class=n>println</span><span class=o>(</span><span class=s>&#34;Error&#34;</span><span class=o>)</span>
+<span class=o>}</span>
+
+<span class=n>bar</span><span class=o>(</span><span class=s>&#34;hello&#34;</span><span class=o>)</span> <span class=c1>// Hello
+</span><span class=c1></span><span class=n>bar</span><span class=o>(</span><span class=n>1</span><span class=o>.</span><span class=na>0</span><span class=o>)</span> <span class=c1>// Error
+</span></code></pre></div><h3 id=extension-functions>Extension Functions</h3>
+<p>Kotlin allows extending a class with new functionality without
+having to inherit from the class or use any type of design pattern such as
+Decorator.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java>
+<span class=n>fun</span> <span class=n>String</span><span class=o>.</span><span class=na>appendWorld</span><span class=o>():</span> <span class=n>String</span> <span class=o>{</span>
+  <span class=k>return</span> <span class=k>this</span> <span class=o>+</span> <span class=s>&#34; World&#34;</span> <span class=c1>// this refers to the calling object
+</span><span class=c1></span><span class=o>}</span>
+
+<span class=s>&#34;Hello&#34;</span><span class=o>.</span><span class=na>appendWorld</span><span class=o>()</span> <span class=c1>// Hello World
+</span><span class=c1></span>
+</code></pre></div><hr>
+<h2 id=kotlin-on-android>Kotlin on Android</h2>
+<p>Since Kotlin is now a first-class language for Android, from Android Studio 3.0,
+new projects can be generated with Kotlin as language and existing java files can
+be transpiled to Kotlin easily.</p>
+<p><img src=/images/blog/kotlin_2.png alt></p>
+<p>Kotlin provides a special extension library for Android called as <code>kotlin-android-extensions</code>.
+This extension provides synthetic properties to Android.</p>
+<p>Using this extension, views with id in the Android layout can be directly accessed
+using the id as a variable without using <code>findViewById()</code> method.</p>
+<p>Secondly, this extension collapses getters and setters in the standard library
+into properties. So, for example, to read or write text from a view, the <code>text</code>
+property can be used instead of using getText() and setText(). The beautiful thing
+about this is that it is still possible to use the getters and setters, and when
+we use those, the IDE suggests to use the synthetic property&rsquo;s attribute.</p>
+<p>kotlin-android-extensions can be added as a plugin to the build.gradle file:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=n>apply</span> <span class=ss>plugin</span><span class=p>:</span> <span class=s1>&#39;kotlin-android-extensions&#39;</span>
+</code></pre></div><p>The ids in the layout can be imported as synthetic properties as follows:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=kn>import</span> <span class=nn>kotlinx.android.synthetic.main.</span><span class=o>&lt;</span><span class=n>layout</span><span class=o>&gt;.*</span>
+</code></pre></div><p>For eg, if the layout has a text view with id <code>display</code>, it can be accessed as
+follows:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=n>display</span><span class=o>.</span><span class=na>text</span> <span class=o>=</span> <span class=s>&#34;Hello world!&#34;</span> <span class=c1>// same as ((TextView) findViewById(R.id.display)).setText(&#34;Hello world!&#34;)
+</span></code></pre></div><p>Below is the link to a simple calculator program that uses kotlin-android-extensions:
+<a href=https://github.com/AravindVasudev/Kalculator>https://github.com/AravindVasudev/Kalculator</a></p>
+<hr>
+<h2 id=important-links>Important Links</h2>
+<p>Here are some links that helped me get through my day 1 of Kotlin:</p>
+<ul>
+<li>
+<p>Installation</p>
+<ul>
+<li><a href=https://developer.android.com/studio/preview/index.html>Android Studio Canary 1</a></li>
+<li><a href=https://kotlinlang.org/docs/tutorials/command-line.html>Kotlin Command Line Installation</a></li>
+</ul>
+</li>
+<li>
+<p>Comparisons with</p>
+<ul>
+<li><a href=https://kotlinlang.org/docs/reference/comparison-to-java.html>Java</a></li>
+<li><a href=http://nilhcem.com/swift-is-like-kotlin/>Swift</a></li>
+<li><a href=https://ragunathjawahar.wordpress.com/2015/03/18/my-first-ios-app-while-learning-kotlin-for-android/>Swift</a></li>
+<li><a href=https://gi-no.github.io/kotlin-is-like-typescript/>Typescript</a></li>
+</ul>
+</li>
+<li>
+<p>Tutorials</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=X1RVYt2QKQE">Google IO &lsquo;17</a></li>
+<li><a href=https://learnxinyminutes.com/docs/kotlin/>learnxinyminutes.com</a></li>
+<li><a href=https://hackernoon.com/my-first-experiences-with-kotlin-b3fcf5e111f7>hackernoon.com</a></li>
+<li><a href=https://kotlinlang.org/docs/reference/>kotlinlang.org</a></li>
+</ul>
+</li>
+<li>
+<p>Kotlin Android extensions</p>
+<ul>
+<li><a href=https://kotlinlang.org/docs/tutorials/android-plugin.html>kotlinlang.org</a></li>
+<li><a href=https://ragunathjawahar.wordpress.com/2015/03/23/kotlin-findviewbyid-dead-as-dinosaurs/>ragunathjawahar.wordpress.com</a></li>
+</ul>
+</li>
+<li>
+<p>Kotlin Android examples</p>
+<ul>
+<li><a href=https://github.com/AravindVasudev/Kalculator>Calculator</a></li>
+<li><a href="https://developer.android.com/samples/index.html?language=kotlin">developer.android.com</a></li>
+</ul>
+</li>
+<li>
+<p>Kotlin on Web</p>
+<ul>
+<li><a href=https://spring.io/blog/2017/01/04/introducing-kotlin-support-in-spring-framework-5-0>Spring support</a></li>
+<li>Frontend
+<ul>
+<li><a href=https://dzone.com/articles/kotlin-for-front-end-developers>dzone.com</a></li>
+<li><a href=https://kotlinlang.org/docs/tutorials/javascript/working-with-javascript.html>kotlinlang.org</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a href=https://blog.jetbrains.com/kotlin/2017/04/kotlinnative-tech-preview-kotlin-without-a-vm/>Kotlin Native</a></p>
+</li>
+<li>
+<p><a href=https://android-developers.googleblog.com/2017/05/android-announces-support-for-kotlin.html>Google Blog</a></p>
+</li>
+</ul>
+</div>
+<footer class="post-footer clearfix">
+<p class=post-tags>
+<span>Tagged:</span>
+<a href=/tags/kotlin/>kotlin</a>
+</p>
+<div class=share>
+<a class=icon-linkedin href="https://www.linkedin.com/shareArticle?mini=true&title=My%20day%201%20of%20learning%20Kotlin&url=%2f2017%2fmy-day-1-with-kotlin%2f&summary=" onclick="return window.open(this.href,'linkedin-share','width=554,height=481'),!1" aria-label="Share on LinkedIn">
+<i class="fa fa-linkedin" aria-hidden=true></i>
+</a>
+</div>
+</footer>
+<div class=comments>
+<div id=disqus_thread></div>
+<script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return}var b=document,a=b.createElement('script');a.async=!0,a.src='//aravind-vasudev-blog.disqus.com/embed.js',a.setAttribute('data-timestamp',+new Date),(b.head||b.body).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+</article>
+</div>
+</div>
+</div>
+<footer class=footer>
+<div class=container>
+<div class=site-title-wrapper>
+<h1 class=site-title>
+<a href=/>Yet another programmer's blog'</a>
+</h1>
+<a class="button-square button-jump-top js-jump-top" href=# aria-label="Back to Top">
+<i class="fa fa-angle-up" aria-hidden=true></i>
+</a>
+</div>
+<p class=footer-copyright>
+<span>&copy; 2021 / Powered by <a href=https://gohugo.io/>Hugo</a></span>
+</p>
+<p class=footer-copyright>
+<span><a href=https://github.com/roryg/ghostwriter>Ghostwriter theme</a> By <a href=http://jollygoodthemes.com>JollyGoodThemes</a></span>
+<span>/ <a href=https://github.com/jbub/ghostwriter>Ported</a> to Hugo By <a href=https://github.com/jbub>jbub</a></span>
+</p>
+</div>
+</footer>
+<script src=/js/jquery-1.11.3.min.js></script>
+<script src=/js/jquery.fitvids.js></script>
+<script src=/js/scripts.js></script>
+</body>
+</html>
