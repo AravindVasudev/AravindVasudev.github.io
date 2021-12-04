@@ -1,0 +1,331 @@
+<!doctype html><html prefix="og: http://ogp.me/ns#">
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<title>Hacking out an object detector using brain.js &#183; Aravind Vasudevan</title>
+<meta name=description content="Two weeks back, I had to demo my final year project which uses Deep Learning. Being a novice myself, I know how difficult it is to wrap our minds around DL. So, I wanted to build an intuitive demo with real-world applications which would help me to explain my project. (The world has had enough MNIST classifiers!).
+I planned on building an object detector but also eschewed from &ldquo;production-ready&rdquo; deep-learning frameworks because those are quite convoluted for a beginner to understand.">
+<meta name=HandheldFriendly content="True">
+<meta name=MobileOptimized content="320">
+<meta name=generator content="Hugo 0.89.4">
+<meta name=robots content="index,follow">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta property="og:title" content="Hacking out an object detector using brain.js">
+<meta property="og:description" content="Two weeks back, I had to demo my final year project which uses Deep Learning. Being a novice myself, I know how difficult it is to wrap our minds around DL. So, I wanted to build an intuitive demo with real-world applications which would help me to explain my project. (The world has had enough MNIST classifiers!).
+I planned on building an object detector but also eschewed from &ldquo;production-ready&rdquo; deep-learning frameworks because those are quite convoluted for a beginner to understand.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="/2018/hacking-out-an-object-detector-using-brainjs/">
+<link rel=stylesheet href=/dist/site.css>
+<link rel=stylesheet href=/dist/syntax.css>
+<link rel=stylesheet href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
+<link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css integrity=sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN crossorigin=anonymous>
+</head>
+<body>
+<script type=application/javascript>var dnt=navigator.doNotTrack||window.doNotTrack||navigator.msDoNotTrack,doNotTrack=dnt=="1"||dnt=="yes";doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-83211075-2','auto'),ga('set','anonymizeIp',!0),ga('send','pageview'))</script>
+<div id=wrapper>
+<header class=site-header>
+<div class=container>
+<div class=site-title-wrapper>
+<h1 class=site-title>
+<a href=/>Yet another programmer's blog</a>
+</h1>
+<a class=button-square href=/index.xml aria-label=RSS><i class="fa fa-rss" aria-hidden=true></i></a>
+<a class="button-square button-social hint--top" data-hint=Github aria-label=Github href=https://github.com/AravindVasudev rel=me>
+<i class="fa fa-github-alt" aria-hidden=true></i>
+</a>
+<a class="button-square button-social hint--top" data-hint=LinkedIn aria-label=LinkedIn href=https://linkedin.com/in/aravindvasudev/ rel=me>
+<i class="fa fa-linkedin" aria-hidden=true></i>
+</a>
+<a class="button-square button-social hint--top" data-hint=Email aria-label="Send an Email" href=mailto:aravind_vasudevan@outlook.com>
+<i class="fa fa-envelope" aria-hidden=true></i>
+</a>
+</div>
+<ul class=site-nav>
+<li class=site-nav-item>
+<a href=/>Blog</a>
+</li>
+<li class=site-nav-item>
+<a href=/about/>About</a>
+</li>
+</ul>
+</div>
+</header>
+<div id=container>
+<div class=container>
+<article class=post-container itemscope itemtype=http://schema.org/BlogPosting>
+<header class=post-header>
+<h1 class=post-title itemprop="name headline">Hacking out an object detector using brain.js</h1>
+<p class=post-date>
+<span>Published <time datetime=2018-04-05 itemprop=datePublished>Thu, Apr 5, 2018</time></span>
+<span>by</span>
+<span itemscope itemprop=author itemtype=https://schema.org/Person>
+<span itemprop=name>
+<a href=https://github.com/AravindVasudev itemprop=url rel=author>Aravind Vasudevan</a>
+</span>
+</span>
+</p>
+<p class="post-reading post-line">
+<span>Estimated reading time: 5 min</span>
+</p>
+</header>
+<div class="post-content clearfix" itemprop=articleBody>
+<p>Two weeks back, I had to demo my final year project which uses Deep Learning.
+Being a novice myself, I know how difficult it is to wrap our minds around DL. So,
+I wanted to build an intuitive demo with real-world applications which would help me
+to explain my project. (The world has had enough MNIST classifiers!).</p>
+<p>I planned on building an object detector but also eschewed from &ldquo;production-ready&rdquo;
+deep-learning frameworks because those are quite convoluted for a beginner to
+understand. So after a lot of considerations, I picked
+<a href=https://github.com/BrainJS/brain.js><em>brain.js</em></a>. Brain.js is a fork of an
+older javascript neural network library, brain, which went unmaintained few years
+back. It has a steep learning curve, easy to use, and runs on the browser.</p>
+<p>I was all set to build the detector but had one major problem: I have never collected
+a real-world image dataset before, let alone do it with javascript. After searching
+for a while, I came up with this inane idea of completely collecting the dataset in
+the frontend using the webcam.</p>
+<p>Here&rsquo;s how I did it:</p>
+<ol>
+<li>Get the camera stream using <code>navigator.getUserMedia</code> and write to a video tag.</li>
+<li>Write the video to a canvas as a 100x100 image so that it can be read back as
+<a href=https://developer.mozilla.org/en-US/docs/Web/API/ImageData>ImageData</a> object.</li>
+<li>Read the canvas, grayscale the image, and write one of the color channels to
+an array. [<a href=https://www.html5rocks.com/en/tutorials/canvas/imagefilters/>ref</a>]</li>
+<li>Convert the array to a CSV and download it. [<a href=https://stackoverflow.com/questions/14964035/how-to-export-javascript-array-info-to-csv-on-client-side>ref</a>]</li>
+</ol>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=c1>// grayscales ImageData object
+</span><span class=c1></span><span class=kd>function</span> <span class=nx>grayscale</span><span class=p>(</span><span class=nx>image</span><span class=p>)</span> <span class=p>{</span>
+    <span class=kd>let</span> <span class=nx>pixels</span> <span class=o>=</span> <span class=nx>image</span><span class=p>.</span><span class=nx>data</span><span class=p>;</span>
+    <span class=k>for</span> <span class=p>(</span><span class=kd>let</span> <span class=nx>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=o>&lt;</span> <span class=nx>pixels</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span> <span class=nx>i</span> <span class=o>+=</span> <span class=mi>4</span><span class=p>)</span> <span class=p>{</span>
+      <span class=nx>pixels</span><span class=p>[</span><span class=nx>i</span><span class=p>]</span> <span class=o>=</span> <span class=nx>pixels</span><span class=p>[</span><span class=nx>i</span> <span class=o>+</span> <span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=nx>pixels</span><span class=p>[</span><span class=nx>i</span> <span class=o>+</span> <span class=mi>2</span><span class=p>]</span> <span class=o>=</span> 
+        <span class=mf>0.2126</span> <span class=o>*</span> <span class=nx>pixels</span><span class=p>[</span><span class=nx>i</span><span class=p>]</span> <span class=o>+</span> <span class=mf>0.7152</span> <span class=o>*</span> <span class=nx>pixels</span><span class=p>[</span><span class=nx>i</span> <span class=o>+</span> <span class=mi>1</span><span class=p>]</span> <span class=o>+</span> <span class=mf>0.0722</span> <span class=o>*</span> <span class=nx>pixels</span><span class=p>[</span><span class=nx>i</span> <span class=o>+</span> <span class=mi>2</span><span class=p>];</span>
+    <span class=p>}</span>
+
+    <span class=k>return</span> <span class=nx>image</span><span class=p>;</span>
+<span class=p>}</span>
+
+<span class=c1>// converts a given channel of an ImageData object to array
+</span><span class=c1></span><span class=kd>function</span> <span class=nx>channelToArray</span><span class=p>(</span><span class=nx>image</span><span class=p>,</span> <span class=nx>channelID</span><span class=p>)</span> <span class=p>{</span>
+    <span class=kd>let</span> <span class=nx>pixels</span> <span class=o>=</span> <span class=nx>image</span><span class=p>.</span><span class=nx>data</span><span class=p>;</span>
+    <span class=kd>let</span> <span class=nx>channel</span> <span class=o>=</span> <span class=p>[];</span>
+
+    <span class=k>for</span> <span class=p>(</span><span class=kd>let</span> <span class=nx>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=o>&lt;</span> <span class=nx>pixels</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span> <span class=nx>i</span> <span class=o>+=</span> <span class=mi>4</span><span class=p>)</span> <span class=p>{</span>
+        <span class=nx>channel</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=nx>pixels</span><span class=p>[</span><span class=nx>i</span> <span class=o>+</span> <span class=nx>channelID</span><span class=p>]);</span>
+    <span class=p>}</span>
+
+    <span class=k>return</span> <span class=nx>channel</span><span class=p>;</span>
+<span class=p>}</span>
+
+<span class=c1>// converts 2D array to CSV and downloads it
+</span><span class=c1></span><span class=kd>function</span> <span class=nx>arrayToCSV</span><span class=p>(</span><span class=nx>arr</span><span class=p>)</span> <span class=p>{</span>
+    <span class=kd>let</span> <span class=nx>csvContent</span> <span class=o>=</span> <span class=s1>&#39;data:text/csv;charset=utf-8,&#39;</span><span class=p>;</span>
+    <span class=nx>arr</span><span class=p>.</span><span class=nx>forEach</span><span class=p>(</span><span class=nx>row</span> <span class=p>=&gt;</span> <span class=p>{</span>
+        <span class=nx>csvContent</span> <span class=o>+=</span> <span class=nx>row</span><span class=p>.</span><span class=nx>join</span><span class=p>(</span><span class=s1>&#39;,&#39;</span><span class=p>)</span> <span class=o>+</span> <span class=s1>&#39;\r\n&#39;</span><span class=p>;</span>
+    <span class=p>});</span>
+
+    <span class=kr>const</span> <span class=nx>URI</span>  <span class=o>=</span> <span class=nb>encodeURI</span><span class=p>(</span><span class=nx>csvContent</span><span class=p>);</span>
+    <span class=kr>const</span> <span class=nx>link</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>createElement</span><span class=p>(</span><span class=s1>&#39;a&#39;</span><span class=p>);</span>
+    <span class=nx>link</span><span class=p>.</span><span class=nx>setAttribute</span><span class=p>(</span><span class=s1>&#39;href&#39;</span><span class=p>,</span> <span class=nx>URI</span><span class=p>);</span>
+    <span class=nx>link</span><span class=p>.</span><span class=nx>setAttribute</span><span class=p>(</span><span class=s1>&#39;download&#39;</span><span class=p>,</span> <span class=s1>&#39;dataset.csv&#39;</span><span class=p>);</span>
+    <span class=nb>document</span><span class=p>.</span><span class=nx>body</span><span class=p>.</span><span class=nx>appendChild</span><span class=p>(</span><span class=nx>link</span><span class=p>);</span>
+    <span class=nx>link</span><span class=p>.</span><span class=nx>click</span><span class=p>();</span>
+<span class=p>}</span>
+
+<span class=nb>window</span><span class=p>.</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;load&#39;</span><span class=p>,</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+    <span class=kr>const</span> <span class=nx>display</span>  <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>querySelector</span><span class=p>(</span><span class=s1>&#39;#display&#39;</span><span class=p>);</span>
+    <span class=kr>const</span> <span class=nx>canvas</span>   <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>querySelector</span><span class=p>(</span><span class=s1>&#39;#canvas&#39;</span><span class=p>);</span>
+    <span class=kr>const</span> <span class=nx>ctx</span>      <span class=o>=</span> <span class=nx>canvas</span><span class=p>.</span><span class=nx>getContext</span><span class=p>(</span><span class=s1>&#39;2d&#39;</span><span class=p>);</span>
+    <span class=kr>const</span> <span class=nx>startBtn</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>querySelector</span><span class=p>(</span><span class=s1>&#39;#start&#39;</span><span class=p>);</span>
+    <span class=kr>const</span> <span class=nx>stopBtn</span>  <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>querySelector</span><span class=p>(</span><span class=s1>&#39;#stop&#39;</span><span class=p>);</span>
+    <span class=kr>const</span> <span class=nx>HEIGHT</span>   <span class=o>=</span> <span class=mi>100</span><span class=p>;</span>
+    <span class=kr>const</span> <span class=nx>WIDTH</span>    <span class=o>=</span> <span class=mi>100</span><span class=p>;</span>
+
+    <span class=kd>let</span> <span class=nx>dataset</span> <span class=o>=</span> <span class=p>[];</span>
+    <span class=kd>let</span> <span class=nx>recordInterval</span><span class=p>;</span>
+
+    <span class=c1>// write webcam to #display
+</span><span class=c1></span>    <span class=nx>navigator</span><span class=p>.</span><span class=nx>getUserMedia</span><span class=p>({</span><span class=nx>video</span><span class=o>:</span> <span class=p>{</span> <span class=nx>width</span><span class=o>:</span> <span class=nx>WIDTH</span><span class=p>,</span> <span class=nx>height</span><span class=o>:</span> <span class=nx>HEIGHT</span> <span class=p>}},</span>
+        <span class=nx>stream</span> <span class=p>=&gt;</span> <span class=nx>display</span><span class=p>.</span><span class=nx>srcObject</span> <span class=o>=</span> <span class=nx>stream</span><span class=p>,</span>
+        <span class=nx>err</span> <span class=p>=&gt;</span> <span class=nx>alert</span><span class=p>(</span><span class=s1>&#39;Something went terribly wrong! :(&#39;</span><span class=p>));</span>
+
+    <span class=nx>startBtn</span><span class=p>.</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;click&#39;</span><span class=p>,</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+        <span class=c1>// starts writing webcam to dataset @ 30fps
+</span><span class=c1></span>        <span class=nx>recordInterval</span> <span class=o>=</span> <span class=nx>setInterval</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+            <span class=nx>ctx</span><span class=p>.</span><span class=nx>drawImage</span><span class=p>(</span><span class=nx>display</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=nx>WIDTH</span><span class=p>,</span> <span class=nx>HEIGHT</span><span class=p>);</span>
+            <span class=kr>const</span> <span class=nx>image</span>      <span class=o>=</span> <span class=nx>ctx</span><span class=p>.</span><span class=nx>getImageData</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=nx>WIDTH</span><span class=p>,</span> <span class=nx>HEIGHT</span><span class=p>);</span>
+            <span class=kr>const</span> <span class=nx>grayscaled</span> <span class=o>=</span> <span class=nx>grayscale</span><span class=p>(</span><span class=nx>image</span><span class=p>);</span>
+            <span class=kr>const</span> <span class=nx>channel</span>    <span class=o>=</span> <span class=nx>channelToArray</span><span class=p>(</span><span class=nx>grayscaled</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
+
+            <span class=nx>dataset</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=nx>channel</span><span class=p>);</span>
+            <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>channel</span><span class=p>);</span>
+
+            <span class=nx>ctx</span><span class=p>.</span><span class=nx>putImageData</span><span class=p>(</span><span class=nx>grayscaled</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
+        <span class=p>},</span> <span class=mi>1000</span> <span class=o>/</span> <span class=mi>30</span><span class=p>);</span>
+    <span class=p>});</span>
+
+    <span class=nx>stopBtn</span><span class=p>.</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;click&#39;</span><span class=p>,</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+        <span class=c1>// stops writing webcam to datset and downloads dataset as CSV
+</span><span class=c1></span>        <span class=nx>clearInterval</span><span class=p>(</span><span class=nx>recordInterval</span><span class=p>);</span>
+        <span class=nx>arrayToCSV</span><span class=p>(</span><span class=nx>dataset</span><span class=p>);</span>
+    <span class=p>});</span>
+<span class=p>});</span>
+</code></pre></div><p>This way I created separate datasets for the obstacle and its absence. Using this I
+created, trained, and saved a network.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>const</span> <span class=nx>brain</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s1>&#39;brain.js&#39;</span><span class=p>);</span>
+<span class=kr>const</span> <span class=nx>fs</span>    <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s1>&#39;fs&#39;</span><span class=p>);</span>
+
+<span class=kd>function</span> <span class=nx>readCSV</span><span class=p>(</span><span class=nx>path</span><span class=p>)</span> <span class=p>{</span>
+    <span class=kr>const</span> <span class=nx>content</span> <span class=o>=</span> <span class=nx>fs</span><span class=p>.</span><span class=nx>readFileSync</span><span class=p>(</span><span class=nx>path</span><span class=p>,</span> <span class=s1>&#39;utf8&#39;</span><span class=p>);</span>
+    <span class=kd>let</span> <span class=nx>arr</span>       <span class=o>=</span> <span class=p>[];</span>
+
+    <span class=nx>content</span><span class=p>.</span><span class=nx>split</span><span class=p>(</span><span class=s1>&#39;\n&#39;</span><span class=p>).</span><span class=nx>forEach</span><span class=p>(</span><span class=nx>line</span> <span class=p>=&gt;</span> <span class=p>{</span>
+        <span class=nx>arr</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=nx>line</span><span class=p>.</span><span class=nx>split</span><span class=p>(</span><span class=s1>&#39;,&#39;</span><span class=p>).</span><span class=nx>map</span><span class=p>(</span><span class=nx>n</span> <span class=p>=&gt;</span> <span class=nb>parseInt</span><span class=p>(</span><span class=nx>n</span><span class=p>,</span> <span class=mi>10</span><span class=p>)));</span>
+    <span class=p>});</span>
+
+    <span class=k>return</span> <span class=nx>arr</span><span class=p>;</span>
+<span class=p>}</span>
+
+<span class=c1>// read obstacle and no_obstacle dataset seperately and convert to brain.js format
+</span><span class=c1></span><span class=nx>obstacle</span>   <span class=o>=</span> <span class=nx>readCSV</span><span class=p>(</span><span class=s1>&#39;./dataset/obstacle.csv&#39;</span><span class=p>);</span>
+<span class=nx>noObstacle</span> <span class=o>=</span> <span class=nx>readCSV</span><span class=p>(</span><span class=s1>&#39;./dataset/no_obstacle.csv&#39;</span><span class=p>);</span>
+
+<span class=nx>inputData</span> <span class=o>=</span> <span class=p>[];</span>
+<span class=nx>obstacle</span><span class=p>.</span><span class=nx>forEach</span><span class=p>(</span><span class=nx>image</span> <span class=p>=&gt;</span> <span class=nx>inputData</span><span class=p>.</span><span class=nx>push</span><span class=p>({</span><span class=nx>input</span><span class=o>:</span> <span class=nx>image</span><span class=p>,</span> <span class=nx>output</span><span class=o>:</span> <span class=p>[</span><span class=mi>0</span><span class=p>]}));</span>
+<span class=nx>noObstacle</span><span class=p>.</span><span class=nx>forEach</span><span class=p>(</span><span class=nx>image</span> <span class=p>=&gt;</span> <span class=nx>inputData</span><span class=p>.</span><span class=nx>push</span><span class=p>({</span><span class=nx>input</span><span class=o>:</span> <span class=nx>image</span><span class=p>,</span> <span class=nx>output</span><span class=o>:</span> <span class=p>[</span><span class=mi>1</span><span class=p>]}));</span>
+
+<span class=c1>// train the network
+</span><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>time</span><span class=p>(</span><span class=s1>&#39;training&#39;</span><span class=p>);</span>
+<span class=kr>const</span> <span class=nx>net</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>brain</span><span class=p>.</span><span class=nx>NeuralNetwork</span><span class=p>({</span>
+    <span class=nx>activation</span><span class=o>:</span> <span class=s1>&#39;sigmoid&#39;</span><span class=p>,</span>
+    <span class=nx>hiddenLayers</span><span class=o>:</span> <span class=p>[</span><span class=mi>1000</span><span class=p>,</span> <span class=mi>100</span><span class=p>],</span>
+    <span class=nx>learningRate</span><span class=o>:</span> <span class=mf>0.6</span>
+<span class=p>});</span>
+<span class=nx>net</span><span class=p>.</span><span class=nx>train</span><span class=p>(</span><span class=nx>inputData</span><span class=p>);</span>
+<span class=nx>console</span><span class=p>.</span><span class=nx>timeEnd</span><span class=p>(</span><span class=s1>&#39;training&#39;</span><span class=p>);</span>
+
+<span class=c1>// write the model
+</span><span class=c1></span><span class=nx>fs</span><span class=p>.</span><span class=nx>writeFileSync</span><span class=p>(</span><span class=s1>&#39;./model/model.json&#39;</span><span class=p>,</span> <span class=nx>JSON</span><span class=p>.</span><span class=nx>stringify</span><span class=p>(</span><span class=nx>net</span><span class=p>.</span><span class=nx>toJSON</span><span class=p>()));</span>
+</code></pre></div><p>Here is where something really unexpected happened. The generated model was around
+270MB which is gargantuan considering it was trained to run on the browser. But
+since this is just a demo, it wasn&rsquo;t much of a problem when serving from local.</p>
+<p>Finally, all I had to do was load the model via AJAX and predict.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=c1>// fethes the model using AJAX
+</span><span class=c1></span><span class=kd>function</span> <span class=nx>loadModel</span><span class=p>(</span><span class=nx>net</span><span class=p>)</span> <span class=p>{</span>
+    <span class=nx>fetch</span><span class=p>(</span><span class=s1>&#39;../model/model.json&#39;</span><span class=p>)</span>
+        <span class=p>.</span><span class=nx>then</span><span class=p>(</span><span class=nx>res</span> <span class=p>=&gt;</span> <span class=nx>res</span><span class=p>.</span><span class=nx>json</span><span class=p>())</span>
+        <span class=p>.</span><span class=nx>then</span><span class=p>(</span><span class=nx>json</span> <span class=p>=&gt;</span> <span class=nx>net</span><span class=p>.</span><span class=nx>fromJSON</span><span class=p>(</span><span class=nx>json</span><span class=p>));</span>
+
+    <span class=k>return</span> <span class=nx>net</span><span class=p>;</span>
+<span class=p>}</span>
+
+<span class=c1>// initialize and load the model
+</span><span class=c1></span><span class=kd>function</span> <span class=nx>initModel</span><span class=p>()</span> <span class=p>{</span>
+    <span class=kr>const</span> <span class=nx>net</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>brain</span><span class=p>.</span><span class=nx>NeuralNetwork</span><span class=p>({</span>
+        <span class=nx>activation</span><span class=o>:</span> <span class=s1>&#39;sigmoid&#39;</span><span class=p>,</span>
+        <span class=nx>hiddenLayers</span><span class=o>:</span> <span class=p>[</span><span class=mi>1000</span><span class=p>,</span> <span class=mi>100</span><span class=p>],</span>
+        <span class=nx>learningRate</span><span class=o>:</span> <span class=mf>0.6</span>
+    <span class=p>});</span>
+
+    <span class=kr>const</span> <span class=nx>model</span> <span class=o>=</span> <span class=nx>loadModel</span><span class=p>(</span><span class=nx>net</span><span class=p>);</span>
+    <span class=k>return</span> <span class=nx>model</span><span class=p>;</span>
+<span class=p>}</span>
+
+<span class=c1>// grayscales ImageData object
+</span><span class=c1></span><span class=kd>function</span> <span class=nx>grayscale</span><span class=p>(</span><span class=nx>image</span><span class=p>)</span> <span class=p>{</span>
+    <span class=kd>let</span> <span class=nx>pixels</span> <span class=o>=</span> <span class=nx>image</span><span class=p>.</span><span class=nx>data</span><span class=p>;</span>
+    <span class=k>for</span> <span class=p>(</span><span class=kd>let</span> <span class=nx>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=o>&lt;</span> <span class=nx>pixels</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span> <span class=nx>i</span> <span class=o>+=</span> <span class=mi>4</span><span class=p>)</span> <span class=p>{</span>
+      <span class=nx>pixels</span><span class=p>[</span><span class=nx>i</span><span class=p>]</span> <span class=o>=</span> <span class=nx>pixels</span><span class=p>[</span><span class=nx>i</span> <span class=o>+</span> <span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=nx>pixels</span><span class=p>[</span><span class=nx>i</span> <span class=o>+</span> <span class=mi>2</span><span class=p>]</span> <span class=o>=</span>
+        <span class=mf>0.2126</span> <span class=o>*</span> <span class=nx>pixels</span><span class=p>[</span><span class=nx>i</span><span class=p>]</span> <span class=o>+</span> <span class=mf>0.7152</span> <span class=o>*</span> <span class=nx>pixels</span><span class=p>[</span><span class=nx>i</span> <span class=o>+</span> <span class=mi>1</span><span class=p>]</span> <span class=o>+</span> <span class=mf>0.0722</span> <span class=o>*</span> <span class=nx>pixels</span><span class=p>[</span><span class=nx>i</span> <span class=o>+</span> <span class=mi>2</span><span class=p>];</span>
+    <span class=p>}</span>
+
+    <span class=k>return</span> <span class=nx>image</span><span class=p>;</span>
+<span class=p>}</span>
+
+<span class=c1>// converts a given channel of an ImageData object to array
+</span><span class=c1></span><span class=kd>function</span> <span class=nx>channelToArray</span><span class=p>(</span><span class=nx>image</span><span class=p>,</span> <span class=nx>channelID</span><span class=p>)</span> <span class=p>{</span>
+    <span class=kd>let</span> <span class=nx>pixels</span> <span class=o>=</span> <span class=nx>image</span><span class=p>.</span><span class=nx>data</span><span class=p>;</span>
+    <span class=kd>let</span> <span class=nx>channel</span> <span class=o>=</span> <span class=p>[];</span>
+
+    <span class=k>for</span> <span class=p>(</span><span class=kd>let</span> <span class=nx>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=o>&lt;</span> <span class=nx>pixels</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span> <span class=nx>i</span> <span class=o>+=</span> <span class=mi>4</span><span class=p>)</span> <span class=p>{</span>
+        <span class=nx>channel</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=nx>pixels</span><span class=p>[</span><span class=nx>i</span> <span class=o>+</span> <span class=nx>channelID</span><span class=p>]);</span>
+    <span class=p>}</span>
+
+    <span class=k>return</span> <span class=nx>channel</span><span class=p>;</span>
+<span class=p>}</span>
+
+<span class=c1>// if obstacle -&gt; 1 else -&gt; 0
+</span><span class=c1></span><span class=kd>function</span> <span class=nx>predict</span><span class=p>(</span><span class=nx>net</span><span class=p>,</span> <span class=nx>image</span><span class=p>)</span> <span class=p>{</span>
+    <span class=kr>const</span> <span class=nx>input</span> <span class=o>=</span> <span class=nx>channelToArray</span><span class=p>(</span><span class=nx>grayscale</span><span class=p>(</span><span class=nx>image</span><span class=p>),</span> <span class=mi>0</span><span class=p>);</span>
+    <span class=k>return</span> <span class=nx>net</span><span class=p>.</span><span class=nx>run</span><span class=p>(</span><span class=nx>input</span><span class=p>)</span> <span class=o>&lt;=</span> <span class=mf>0.5</span><span class=p>;</span>
+<span class=p>}</span>
+
+<span class=nb>window</span><span class=p>.</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;load&#39;</span><span class=p>,</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+    <span class=kr>const</span> <span class=nx>display</span>  <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>querySelector</span><span class=p>(</span><span class=s1>&#39;#display&#39;</span><span class=p>);</span>
+    <span class=kr>const</span> <span class=nx>canvas</span>   <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>querySelector</span><span class=p>(</span><span class=s1>&#39;#canvas&#39;</span><span class=p>);</span>
+    <span class=kr>const</span> <span class=nx>ctx</span>      <span class=o>=</span> <span class=nx>canvas</span><span class=p>.</span><span class=nx>getContext</span><span class=p>(</span><span class=s1>&#39;2d&#39;</span><span class=p>);</span>
+    <span class=kr>const</span> <span class=nx>model</span>    <span class=o>=</span> <span class=nx>initModel</span><span class=p>();</span>
+    <span class=kr>const</span> <span class=nx>HEIGHT</span>   <span class=o>=</span> <span class=mi>100</span><span class=p>;</span>
+    <span class=kr>const</span> <span class=nx>WIDTH</span>    <span class=o>=</span> <span class=mi>100</span><span class=p>;</span>
+
+    <span class=c1>// write webcam to #display
+</span><span class=c1></span>    <span class=nx>navigator</span><span class=p>.</span><span class=nx>getUserMedia</span><span class=p>({</span><span class=nx>video</span><span class=o>:</span> <span class=p>{</span> <span class=nx>width</span><span class=o>:</span> <span class=nx>WIDTH</span><span class=p>,</span> <span class=nx>height</span><span class=o>:</span> <span class=nx>HEIGHT</span> <span class=p>}},</span>
+        <span class=nx>stream</span> <span class=p>=&gt;</span> <span class=nx>display</span><span class=p>.</span><span class=nx>srcObject</span> <span class=o>=</span> <span class=nx>stream</span><span class=p>,</span>
+        <span class=nx>err</span> <span class=p>=&gt;</span> <span class=nx>alert</span><span class=p>(</span><span class=s1>&#39;Something went terribly wrong! :(&#39;</span><span class=p>));</span>
+
+    <span class=c1>// predict and update @ 30fps
+</span><span class=c1></span>    <span class=nx>setInterval</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+        <span class=nx>ctx</span><span class=p>.</span><span class=nx>drawImage</span><span class=p>(</span><span class=nx>display</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=nx>WIDTH</span><span class=p>,</span> <span class=nx>HEIGHT</span><span class=p>);</span>
+
+        <span class=kr>const</span> <span class=nx>image</span> <span class=o>=</span> <span class=nx>ctx</span><span class=p>.</span><span class=nx>getImageData</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=nx>WIDTH</span><span class=p>,</span> <span class=nx>HEIGHT</span><span class=p>);</span>
+        <span class=nb>document</span><span class=p>.</span><span class=nx>body</span><span class=p>.</span><span class=nx>style</span><span class=p>.</span><span class=nx>backgroundColor</span> <span class=o>=</span> <span class=p>(</span><span class=nx>predict</span><span class=p>(</span><span class=nx>model</span><span class=p>,</span> <span class=nx>image</span><span class=p>)</span> <span class=o>?</span> <span class=s1>&#39;red&#39;</span> <span class=o>:</span> <span class=s1>&#39;green&#39;</span><span class=p>);</span> <span class=c1>// if obstacle -&gt; red else -&gt; green
+</span><span class=c1></span>    <span class=p>},</span> <span class=mi>1000</span> <span class=o>/</span> <span class=mi>30</span><span class=p>);</span>
+<span class=p>});</span>
+</code></pre></div><p>So the million dollar question: <em>Did it work?</em> Well, it partially did. Definitely,
+not the best object detector, but was good enough for the demo. Afterall, this is
+all just a hack!</p>
+<p>Complete source <a href=https://github.com/AravindVasudev/object-detector>here</a>.</p>
+</div>
+<footer class="post-footer clearfix">
+<p class=post-tags>
+<span>Tagged:</span>
+<a href=/tags/ml/>ML</a>
+</p>
+<div class=share>
+<a class=icon-linkedin href="https://www.linkedin.com/shareArticle?mini=true&title=Hacking%20out%20an%20object%20detector%20using%20brain.js&url=%2f2018%2fhacking-out-an-object-detector-using-brainjs%2f&summary=" onclick="return window.open(this.href,'linkedin-share','width=554,height=481'),!1" aria-label="Share on LinkedIn">
+<i class="fa fa-linkedin" aria-hidden=true></i>
+</a>
+</div>
+</footer>
+<div class=comments>
+<div id=disqus_thread></div>
+<script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return}var b=document,a=b.createElement('script');a.async=!0,a.src='//aravind-vasudev-blog.disqus.com/embed.js',a.setAttribute('data-timestamp',+new Date),(b.head||b.body).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+</article>
+</div>
+</div>
+</div>
+<footer class=footer>
+<div class=container>
+<div class=site-title-wrapper>
+<h1 class=site-title>
+<a href=/>Yet another programmer's blog</a>
+</h1>
+<a class="button-square button-jump-top js-jump-top" href=# aria-label="Back to Top">
+<i class="fa fa-angle-up" aria-hidden=true></i>
+</a>
+</div>
+<p class=footer-copyright>
+<span>&copy; 2021 / Powered by <a href=https://gohugo.io/>Hugo</a></span>
+</p>
+<p class=footer-copyright>
+<span><a href=https://github.com/roryg/ghostwriter>Ghostwriter theme</a> By <a href=http://jollygoodthemes.com>JollyGoodThemes</a></span>
+<span>/ <a href=https://github.com/jbub/ghostwriter>Ported</a> to Hugo By <a href=https://github.com/jbub>jbub</a></span>
+</p>
+</div>
+</footer>
+<script src=/js/jquery-1.11.3.min.js></script>
+<script src=/js/jquery.fitvids.js></script>
+<script src=/js/scripts.js></script>
+</body>
+</html>
