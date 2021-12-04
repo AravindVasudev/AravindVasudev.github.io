@@ -29,5 +29,6 @@ jobs:
         if: github.ref == 'refs/heads/master'
         with:
           github_token: ${{ secrets.TOKEN }}
-          publish_dir: ./public/foo
+          publish_dir: ./public
           publish_branch: prod
+          cname: aravindvasu.dev
