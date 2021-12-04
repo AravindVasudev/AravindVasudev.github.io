@@ -1,5 +1,5 @@
 baseurl: "/"
-title: "Yet another programmer's blog"
+title: "Blog"
 theme: ghostwriter
 languageCode: en-us
 googleAnalytics: "UA-83211075-2"
@@ -36,7 +36,7 @@ params:
     - post
   intro: true
   headline: "Aravind Vasudevan"
-  description: "An inquisitive polyglot developer and Machine Learning enthusiast."
+  description: "Your friendly neighborhood software engineer."
   github: "https://github.com/AravindVasudev"
   linkedin: "https://linkedin.com/in/aravindvasudev/"
   email: aravind_vasudevan@outlook.com
