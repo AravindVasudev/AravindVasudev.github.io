@@ -57,6 +57,9 @@ menu:
     - name: Blog
       url: /
       weight: 1
+    - name: Misc
+      url: /misc/
+      weight: 2
     - name: About
       url: /about/
-      weight: 2
+      weight: 3
