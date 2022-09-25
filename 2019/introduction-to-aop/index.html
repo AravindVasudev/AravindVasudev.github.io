@@ -1,223 +1,39 @@
-<!doctype html><html prefix="og: http://ogp.me/ns#">
-<head>
-<meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="IE=edge">
-<title>Introduction to Aspect Oriented Programming &#183; Aravind Vasudevan</title>
-<meta name=description content="In a medium to large codebase, many-a-time, you might notice code that shouldn&rsquo;t be in some class/method by design but is necessary. This can be anything from simple logging to transaction handling. As the codebase scales, this keeps adding up to a point where the code becomes laborious to manage.
+<!doctype html><html prefix="og: http://ogp.me/ns#"><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><title>Introduction to Aspect Oriented Programming &#183; Aravind Vasudevan</title><meta name=description content="In a medium to large codebase, many-a-time, you might notice code that shouldn&rsquo;t be in some class/method by design but is necessary. This can be anything from simple logging to transaction handling. As the codebase scales, this keeps adding up to a point where the code becomes laborious to manage.
 Aspect-Oriented Programming provides a way to modularize these kinds of cross-cutting concerns with Aspects. Here is a basic example,
-@Aspect class LoggingAspect { // Aspect  Logger LOGGER = Logger.">
-<meta name=HandheldFriendly content="True">
-<meta name=MobileOptimized content="320">
-<meta name=generator content="Hugo 0.92.0">
-<meta name=robots content="index,follow">
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta property="og:title" content="Introduction to Aspect Oriented Programming">
-<meta property="og:description" content="In a medium to large codebase, many-a-time, you might notice code that shouldn&rsquo;t be in some class/method by design but is necessary. This can be anything from simple logging to transaction handling. As the codebase scales, this keeps adding up to a point where the code becomes laborious to manage.
+@Aspect class LoggingAspect { // Aspect Logger LOGGER = Logger."><meta name=HandheldFriendly content="True"><meta name=MobileOptimized content="320"><meta name=generator content="Hugo 0.104.0"><meta name=robots content="index,follow"><meta name=viewport content="width=device-width,initial-scale=1"><meta property="og:title" content="Introduction to Aspect Oriented Programming"><meta property="og:description" content="In a medium to large codebase, many-a-time, you might notice code that shouldn&rsquo;t be in some class/method by design but is necessary. This can be anything from simple logging to transaction handling. As the codebase scales, this keeps adding up to a point where the code becomes laborious to manage.
 Aspect-Oriented Programming provides a way to modularize these kinds of cross-cutting concerns with Aspects. Here is a basic example,
-@Aspect class LoggingAspect { // Aspect  Logger LOGGER = Logger.">
-<meta property="og:type" content="article">
-<meta property="og:url" content="/2019/introduction-to-aop/">
-<link rel=stylesheet href=/dist/site.css>
-<link rel=stylesheet href=/dist/syntax.css>
-<link rel=stylesheet href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
-<link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css integrity=sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN crossorigin=anonymous>
-</head>
-<body>
-<script type=application/javascript>var dnt=navigator.doNotTrack||window.doNotTrack||navigator.msDoNotTrack,doNotTrack=dnt=="1"||dnt=="yes";doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-83211075-2','auto'),ga('set','anonymizeIp',!0),ga('send','pageview'))</script>
-<div id=wrapper>
-<header class=site-header>
-<div class=container>
-<div class=site-title-wrapper>
-<h1 class=site-title>
-<a href=/>Blog</a>
-</h1>
-<a class=button-square href=/index.xml aria-label=RSS><i class="fa fa-rss" aria-hidden=true></i></a>
-<a class="button-square button-social hint--top" data-hint=Github aria-label=Github href=https://github.com/AravindVasudev rel=me>
-<i class="fa fa-github-alt" aria-hidden=true></i>
-</a>
-<a class="button-square button-social hint--top" data-hint=LinkedIn aria-label=LinkedIn href=https://linkedin.com/in/aravindvasudev/ rel=me>
-<i class="fa fa-linkedin" aria-hidden=true></i>
-</a>
-<a class="button-square button-social hint--top" data-hint=Email aria-label="Send an Email" href=mailto:aravind_vasudevan@outlook.com>
-<i class="fa fa-envelope" aria-hidden=true></i>
-</a>
-</div>
-<ul class=site-nav>
-<li class=site-nav-item>
-<a href=/>Blog</a>
-</li>
-<li class=site-nav-item>
-<a href=/misc/>Misc</a>
-</li>
-<li class=site-nav-item>
-<a href=/about/>About</a>
-</li>
-</ul>
-</div>
-</header>
-<div id=container>
-<div class=container>
-<article class=post-container itemscope itemtype=http://schema.org/BlogPosting>
-<header class=post-header>
-<h1 class=post-title itemprop="name headline">Introduction to Aspect Oriented Programming</h1>
-<p class=post-date>
-<span>Published <time datetime=2019-03-30 itemprop=datePublished>Sat, Mar 30, 2019</time></span>
+@Aspect class LoggingAspect { // Aspect Logger LOGGER = Logger."><meta property="og:type" content="article"><meta property="og:url" content="/2019/introduction-to-aop/"><link rel=stylesheet href=/dist/site.css><link rel=stylesheet href=/dist/syntax.css><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic"><link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css integrity=sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN crossorigin=anonymous></head><body><script type=application/javascript>var dnt=navigator.doNotTrack||window.doNotTrack||navigator.msDoNotTrack,doNotTrack=dnt=="1"||dnt=="yes";doNotTrack||(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-83211075-2","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"))</script><div id=wrapper><header class=site-header><div class=container><div class=site-title-wrapper><h1 class=site-title><a href=/>Blog</a></h1><a class=button-square href=/index.xml aria-label=RSS><i class="fa fa-rss" aria-hidden=true></i></a>
+<a class="button-square button-social hint--top" data-hint=Github aria-label=Github href=https://github.com/AravindVasudev rel=me><i class="fa fa-github-alt" aria-hidden=true></i></a>
+<a class="button-square button-social hint--top" data-hint=LinkedIn aria-label=LinkedIn href=https://linkedin.com/in/aravindvasudev/ rel=me><i class="fa fa-linkedin" aria-hidden=true></i></a>
+<a class="button-square button-social hint--top" data-hint=Email aria-label="Send an Email" href=mailto:aravind_vasudevan@outlook.com><i class="fa fa-envelope" aria-hidden=true></i></a></div><ul class=site-nav><li class=site-nav-item><a href=/>Blog</a></li><li class=site-nav-item><a href=/misc/>Misc</a></li><li class=site-nav-item><a href=/about/>About</a></li></ul></div></header><div id=container><div class=container><article class=post-container itemscope itemtype=http://schema.org/BlogPosting><header class=post-header><h1 class=post-title itemprop="name headline">Introduction to Aspect Oriented Programming</h1><p class=post-date><span>Published <time datetime=2019-03-30 itemprop=datePublished>Sat, Mar 30, 2019</time></span>
 <span>by</span>
-<span itemscope itemprop=author itemtype=https://schema.org/Person>
-<span itemprop=name>
-<a href=https://github.com/AravindVasudev itemprop=url rel=author>Aravind Vasudevan</a>
-</span>
-</span>
-</p>
-<p class="post-reading post-line">
-<span>Estimated reading time: 3 min</span>
-</p>
-</header>
-<div class="post-content clearfix" itemprop=articleBody>
-<p>In a medium to large codebase, many-a-time, you might notice code that shouldn&rsquo;t be in some class/method by design but is necessary. This can be anything from simple logging to transaction handling. As the codebase scales, this keeps adding up to a point where the code becomes laborious to manage.</p>
-<p><img src=/images/blog/aop_1.png alt="codebase on fire!"></p>
-<p>Aspect-Oriented Programming provides a way to modularize these kinds of cross-cutting concerns with <em>Aspects</em>. Here is a basic example,</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=nd>@Aspect</span>
-<span class=kd>class</span> <span class=nc>LoggingAspect</span> <span class=o>{</span> <span class=c1>// Aspect
-</span><span class=c1></span>    <span class=n>Logger</span> <span class=n>LOGGER</span> <span class=o>=</span> <span class=n>Logger</span><span class=o>.</span><span class=na>getLogger</span><span class=o>(</span><span class=n>LoggingAspect</span><span class=o>.</span><span class=na>class</span><span class=o>.</span><span class=na>getName</span><span class=o>());</span>
-
-    <span class=nd>@After</span><span class=o>(</span><span class=s>&#34;execution(* *(..))&#34;</span><span class=o>)</span> <span class=c1>// Pointcut
-</span><span class=c1></span>    <span class=kt>void</span> <span class=nf>logExecutionAdvice</span><span class=o>(</span><span class=n>JoinPoint</span> <span class=n>joinPoint</span><span class=o>)</span> <span class=o>{</span> <span class=c1>// Advice
-</span><span class=c1></span>        <span class=n>LOGGER</span><span class=o>.</span><span class=na>info</span><span class=o>(</span><span class=n>joinPoint</span><span class=o>.</span><span class=na>getSignature</span><span class=o>().</span><span class=na>getName</span><span class=o>()</span> <span class=o>+</span> <span class=s>&#34; executed&#34;</span><span class=o>);</span>
-    <span class=o>}</span>
-<span class=o>}</span>
-</code></pre></div><h3 id=aspect>Aspect</h3>
-<p>An Aspect is a special class that contains the cross-cutting concerns. In Java, this can be created using annotations, like as above, or by using the non-java aspect format.</p>
-<h3 id=pointcut>Pointcut</h3>
-<p>A pointcut is a special regex-like string that is used to specify where to inject your code. This can be any point in the program&rsquo;s execution (a.k.a the <em>joinpoint</em>). A Joinpoint could be a method-body, a method-call, an exception handler, a class, an object, etc.</p>
-<h3 id=advice>Advice</h3>
-<p>An advice contains the cross-cutting logic. Based on when to execute, it can be one of the below:</p>
-<table>
-<thead>
-<tr>
-<th style=text-align:right>Advice Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style=text-align:right><em>Before</em></td>
-<td>Runs before the joinpoint&rsquo;s execution.</td>
-</tr>
-<tr>
-<td style=text-align:right><em>After</em></td>
-<td>Runs after the joinpoint&rsquo;s execution.</td>
-</tr>
-<tr>
-<td style=text-align:right><em>AfterReturning</em></td>
-<td>Runs after the successful execution of the joinpoint.</td>
-</tr>
-<tr>
-<td style=text-align:right><em>AfterThrowing</em></td>
-<td>Runs after the joinpoint if it throws an exception.</td>
-</tr>
-<tr>
-<td style=text-align:right><em>Around</em></td>
-<td>Gives the before and after control to the advice.</td>
-</tr>
-</tbody>
-</table>
-<p>Here is a more complex example that you might see in a production environment:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=nd>@Aspect</span>
-<span class=kd>class</span> <span class=nc>TransactionAspect</span> <span class=o>{</span>
-    <span class=nd>@Around</span><span class=o>(</span><span class=s>&#34;@annotation(com.example.Transaction)&#34;</span><span class=o>)</span> <span class=c1>// Injects to joinpoint with @Transaction annotation
-</span><span class=c1></span>    <span class=kd>public</span> <span class=n>Object</span> <span class=nf>transactionAdvice</span><span class=o>(</span><span class=n>ProceedingJoinPoint</span> <span class=n>joinPoint</span><span class=o>)</span> <span class=kd>throws</span> <span class=n>Throwable</span> <span class=o>{</span>
-        <span class=n>Object</span> <span class=n>result</span><span class=o>;</span>
-        <span class=k>try</span> <span class=o>{</span>
-            <span class=n>TransactionManager</span><span class=o>.</span><span class=na>begin</span><span class=o>();</span>
-            <span class=n>Object</span> <span class=n>result</span> <span class=o>=</span> <span class=n>joinPoint</span><span class=o>.</span><span class=na>proceed</span><span class=o>();</span> <span class=c1>// execution returns to the joinpoint
-</span><span class=c1></span>            <span class=n>TransactionManager</span><span class=o>.</span><span class=na>commit</span><span class=o>();</span>
-        <span class=o>}</span> <span class=k>catch</span> <span class=o>(</span><span class=n>Exception</span> <span class=n>e</span><span class=o>)</span> <span class=o>{</span>
-            <span class=n>TransactionManager</span><span class=o>.</span><span class=na>rollback</span><span class=o>();</span>
-            <span class=k>throw</span> <span class=n>e</span><span class=o>;</span>
-        <span class=o>}</span>
-
-        <span class=k>return</span> <span class=n>result</span><span class=o>;</span>
-    <span class=o>}</span>
-<span class=o>}</span>
-</code></pre></div><p>The above example runs the <code>@Transaction</code> annotated methods in a transaction.</p>
-<p><img src=/images/blog/aop_2.svg alt="TransactionAspect working"></p>
-<h3 id=weaving>Weaving</h3>
-<p>Weaving is the process of injecting cross-cutting concerns into joinpoints. Based on when it is done, it is classified into of the following:</p>
-<table>
-<thead>
-<tr>
-<th style=text-align:right>Weaving Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style=text-align:right>Runtime Weaving</td>
-<td>The advice is injected at runtime. Frameworks like Spring AOP use proxies to achieve this and are comparatively slower.</td>
-</tr>
-<tr>
-<td style=text-align:right>Compile Time Weaving</td>
-<td>The advice is injected during compilation. Frameworks like AspectJ have their own compiler to achieve this.</td>
-</tr>
-<tr>
-<td style=text-align:right>Binary Weaving</td>
-<td>The injection is done after compilation, i.e., into class/jar files.</td>
-</tr>
-<tr>
-<td style=text-align:right>Load Time Weaving</td>
-<td>The injection is done when the classes are loaded by the classloader. Frameworks like AspectJ use a javaagent to achieve this.</td>
-</tr>
-</tbody>
-</table>
-<p>Hope this gave you a basic idea of what AOP can do and all its terminologies. So long!</p>
-<h2 id=references>References</h2>
-<ul>
-<li><a href=https://www.eclipse.org/aspectj/doc/released/progguide/starting.html>Getting Started with AspectJ</a></li>
-<li><a href=https://www.baeldung.com/spring-aop-vs-aspectj>Spring AOP Vs AspectJ</a></li>
-</ul>
-</div>
-<footer class="post-footer clearfix">
-<p class=post-tags>
-<span>Tagged:</span>
-<a href=/tags/aop/>aop</a>
-</p>
-<div class=share>
-<a class=icon-linkedin href="https://www.linkedin.com/shareArticle?mini=true&title=Introduction%20to%20Aspect%20Oriented%20Programming&url=%2f2019%2fintroduction-to-aop%2f&summary=" onclick="return window.open(this.href,'linkedin-share','width=554,height=481'),!1" aria-label="Share on LinkedIn">
-<i class="fa fa-linkedin" aria-hidden=true></i>
-</a>
-</div>
-</footer>
-<div class=comments>
-<div id=disqus_thread></div>
-<script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return}var b=document,a=b.createElement('script');a.async=!0,a.src='//aravind-vasudev-blog.disqus.com/embed.js',a.setAttribute('data-timestamp',+new Date),(b.head||b.body).appendChild(a)})()</script>
-<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
-<a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
-</div>
-</article>
-</div>
-</div>
-</div>
-<footer class=footer>
-<div class=container>
-<div class=site-title-wrapper>
-<h1 class=site-title>
-<a href=/>Blog</a>
-</h1>
-<a class="button-square button-jump-top js-jump-top" href=# aria-label="Back to Top">
-<i class="fa fa-angle-up" aria-hidden=true></i>
-</a>
-</div>
-<p class=footer-copyright>
-<span>&copy; 2021 / Powered by <a href=https://gohugo.io/>Hugo</a></span>
-</p>
-<p class=footer-copyright>
-<span>SEND ANY CORRECTIONS/OPINIONS TO ARAVIND_VASUDEVAN [AT] OUTLOOK [DOT] COM</span>
-</p>
-</div>
-</footer>
-<script src=/js/jquery-1.11.3.min.js></script>
+<span itemscope itemprop=author itemtype=https://schema.org/Person><span itemprop=name><a href=https://github.com/AravindVasudev itemprop=url rel=author>Aravind Vasudevan</a></span></span></p><p class="post-reading post-line"><span>Estimated reading time: 3 min</span></p></header><div class="post-content clearfix" itemprop=articleBody><p>In a medium to large codebase, many-a-time, you might notice code that shouldn&rsquo;t be in some class/method by design but is necessary. This can be anything from simple logging to transaction handling. As the codebase scales, this keeps adding up to a point where the code becomes laborious to manage.</p><p><img src=/images/blog/aop_1.png alt="codebase on fire!"></p><p>Aspect-Oriented Programming provides a way to modularize these kinds of cross-cutting concerns with <em>Aspects</em>. Here is a basic example,</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=nd>@Aspect</span>
+</span></span><span class=line><span class=cl><span class=kd>class</span> <span class=nc>LoggingAspect</span> <span class=o>{</span> <span class=c1>// Aspect
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=n>Logger</span> <span class=n>LOGGER</span> <span class=o>=</span> <span class=n>Logger</span><span class=o>.</span><span class=na>getLogger</span><span class=o>(</span><span class=n>LoggingAspect</span><span class=o>.</span><span class=na>class</span><span class=o>.</span><span class=na>getName</span><span class=o>());</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nd>@After</span><span class=o>(</span><span class=s>&#34;execution(* *(..))&#34;</span><span class=o>)</span> <span class=c1>// Pointcut
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kt>void</span> <span class=nf>logExecutionAdvice</span><span class=o>(</span><span class=n>JoinPoint</span> <span class=n>joinPoint</span><span class=o>)</span> <span class=o>{</span> <span class=c1>// Advice
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=n>LOGGER</span><span class=o>.</span><span class=na>info</span><span class=o>(</span><span class=n>joinPoint</span><span class=o>.</span><span class=na>getSignature</span><span class=o>().</span><span class=na>getName</span><span class=o>()</span> <span class=o>+</span> <span class=s>&#34; executed&#34;</span><span class=o>);</span>
+</span></span><span class=line><span class=cl>    <span class=o>}</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span></code></pre></div><h3 id=aspect>Aspect</h3><p>An Aspect is a special class that contains the cross-cutting concerns. In Java, this can be created using annotations, like as above, or by using the non-java aspect format.</p><h3 id=pointcut>Pointcut</h3><p>A pointcut is a special regex-like string that is used to specify where to inject your code. This can be any point in the program&rsquo;s execution (a.k.a the <em>joinpoint</em>). A Joinpoint could be a method-body, a method-call, an exception handler, a class, an object, etc.</p><h3 id=advice>Advice</h3><p>An advice contains the cross-cutting logic. Based on when to execute, it can be one of the below:</p><table><thead><tr><th style=text-align:right>Advice Type</th><th>Description</th></tr></thead><tbody><tr><td style=text-align:right><em>Before</em></td><td>Runs before the joinpoint&rsquo;s execution.</td></tr><tr><td style=text-align:right><em>After</em></td><td>Runs after the joinpoint&rsquo;s execution.</td></tr><tr><td style=text-align:right><em>AfterReturning</em></td><td>Runs after the successful execution of the joinpoint.</td></tr><tr><td style=text-align:right><em>AfterThrowing</em></td><td>Runs after the joinpoint if it throws an exception.</td></tr><tr><td style=text-align:right><em>Around</em></td><td>Gives the before and after control to the advice.</td></tr></tbody></table><p>Here is a more complex example that you might see in a production environment:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=nd>@Aspect</span>
+</span></span><span class=line><span class=cl><span class=kd>class</span> <span class=nc>TransactionAspect</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=nd>@Around</span><span class=o>(</span><span class=s>&#34;@annotation(com.example.Transaction)&#34;</span><span class=o>)</span> <span class=c1>// Injects to joinpoint with @Transaction annotation
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kd>public</span> <span class=n>Object</span> <span class=nf>transactionAdvice</span><span class=o>(</span><span class=n>ProceedingJoinPoint</span> <span class=n>joinPoint</span><span class=o>)</span> <span class=kd>throws</span> <span class=n>Throwable</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>Object</span> <span class=n>result</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>try</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>            <span class=n>TransactionManager</span><span class=o>.</span><span class=na>begin</span><span class=o>();</span>
+</span></span><span class=line><span class=cl>            <span class=n>Object</span> <span class=n>result</span> <span class=o>=</span> <span class=n>joinPoint</span><span class=o>.</span><span class=na>proceed</span><span class=o>();</span> <span class=c1>// execution returns to the joinpoint
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=n>TransactionManager</span><span class=o>.</span><span class=na>commit</span><span class=o>();</span>
+</span></span><span class=line><span class=cl>        <span class=o>}</span> <span class=k>catch</span> <span class=o>(</span><span class=n>Exception</span> <span class=n>e</span><span class=o>)</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>            <span class=n>TransactionManager</span><span class=o>.</span><span class=na>rollback</span><span class=o>();</span>
+</span></span><span class=line><span class=cl>            <span class=k>throw</span> <span class=n>e</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>        <span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>result</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>    <span class=o>}</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span></code></pre></div><p>The above example runs the <code>@Transaction</code> annotated methods in a transaction.</p><p><img src=/images/blog/aop_2.svg alt="TransactionAspect working"></p><h3 id=weaving>Weaving</h3><p>Weaving is the process of injecting cross-cutting concerns into joinpoints. Based on when it is done, it is classified into of the following:</p><table><thead><tr><th style=text-align:right>Weaving Type</th><th>Description</th></tr></thead><tbody><tr><td style=text-align:right>Runtime Weaving</td><td>The advice is injected at runtime. Frameworks like Spring AOP use proxies to achieve this and are comparatively slower.</td></tr><tr><td style=text-align:right>Compile Time Weaving</td><td>The advice is injected during compilation. Frameworks like AspectJ have their own compiler to achieve this.</td></tr><tr><td style=text-align:right>Binary Weaving</td><td>The injection is done after compilation, i.e., into class/jar files.</td></tr><tr><td style=text-align:right>Load Time Weaving</td><td>The injection is done when the classes are loaded by the classloader. Frameworks like AspectJ use a javaagent to achieve this.</td></tr></tbody></table><p>Hope this gave you a basic idea of what AOP can do and all its terminologies. So long!</p><h2 id=references>References</h2><ul><li><a href=https://www.eclipse.org/aspectj/doc/released/progguide/starting.html>Getting Started with AspectJ</a></li><li><a href=https://www.baeldung.com/spring-aop-vs-aspectj>Spring AOP Vs AspectJ</a></li></ul></div><footer class="post-footer clearfix"><p class=post-tags><span>Tagged:</span>
+<a href=/tags/aop/>aop</a></p><div class=share><a class=icon-linkedin href="https://www.linkedin.com/shareArticle?mini=true&title=Introduction%20to%20Aspect%20Oriented%20Programming&url=%2f2019%2fintroduction-to-aop%2f&summary=" onclick='return window.open(this.href,"linkedin-share","width=554,height=481"),!1' aria-label="Share on LinkedIn"><i class="fa fa-linkedin" aria-hidden=true></i></a></div></footer><div class=comments><div id=disqus_thread></div><script type=application/javascript>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//aravind-vasudev-blog.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div></article></div></div></div><footer class=footer><div class=container><div class=site-title-wrapper><h1 class=site-title><a href=/>Blog</a></h1><a class="button-square button-jump-top js-jump-top" href=# aria-label="Back to Top"><i class="fa fa-angle-up" aria-hidden=true></i></a></div><p class=footer-copyright><span>&copy; 2022 / Powered by <a href=https://gohugo.io/>Hugo</a></span></p><p class=footer-copyright><span>SEND ANY CORRECTIONS/OPINIONS TO ARAVIND_VASUDEVAN [AT] OUTLOOK [DOT] COM</span></p></div></footer><script src=/js/jquery-1.11.3.min.js></script>
 <script src=/js/jquery.fitvids.js></script>
-<script src=/js/scripts.js></script>
-</body>
-</html>
+<script src=/js/scripts.js></script></body></html>

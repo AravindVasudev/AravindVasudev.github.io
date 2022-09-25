@@ -1,388 +1,226 @@
-<!doctype html><html prefix="og: http://ogp.me/ns#">
-<head>
-<meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="IE=edge">
-<title>Concurrency and Parallelelism &#183; Aravind Vasudevan</title>
-<meta name=description content="We live in a universe where literally every system can multiprocess (Some claim that the universe itself is a parallel system but I&rsquo;m going to leave that for another blog) but most of our programs are sequential. This is mainly because parallel systems are arduous to design.
-Concurrent systems grow in complexity exponentially because the more concurrent the system gets, more the places it could fail. Handling for all the failable cases is what makes concurrent design laborious.">
-<meta name=HandheldFriendly content="True">
-<meta name=MobileOptimized content="320">
-<meta name=generator content="Hugo 0.92.0">
-<meta name=robots content="index,follow">
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta property="og:title" content="Concurrency and Parallelelism">
-<meta property="og:description" content="We live in a universe where literally every system can multiprocess (Some claim that the universe itself is a parallel system but I&rsquo;m going to leave that for another blog) but most of our programs are sequential. This is mainly because parallel systems are arduous to design.
-Concurrent systems grow in complexity exponentially because the more concurrent the system gets, more the places it could fail. Handling for all the failable cases is what makes concurrent design laborious.">
-<meta property="og:type" content="article">
-<meta property="og:url" content="/2018/concurrency-and-parallelism/">
-<link rel=stylesheet href=/dist/site.css>
-<link rel=stylesheet href=/dist/syntax.css>
-<link rel=stylesheet href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
-<link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css integrity=sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN crossorigin=anonymous>
-</head>
-<body>
-<script type=application/javascript>var dnt=navigator.doNotTrack||window.doNotTrack||navigator.msDoNotTrack,doNotTrack=dnt=="1"||dnt=="yes";doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-83211075-2','auto'),ga('set','anonymizeIp',!0),ga('send','pageview'))</script>
-<div id=wrapper>
-<header class=site-header>
-<div class=container>
-<div class=site-title-wrapper>
-<h1 class=site-title>
-<a href=/>Blog</a>
-</h1>
-<a class=button-square href=/index.xml aria-label=RSS><i class="fa fa-rss" aria-hidden=true></i></a>
-<a class="button-square button-social hint--top" data-hint=Github aria-label=Github href=https://github.com/AravindVasudev rel=me>
-<i class="fa fa-github-alt" aria-hidden=true></i>
-</a>
-<a class="button-square button-social hint--top" data-hint=LinkedIn aria-label=LinkedIn href=https://linkedin.com/in/aravindvasudev/ rel=me>
-<i class="fa fa-linkedin" aria-hidden=true></i>
-</a>
-<a class="button-square button-social hint--top" data-hint=Email aria-label="Send an Email" href=mailto:aravind_vasudevan@outlook.com>
-<i class="fa fa-envelope" aria-hidden=true></i>
-</a>
-</div>
-<ul class=site-nav>
-<li class=site-nav-item>
-<a href=/>Blog</a>
-</li>
-<li class=site-nav-item>
-<a href=/misc/>Misc</a>
-</li>
-<li class=site-nav-item>
-<a href=/about/>About</a>
-</li>
-</ul>
-</div>
-</header>
-<div id=container>
-<div class=container>
-<article class=post-container itemscope itemtype=http://schema.org/BlogPosting>
-<header class=post-header>
-<h1 class=post-title itemprop="name headline">Concurrency and Parallelelism</h1>
-<p class=post-date>
-<span>Published <time datetime=2018-07-30 itemprop=datePublished>Mon, Jul 30, 2018</time></span>
+<!doctype html><html prefix="og: http://ogp.me/ns#"><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><title>Concurrency and Parallelelism &#183; Aravind Vasudevan</title><meta name=description content="We live in a universe where literally every system can multiprocess (Some claim that the universe itself is a parallel system but I&rsquo;m going to leave that for another blog) but most of our programs are sequential. This is mainly because parallel systems are arduous to design.
+Concurrent systems grow in complexity exponentially because the more concurrent the system gets, more the places it could fail. Handling for all the failable cases is what makes concurrent design laborious."><meta name=HandheldFriendly content="True"><meta name=MobileOptimized content="320"><meta name=generator content="Hugo 0.104.0"><meta name=robots content="index,follow"><meta name=viewport content="width=device-width,initial-scale=1"><meta property="og:title" content="Concurrency and Parallelelism"><meta property="og:description" content="We live in a universe where literally every system can multiprocess (Some claim that the universe itself is a parallel system but I&rsquo;m going to leave that for another blog) but most of our programs are sequential. This is mainly because parallel systems are arduous to design.
+Concurrent systems grow in complexity exponentially because the more concurrent the system gets, more the places it could fail. Handling for all the failable cases is what makes concurrent design laborious."><meta property="og:type" content="article"><meta property="og:url" content="/2018/concurrency-and-parallelism/"><link rel=stylesheet href=/dist/site.css><link rel=stylesheet href=/dist/syntax.css><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic"><link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css integrity=sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN crossorigin=anonymous></head><body><script type=application/javascript>var dnt=navigator.doNotTrack||window.doNotTrack||navigator.msDoNotTrack,doNotTrack=dnt=="1"||dnt=="yes";doNotTrack||(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-83211075-2","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"))</script><div id=wrapper><header class=site-header><div class=container><div class=site-title-wrapper><h1 class=site-title><a href=/>Blog</a></h1><a class=button-square href=/index.xml aria-label=RSS><i class="fa fa-rss" aria-hidden=true></i></a>
+<a class="button-square button-social hint--top" data-hint=Github aria-label=Github href=https://github.com/AravindVasudev rel=me><i class="fa fa-github-alt" aria-hidden=true></i></a>
+<a class="button-square button-social hint--top" data-hint=LinkedIn aria-label=LinkedIn href=https://linkedin.com/in/aravindvasudev/ rel=me><i class="fa fa-linkedin" aria-hidden=true></i></a>
+<a class="button-square button-social hint--top" data-hint=Email aria-label="Send an Email" href=mailto:aravind_vasudevan@outlook.com><i class="fa fa-envelope" aria-hidden=true></i></a></div><ul class=site-nav><li class=site-nav-item><a href=/>Blog</a></li><li class=site-nav-item><a href=/misc/>Misc</a></li><li class=site-nav-item><a href=/about/>About</a></li></ul></div></header><div id=container><div class=container><article class=post-container itemscope itemtype=http://schema.org/BlogPosting><header class=post-header><h1 class=post-title itemprop="name headline">Concurrency and Parallelelism</h1><p class=post-date><span>Published <time datetime=2018-07-30 itemprop=datePublished>Mon, Jul 30, 2018</time></span>
 <span>by</span>
-<span itemscope itemprop=author itemtype=https://schema.org/Person>
-<span itemprop=name>
-<a href=https://github.com/AravindVasudev itemprop=url rel=author>Aravind Vasudevan</a>
-</span>
-</span>
-</p>
-<p class="post-reading post-line">
-<span>Estimated reading time: 8 min</span>
-</p>
-</header>
-<div class="post-content clearfix" itemprop=articleBody>
-<p>We live in a universe where literally every system can multiprocess (Some claim
+<span itemscope itemprop=author itemtype=https://schema.org/Person><span itemprop=name><a href=https://github.com/AravindVasudev itemprop=url rel=author>Aravind Vasudevan</a></span></span></p><p class="post-reading post-line"><span>Estimated reading time: 8 min</span></p></header><div class="post-content clearfix" itemprop=articleBody><p>We live in a universe where literally every system can multiprocess (Some claim
 that the universe itself is a parallel system but I&rsquo;m going to leave
 that for another blog) but most of our programs are sequential. This is mainly
-because parallel systems are arduous to design.</p>
-<p>Concurrent systems grow in complexity exponentially because the more concurrent the
+because parallel systems are arduous to design.</p><p>Concurrent systems grow in complexity exponentially because the more concurrent the
 system gets, more the places it could fail. Handling for all the failable cases is
 what makes concurrent design laborious. Moreover, many developers find it hard
-to differentiate concurrency from parallelism.</p>
-<h2 id=concurrency-vs-parallelism>Concurrency Vs Parallelism</h2>
-<p>Many confuse concurrency with parallelism. I had this very confusion in my college
+to differentiate concurrency from parallelism.</p><h2 id=concurrency-vs-parallelism>Concurrency Vs Parallelism</h2><p>Many confuse concurrency with parallelism. I had this very confusion in my college
 days and watching <a href=https://blog.golang.org/concurrency-is-not-parallelism>Rob Pike&rsquo;s &ldquo;Concurrency is not parallelism&rdquo;</a>
 cleared it up for me. I would recommend you to watch it if you suffer from the
-same confusion but if you haven&rsquo;t got 30 minutes, there is a brief summary:</p>
-<blockquote>
-<p>Parallelism is running tasks at the same time whereas concurrency is a way of
-designing a system in which tasks are designed to not depend on each other.</p>
-</blockquote>
-<p>Consider you are designing a server in which when a user sends a request, you
+same confusion but if you haven&rsquo;t got 30 minutes, there is a brief summary:</p><blockquote><p>Parallelism is running tasks at the same time whereas concurrency is a way of
+designing a system in which tasks are designed to not depend on each other.</p></blockquote><p>Consider you are designing a server in which when a user sends a request, you
 read from a database, parse a template, and respond. When the server expands
 to serve more than one user, you can&rsquo;t work parallelly since there is a limit to
 how many parallel tasks a system can do. It would be impossible to design such
-scalable systems we have today with just parallelism.</p>
-<p><img src=/images/blog/concurrency.jpg alt="concurrency to the rescue"></p>
-<p>If you meticulously analyze this problem, you would see that a considerable
+scalable systems we have today with just parallelism.</p><p><img src=/images/blog/concurrency.jpg alt="concurrency to the rescue"></p><p>If you meticulously analyze this problem, you would see that a considerable
 amount the time is wasted waiting for the response from the
-database, a.k.a <em>blocking</em>.</p>
-<p>Blocking occurs when a task is waiting for some operation to complete. This can
+database, a.k.a <em>blocking</em>.</p><p>Blocking occurs when a task is waiting for some operation to complete. This can
 be I/O, network calls, database calls, file reads, etc. During blocking, a
-process remains idle until it can proceed.</p>
-<p>A concurrent system can take advantage of this and run a different task when
-blocked hence utilizing CPU to its max.</p>
-<p><img src=/images/blog/sequential_parallel_concurrent.svg alt="sequential, parallel, and concurrent flow"></p>
-<p>Since the tasks are designed to run independently in concurrent execution, the
+process remains idle until it can proceed.</p><p>A concurrent system can take advantage of this and run a different task when
+blocked hence utilizing CPU to its max.</p><p><img src=/images/blog/sequential_parallel_concurrent.svg alt="sequential, parallel, and concurrent flow"></p><p>Since the tasks are designed to run independently in concurrent execution, the
 system can effectively switch between them when one is blocked. Back to our
 server problem, the server can be designed to work concurrently so that when
 one task (user request) is blocked due to database call, the process can
-perform another task instead to blocking.</p>
-<p>In short, concurrency
+perform another task instead to blocking.</p><p>In short, concurrency
 is a design in which two or more tasks can overlap but not necessarily run in
 parallel, though concurrency can be used to achieve parallelism since the order
-of execution of tasks does not matter in a concurrent system.</p>
-<h2 id=concurrency-techniques>Concurrency Techniques</h2>
-<h2 id=threads>Threads</h2>
-<p><a href=https://en.wikipedia.org/wiki/Thread_(computing)>Threads</a> have been the
+of execution of tasks does not matter in a concurrent system.</p><h2 id=concurrency-techniques>Concurrency Techniques</h2><h2 id=threads>Threads</h2><p><a href=https://en.wikipedia.org/wiki/Thread_(computing)>Threads</a> have been the
 idiomatic approach to concurrency since its conception. In threading, the
 task is broken down into smaller units called threads which run concurrently
-(or parallelly if the system allows it to).</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=kn>from</span> <span class=nn>threading</span> <span class=kn>import</span> <span class=n>Thread</span>
-
-<span class=k>def</span> <span class=nf>thread</span><span class=p>():</span>
-    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;Hello&#34;</span><span class=p>)</span>
-
-<span class=k>for</span> <span class=n>_</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>10</span><span class=p>):</span>
-    <span class=n>Thread</span><span class=p>(</span><span class=n>target</span><span class=o>=</span><span class=n>thread</span><span class=p>)</span><span class=o>.</span><span class=n>start</span><span class=p>()</span>
-</code></pre></div><p>In the above example, ten concurrent instances of <code>thread</code> are created. They can
+(or parallelly if the system allows it to).</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>threading</span> <span class=kn>import</span> <span class=n>Thread</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>thread</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;Hello&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>_</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>10</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>Thread</span><span class=p>(</span><span class=n>target</span><span class=o>=</span><span class=n>thread</span><span class=p>)</span><span class=o>.</span><span class=n>start</span><span class=p>()</span>
+</span></span></code></pre></div><p>In the above example, ten concurrent instances of <code>thread</code> are created. They can
 run parallelly or overlap. This approach gets complex when the
-threads need to access the same data.</p>
-<p>Consider two threads, one trying to increment and the other trying to decrement
+threads need to access the same data.</p><p>Consider two threads, one trying to increment and the other trying to decrement
 the same memory location. When it is run sequentially, the result would be the old
 value. But when run concurrently, assume the first thread reads the value and
 before it writes the update, the second thread reads the old value and updates the
 memory and then the first threads writes. Now the value would be one increment
-from the old. This is called a race condition.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=kd>public</span> <span class=kd>class</span> <span class=nc>RaceConditionDemo</span> <span class=o>{</span>
-    <span class=kd>private</span> <span class=kd>static</span> <span class=kt>int</span> <span class=n>data</span> <span class=o>=</span> <span class=n>0</span><span class=o>;</span>
-
-    <span class=kd>public</span> <span class=kd>static</span> <span class=kt>void</span> <span class=nf>increment</span><span class=o>()</span> <span class=o>{</span>
-        <span class=n>data</span><span class=o>++;</span>
-    <span class=o>}</span>
-
-    <span class=kd>public</span> <span class=kd>static</span> <span class=kt>void</span> <span class=nf>decrement</span><span class=o>()</span> <span class=o>{</span>
-        <span class=n>data</span><span class=o>--;</span>
-    <span class=o>}</span>
-
-    <span class=kd>public</span> <span class=kd>static</span> <span class=kt>void</span> <span class=nf>main</span><span class=o>(</span><span class=n>String</span><span class=o>[]</span> <span class=n>args</span><span class=o>)</span> <span class=kd>throws</span> <span class=n>InterruptedException</span> <span class=o>{</span>
-        <span class=c1>// Create 1000 threads to increment and 1000 to decrement `data`
-</span><span class=c1></span>        <span class=n>Thread</span><span class=o>[]</span> <span class=n>threads</span> <span class=o>=</span> <span class=k>new</span> <span class=n>Thread</span><span class=o>[</span><span class=n>2000</span><span class=o>];</span>
-        <span class=k>for</span> <span class=o>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=n>0</span><span class=o>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>2000</span><span class=o>;</span> <span class=n>i</span> <span class=o>+=</span> <span class=n>2</span><span class=o>)</span> <span class=o>{</span>
-            <span class=n>threads</span><span class=o>[</span><span class=n>i</span><span class=o>]</span> <span class=o>=</span> <span class=k>new</span> <span class=n>Thread</span><span class=o>(()</span> <span class=o>-&gt;</span> <span class=n>increment</span><span class=o>());</span>
-            <span class=n>threads</span><span class=o>[</span><span class=n>i</span> <span class=o>+</span> <span class=n>1</span><span class=o>]</span> <span class=o>=</span> <span class=k>new</span> <span class=n>Thread</span><span class=o>(()</span> <span class=o>-&gt;</span> <span class=n>decrement</span><span class=o>());</span>
-        <span class=o>}</span>
-
-        <span class=c1>// Start all threads
-</span><span class=c1></span>        <span class=k>for</span> <span class=o>(</span><span class=n>Thread</span> <span class=n>t</span> <span class=o>:</span> <span class=n>threads</span><span class=o>)</span> <span class=o>{</span>
-            <span class=n>t</span><span class=o>.</span><span class=na>start</span><span class=o>();</span>
-        <span class=o>}</span>
-
-        <span class=c1>// Wait for all to complete
-</span><span class=c1></span>        <span class=k>for</span> <span class=o>(</span><span class=n>Thread</span> <span class=n>t</span> <span class=o>:</span> <span class=n>threads</span><span class=o>)</span> <span class=o>{</span>
-            <span class=n>t</span><span class=o>.</span><span class=na>join</span><span class=o>();</span>
-        <span class=o>}</span>
-
-        <span class=c1>// Log data
-</span><span class=c1></span>        <span class=n>System</span><span class=o>.</span><span class=na>out</span><span class=o>.</span><span class=na>println</span><span class=o>(</span><span class=n>data</span><span class=o>);</span>
-    <span class=o>}</span>
-<span class=o>}</span>
-</code></pre></div><p>Running the above Java program would yield a different value for each run.
+from the old. This is called a race condition.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kd>public</span> <span class=kd>class</span> <span class=nc>RaceConditionDemo</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>private</span> <span class=kd>static</span> <span class=kt>int</span> <span class=n>data</span> <span class=o>=</span> <span class=n>0</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kd>public</span> <span class=kd>static</span> <span class=kt>void</span> <span class=nf>increment</span><span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>data</span><span class=o>++;</span>
+</span></span><span class=line><span class=cl>    <span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kd>public</span> <span class=kd>static</span> <span class=kt>void</span> <span class=nf>decrement</span><span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>data</span><span class=o>--;</span>
+</span></span><span class=line><span class=cl>    <span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kd>public</span> <span class=kd>static</span> <span class=kt>void</span> <span class=nf>main</span><span class=o>(</span><span class=n>String</span><span class=o>[]</span> <span class=n>args</span><span class=o>)</span> <span class=kd>throws</span> <span class=n>InterruptedException</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// Create 1000 threads to increment and 1000 to decrement `data`
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=n>Thread</span><span class=o>[]</span> <span class=n>threads</span> <span class=o>=</span> <span class=k>new</span> <span class=n>Thread</span><span class=o>[</span><span class=n>2000</span><span class=o>];</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=o>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=n>0</span><span class=o>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>2000</span><span class=o>;</span> <span class=n>i</span> <span class=o>+=</span> <span class=n>2</span><span class=o>)</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>            <span class=n>threads</span><span class=o>[</span><span class=n>i</span><span class=o>]</span> <span class=o>=</span> <span class=k>new</span> <span class=n>Thread</span><span class=o>(()</span> <span class=o>-&gt;</span> <span class=n>increment</span><span class=o>());</span>
+</span></span><span class=line><span class=cl>            <span class=n>threads</span><span class=o>[</span><span class=n>i</span> <span class=o>+</span> <span class=n>1</span><span class=o>]</span> <span class=o>=</span> <span class=k>new</span> <span class=n>Thread</span><span class=o>(()</span> <span class=o>-&gt;</span> <span class=n>decrement</span><span class=o>());</span>
+</span></span><span class=line><span class=cl>        <span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1>// Start all threads
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>for</span> <span class=o>(</span><span class=n>Thread</span> <span class=n>t</span> <span class=o>:</span> <span class=n>threads</span><span class=o>)</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>            <span class=n>t</span><span class=o>.</span><span class=na>start</span><span class=o>();</span>
+</span></span><span class=line><span class=cl>        <span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1>// Wait for all to complete
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>for</span> <span class=o>(</span><span class=n>Thread</span> <span class=n>t</span> <span class=o>:</span> <span class=n>threads</span><span class=o>)</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>            <span class=n>t</span><span class=o>.</span><span class=na>join</span><span class=o>();</span>
+</span></span><span class=line><span class=cl>        <span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1>// Log data
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=n>System</span><span class=o>.</span><span class=na>out</span><span class=o>.</span><span class=na>println</span><span class=o>(</span><span class=n>data</span><span class=o>);</span>
+</span></span><span class=line><span class=cl>    <span class=o>}</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span></code></pre></div><p>Running the above Java program would yield a different value for each run.
 (Python can never have a race-condition due to its awesome yet outdated
-<a href=https://en.wikipedia.org/wiki/Global_interpreter_lock>GIL</a>).</p>
-<p>Race Condition can be overcome using a lock. A lock makes sure only one thread
+<a href=https://en.wikipedia.org/wiki/Global_interpreter_lock>GIL</a>).</p><p>Race Condition can be overcome using a lock. A lock makes sure only one thread
 can access the critical section, i.e., the <code>data</code> variable here, to avoid
-race-condition.</p>
-<h3 id=green-threads>Green Threads</h3>
-<p><a href=https://en.wikipedia.org/wiki/Green_threads>Green threads / Microthreads / Processes (Erlang VM) / Go routines / &mldr;</a>
+race-condition.</p><h3 id=green-threads>Green Threads</h3><p><a href=https://en.wikipedia.org/wiki/Green_threads>Green threads / Microthreads / Processes (Erlang VM) / Go routines / &mldr;</a>
 are conceptual threads that run on the VM rather than running as an actual
 thread. The VM takes care of multiplexing these to actual threads hence these
 are light-weight compared to traditional threads. They take up less memory,
 quicker to start, and a lot can be created. You can hit <code>java.lang.OutOfMemoryError</code>
 only with a few thousand threads whereas you can create millions of
 goroutines with a commensurable amount of memory. Since these are language specific, they have
-language-specific pizzazz in them.</p>
-<p>For example, Goroutines do not need locks to use shared memory whereas Erlang&rsquo;s
-processes do not have a shared memory at all.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>main</span>
-
-<span class=kn>import</span> <span class=p>(</span>
-	<span class=s>&#34;fmt&#34;</span>
-	<span class=s>&#34;time&#34;</span>
-<span class=p>)</span>
-
-<span class=kd>func</span> <span class=nf>task</span><span class=p>(</span><span class=nx>i</span> <span class=kt>int</span><span class=p>)</span> <span class=p>{</span>
-	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>i</span><span class=p>)</span>
-<span class=p>}</span>
-
-<span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
-	<span class=k>for</span> <span class=nx>i</span> <span class=o>:=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=p>&lt;</span> <span class=mi>10</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span> <span class=p>{</span>
-		<span class=k>go</span> <span class=nf>task</span><span class=p>(</span><span class=nx>i</span><span class=p>)</span>
-	<span class=p>}</span>
-
-	<span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>100</span> <span class=o>*</span> <span class=nx>time</span><span class=p>.</span><span class=nx>Millisecond</span><span class=p>)</span>
-	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;done&#34;</span><span class=p>)</span>
-<span class=p>}</span>
-</code></pre></div><p>The above is an example of goroutines. In Go, starting a goroutine is as
-simple as calling the function with a <code>go</code> keyword in front of it.</p>
-<h3 id=asynchrony>Asynchrony</h3>
-<p><a href=https://en.wikipedia.org/wiki/Asynchrony_(computer_programming)>Asynchrony</a>
+language-specific pizzazz in them.</p><p>For example, Goroutines do not need locks to use shared memory whereas Erlang&rsquo;s
+processes do not have a shared memory at all.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span> <span class=nx>main</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;fmt&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;time&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>task</span><span class=p>(</span><span class=nx>i</span> <span class=kt>int</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>i</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>for</span> <span class=nx>i</span> <span class=o>:=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=p>&lt;</span> <span class=mi>10</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>go</span> <span class=nf>task</span><span class=p>(</span><span class=nx>i</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>100</span> <span class=o>*</span> <span class=nx>time</span><span class=p>.</span><span class=nx>Millisecond</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;done&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><p>The above is an example of goroutines. In Go, starting a goroutine is as
+simple as calling the function with a <code>go</code> keyword in front of it.</p><h3 id=asynchrony>Asynchrony</h3><p><a href=https://en.wikipedia.org/wiki/Asynchrony_(computer_programming)>Asynchrony</a>
 is what I used in the server example. This model
 efficiently utilizes blocking time to run another task. There are various
-approaches to Asynchrony.</p>
-<h4 id=callbacks>Callbacks</h4>
-<p><a href=https://en.wikipedia.org/wiki/Callback_(computer_programming)>Callbacks</a> are
+approaches to Asynchrony.</p><h4 id=callbacks>Callbacks</h4><p><a href=https://en.wikipedia.org/wiki/Callback_(computer_programming)>Callbacks</a> are
 the most basic approach to Asynchronous Programming. It is heavily used in GUI
-development and is the backbone of Node.js.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>const</span> <span class=nx>fs</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s1>&#39;fs&#39;</span><span class=p>);</span>
-
-<span class=nx>fs</span><span class=p>.</span><span class=nx>readFile</span><span class=p>(</span><span class=s1>&#39;./foo.txt&#39;</span><span class=p>,</span> <span class=s1>&#39;utf8&#39;</span><span class=p>,</span> <span class=p>(</span><span class=nx>err</span><span class=p>,</span> <span class=nx>content</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
-    <span class=k>if</span> <span class=p>(</span><span class=nx>err</span><span class=p>)</span> <span class=k>throw</span> <span class=nx>err</span><span class=p>;</span>
-    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>content</span><span class=p>);</span>
-<span class=p>});</span>
-
-<span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;done.&#39;</span><span class=p>);</span>
-</code></pre></div><p>In the above Node.js example, the <code>fs.readFile</code> method takes in a callback
+development and is the backbone of Node.js.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kr>const</span> <span class=nx>fs</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s1>&#39;fs&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>fs</span><span class=p>.</span><span class=nx>readFile</span><span class=p>(</span><span class=s1>&#39;./foo.txt&#39;</span><span class=p>,</span> <span class=s1>&#39;utf8&#39;</span><span class=p>,</span> <span class=p>(</span><span class=nx>err</span><span class=p>,</span> <span class=nx>content</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=nx>err</span><span class=p>)</span> <span class=k>throw</span> <span class=nx>err</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>content</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;done.&#39;</span><span class=p>);</span>
+</span></span></code></pre></div><p>In the above Node.js example, the <code>fs.readFile</code> method takes in a callback
 (a function) which it calls when it is done reading the file. This way,
-<code>console.log('done.')</code> doesn&rsquo;t have to wait for the file to be read.</p>
-<p>Callbacks are used in GUI programming as such:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=kn>import</span> <span class=nn>tkinter</span> <span class=k>as</span> <span class=nn>tk</span>
-
-<span class=k>def</span> <span class=nf>click</span><span class=p>(</span><span class=n>event</span><span class=p>):</span>
-    <span class=nb>print</span><span class=p>(</span><span class=s1>&#39;Hello World&#39;</span><span class=p>)</span>
-
-<span class=n>root</span> <span class=o>=</span> <span class=n>tk</span><span class=o>.</span><span class=n>Tk</span><span class=p>()</span>
-
-<span class=n>btn</span> <span class=o>=</span> <span class=n>tk</span><span class=o>.</span><span class=n>Button</span><span class=p>(</span><span class=n>root</span><span class=p>,</span> <span class=n>text</span><span class=o>=</span><span class=s1>&#39;Click me!&#39;</span><span class=p>,</span> <span class=n>padx</span><span class=o>=</span><span class=mi>10</span><span class=p>,</span> <span class=n>pady</span><span class=o>=</span><span class=mi>10</span><span class=p>)</span>
-<span class=n>btn</span><span class=o>.</span><span class=n>bind</span><span class=p>(</span><span class=s1>&#39;&lt;Button-1&gt;&#39;</span><span class=p>,</span> <span class=n>click</span><span class=p>)</span>
-<span class=n>btn</span><span class=o>.</span><span class=n>pack</span><span class=p>()</span>
-
-<span class=n>root</span><span class=o>.</span><span class=n>mainloop</span><span class=p>()</span>
-</code></pre></div><p>The above is an example of callbacks using Tkinter. The button&rsquo;s <code>bind</code> method
+<code>console.log('done.')</code> doesn&rsquo;t have to wait for the file to be read.</p><p>Callbacks are used in GUI programming as such:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>tkinter</span> <span class=k>as</span> <span class=nn>tk</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>click</span><span class=p>(</span><span class=n>event</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s1>&#39;Hello World&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>root</span> <span class=o>=</span> <span class=n>tk</span><span class=o>.</span><span class=n>Tk</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>btn</span> <span class=o>=</span> <span class=n>tk</span><span class=o>.</span><span class=n>Button</span><span class=p>(</span><span class=n>root</span><span class=p>,</span> <span class=n>text</span><span class=o>=</span><span class=s1>&#39;Click me!&#39;</span><span class=p>,</span> <span class=n>padx</span><span class=o>=</span><span class=mi>10</span><span class=p>,</span> <span class=n>pady</span><span class=o>=</span><span class=mi>10</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>btn</span><span class=o>.</span><span class=n>bind</span><span class=p>(</span><span class=s1>&#39;&lt;Button-1&gt;&#39;</span><span class=p>,</span> <span class=n>click</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>btn</span><span class=o>.</span><span class=n>pack</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>root</span><span class=o>.</span><span class=n>mainloop</span><span class=p>()</span>
+</span></span></code></pre></div><p>The above is an example of callbacks using Tkinter. The button&rsquo;s <code>bind</code> method
 takes a callback (a function or a lambda) as an input and executes it when the
 button is clicked. This way, the whole program runs in a single thread without
-blocking.</p>
-<p>Excessive use of callbacks leads to a problem known as <a href=http://callbackhell.com/>Callback Hell</a>.
-Promises were created to overcome this.</p>
-<h4 id=promises>Promises</h4>
-<p>Promises / Futures / Deferred / &mldr; are alternatives to callbacks where a
+blocking.</p><p>Excessive use of callbacks leads to a problem known as <a href=http://callbackhell.com/>Callback Hell</a>.
+Promises were created to overcome this.</p><h4 id=promises>Promises</h4><p>Promises / Futures / Deferred / &mldr; are alternatives to callbacks where a
 function, instead of taking a callback, returns a promise object. This object
-can be used to continue after the asynchronous task.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>const</span> <span class=nb>Promise</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s1>&#39;promise&#39;</span><span class=p>);</span>
-<span class=kr>const</span> <span class=nx>readFile</span> <span class=o>=</span> <span class=nb>Promise</span><span class=p>.</span><span class=nx>denodeify</span><span class=p>(</span><span class=nx>require</span><span class=p>(</span><span class=s1>&#39;fs&#39;</span><span class=p>).</span><span class=nx>readFile</span><span class=p>);</span>
-
-<span class=kd>let</span> <span class=nx>readFilePromise</span> <span class=o>=</span> <span class=nx>readFile</span><span class=p>(</span><span class=s1>&#39;./foo.txt&#39;</span><span class=p>,</span> <span class=s1>&#39;utf8&#39;</span><span class=p>);</span> <span class=c1>// returns a Promise
-</span><span class=c1></span>
-<span class=nx>readFilePromise</span>
-    <span class=p>.</span><span class=nx>then</span><span class=p>(</span><span class=nx>content</span> <span class=p>=&gt;</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>content</span><span class=p>))</span> <span class=c1>// this runs when the promise succeeds i.e., reads the file
-</span><span class=c1></span>    <span class=p>.</span><span class=k>catch</span><span class=p>(</span><span class=nx>err</span> <span class=p>=&gt;</span> <span class=nx>console</span><span class=p>.</span><span class=nx>error</span><span class=p>(</span><span class=nx>err</span><span class=p>));</span> <span class=c1>// this runs when an error occurs
-</span></code></pre></div><p>The problem in callbacks and promises is that they complicate the flow of the
+can be used to continue after the asynchronous task.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kr>const</span> <span class=nb>Promise</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s1>&#39;promise&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>readFile</span> <span class=o>=</span> <span class=nb>Promise</span><span class=p>.</span><span class=nx>denodeify</span><span class=p>(</span><span class=nx>require</span><span class=p>(</span><span class=s1>&#39;fs&#39;</span><span class=p>).</span><span class=nx>readFile</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>readFilePromise</span> <span class=o>=</span> <span class=nx>readFile</span><span class=p>(</span><span class=s1>&#39;./foo.txt&#39;</span><span class=p>,</span> <span class=s1>&#39;utf8&#39;</span><span class=p>);</span> <span class=c1>// returns a Promise
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=nx>readFilePromise</span>
+</span></span><span class=line><span class=cl>    <span class=p>.</span><span class=nx>then</span><span class=p>(</span><span class=nx>content</span> <span class=p>=&gt;</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>content</span><span class=p>))</span> <span class=c1>// this runs when the promise succeeds i.e., reads the file
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>.</span><span class=k>catch</span><span class=p>(</span><span class=nx>err</span> <span class=p>=&gt;</span> <span class=nx>console</span><span class=p>.</span><span class=nx>error</span><span class=p>(</span><span class=nx>err</span><span class=p>));</span> <span class=c1>// this runs when an error occurs
+</span></span></span></code></pre></div><p>The problem in callbacks and promises is that they complicate the flow of the
 program as they have a different mechanism for error handling, looping, etc.
-To simplify this, async/await was created.</p>
-<h4 id=async--await>Async / Await</h4>
-<p><a href=https://en.wikipedia.org/wiki/Async/await_(computer_programming)>Async/Await</a>
+To simplify this, async/await was created.</p><h4 id=async--await>Async / Await</h4><p><a href=https://en.wikipedia.org/wiki/Async/await_(computer_programming)>Async/Await</a>
 lets you write asynchronous code that looks and feels like synchronous code. This
-way one can take advantage of non-blocking flow without much change.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>const</span> <span class=nx>fs</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s1>&#39;fs&#39;</span><span class=p>);</span>
-<span class=kr>const</span> <span class=nb>Promise</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s1>&#39;promise&#39;</span><span class=p>);</span>
-<span class=kr>const</span> <span class=nx>readFile</span> <span class=o>=</span> <span class=nb>Promise</span><span class=p>.</span><span class=nx>denodeify</span><span class=p>(</span><span class=nx>require</span><span class=p>(</span><span class=s1>&#39;fs&#39;</span><span class=p>).</span><span class=nx>readFile</span><span class=p>);</span>
-
-<span class=kr>async</span> <span class=kd>function</span> <span class=nx>main</span><span class=p>()</span> <span class=p>{</span>
-    <span class=k>try</span> <span class=p>{</span>
-        <span class=k>return</span> <span class=kr>await</span> <span class=nx>readFile</span><span class=p>(</span><span class=s1>&#39;./ftest.js&#39;</span><span class=p>,</span> <span class=s1>&#39;utf8&#39;</span><span class=p>);</span>
-    <span class=p>}</span> <span class=k>catch</span> <span class=p>(</span><span class=nx>err</span><span class=p>)</span> <span class=p>{</span>
-        <span class=k>return</span> <span class=nx>err</span><span class=p>;</span>
-    <span class=p>}</span>
-<span class=p>}</span>
-
-<span class=nx>main</span><span class=p>()</span>
-    <span class=p>.</span><span class=nx>then</span><span class=p>(</span><span class=nx>content</span> <span class=p>=&gt;</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>content</span><span class=p>))</span>
-    <span class=p>.</span><span class=k>catch</span><span class=p>(</span><span class=nx>err</span> <span class=p>=&gt;</span> <span class=nx>console</span><span class=p>.</span><span class=nx>error</span><span class=p>(</span><span class=nx>err</span><span class=p>));</span>
-</code></pre></div><p>In the above example, the main function is denoted with the modifier <code>async</code> and
+way one can take advantage of non-blocking flow without much change.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kr>const</span> <span class=nx>fs</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s1>&#39;fs&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nb>Promise</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s1>&#39;promise&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>readFile</span> <span class=o>=</span> <span class=nb>Promise</span><span class=p>.</span><span class=nx>denodeify</span><span class=p>(</span><span class=nx>require</span><span class=p>(</span><span class=s1>&#39;fs&#39;</span><span class=p>).</span><span class=nx>readFile</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>async</span> <span class=kd>function</span> <span class=nx>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>try</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kr>await</span> <span class=nx>readFile</span><span class=p>(</span><span class=s1>&#39;./ftest.js&#39;</span><span class=p>,</span> <span class=s1>&#39;utf8&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span> <span class=k>catch</span> <span class=p>(</span><span class=nx>err</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=nx>err</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>main</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=p>.</span><span class=nx>then</span><span class=p>(</span><span class=nx>content</span> <span class=p>=&gt;</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>content</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=p>.</span><span class=k>catch</span><span class=p>(</span><span class=nx>err</span> <span class=p>=&gt;</span> <span class=nx>console</span><span class=p>.</span><span class=nx>error</span><span class=p>(</span><span class=nx>err</span><span class=p>));</span>
+</span></span></code></pre></div><p>In the above example, the main function is denoted with the modifier <code>async</code> and
 all the asynchronous calls in it are marked with <code>await</code>. This way, we can use
-readFile like simple synchronous method.</p>
-<h4 id=reactive-programming>Reactive Programming</h4>
-<p><a href=https://en.wikipedia.org/wiki/Reactive_programming>reactive programming</a>
+readFile like simple synchronous method.</p><h4 id=reactive-programming>Reactive Programming</h4><p><a href=https://en.wikipedia.org/wiki/Reactive_programming>reactive programming</a>
 has observables and observers who &ldquo;react&rdquo; to the events emitted by the
 observables. Observables can be a mouse click, a network call, a socket
-connection, a file stream, etc.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>const</span> <span class=nx>Rx</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s1>&#39;rx&#39;</span><span class=p>);</span>
-<span class=kr>const</span> <span class=nx>readline</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s1>&#39;readline&#39;</span><span class=p>);</span>
-<span class=kr>const</span> <span class=nx>fs</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s1>&#39;fs&#39;</span><span class=p>);</span>
-
-<span class=c1>// Let&#39;s reading file line by line from file stream
-</span><span class=c1></span><span class=kd>let</span> <span class=nx>rl</span> <span class=o>=</span> <span class=nx>readline</span><span class=p>.</span><span class=nx>createInterface</span><span class=p>({</span>
-    <span class=nx>input</span><span class=o>:</span> <span class=nx>fs</span><span class=p>.</span><span class=nx>createReadStream</span><span class=p>(</span><span class=s1>&#39;foo.txt&#39;</span><span class=p>)</span>
-<span class=p>});</span>
-
-<span class=c1>// Create an observable from rl
-</span><span class=c1></span><span class=kd>let</span> <span class=nx>fileObservable</span> <span class=o>=</span> <span class=nx>Rx</span><span class=p>.</span><span class=nx>Observable</span><span class=p>.</span><span class=nx>fromEvent</span><span class=p>(</span><span class=nx>rl</span><span class=p>,</span> <span class=s1>&#39;line&#39;</span><span class=p>)</span>
-                        <span class=p>.</span><span class=nx>takeUntil</span><span class=p>(</span><span class=nx>Rx</span><span class=p>.</span><span class=nx>Observable</span><span class=p>.</span><span class=nx>fromEvent</span><span class=p>(</span><span class=nx>rl</span><span class=p>,</span> <span class=s1>&#39;close&#39;</span><span class=p>));</span>
-
-<span class=c1>// Subscribing to the observable takes 3 functions: (onNext, onError, onComplete)
-</span><span class=c1></span><span class=nx>fileObservable</span><span class=p>.</span><span class=nx>subscribe</span><span class=p>(</span>
-    <span class=nx>line</span> <span class=p>=&gt;</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>line</span><span class=p>),</span>
-    <span class=nx>err</span> <span class=p>=&gt;</span> <span class=nx>console</span><span class=p>.</span><span class=nx>error</span><span class=p>(</span><span class=nx>err</span><span class=p>),</span>
-    <span class=p>()</span> <span class=p>=&gt;</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;Completed&#39;</span><span class=p>)</span>
-<span class=p>)</span>
-</code></pre></div><p><a href=http://reactivex.io/>ReactiveX or Rx</a> is a set of tools to do reactive
+connection, a file stream, etc.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kr>const</span> <span class=nx>Rx</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s1>&#39;rx&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>readline</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s1>&#39;readline&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>fs</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s1>&#39;fs&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Let&#39;s reading file line by line from file stream
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>let</span> <span class=nx>rl</span> <span class=o>=</span> <span class=nx>readline</span><span class=p>.</span><span class=nx>createInterface</span><span class=p>({</span>
+</span></span><span class=line><span class=cl>    <span class=nx>input</span><span class=o>:</span> <span class=nx>fs</span><span class=p>.</span><span class=nx>createReadStream</span><span class=p>(</span><span class=s1>&#39;foo.txt&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Create an observable from rl
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>let</span> <span class=nx>fileObservable</span> <span class=o>=</span> <span class=nx>Rx</span><span class=p>.</span><span class=nx>Observable</span><span class=p>.</span><span class=nx>fromEvent</span><span class=p>(</span><span class=nx>rl</span><span class=p>,</span> <span class=s1>&#39;line&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                        <span class=p>.</span><span class=nx>takeUntil</span><span class=p>(</span><span class=nx>Rx</span><span class=p>.</span><span class=nx>Observable</span><span class=p>.</span><span class=nx>fromEvent</span><span class=p>(</span><span class=nx>rl</span><span class=p>,</span> <span class=s1>&#39;close&#39;</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Subscribing to the observable takes 3 functions: (onNext, onError, onComplete)
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>fileObservable</span><span class=p>.</span><span class=nx>subscribe</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=nx>line</span> <span class=p>=&gt;</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>line</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>    <span class=nx>err</span> <span class=p>=&gt;</span> <span class=nx>console</span><span class=p>.</span><span class=nx>error</span><span class=p>(</span><span class=nx>err</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>    <span class=p>()</span> <span class=p>=&gt;</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;Completed&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span></code></pre></div><p><a href=http://reactivex.io/>ReactiveX or Rx</a> is a set of tools to do reactive
 programming. In the above example, an observable is created for line by line
-file reading and is subscribed to using the <code>subscribe</code> method.</p>
-<h3 id=coroutines>Coroutines</h3>
-<p><a href=https://en.wikipedia.org/wiki/Coroutine>Coroutines</a> allow functions to pause
+file reading and is subscribed to using the <code>subscribe</code> method.</p><h3 id=coroutines>Coroutines</h3><p><a href=https://en.wikipedia.org/wiki/Coroutine>Coroutines</a> allow functions to pause
 themselves and give control to another function. This way, a function doesn&rsquo;t
 have to completely end to pass its control. Coroutines provide concurrency but
-not parallelism.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=k>def</span> <span class=nf>foo</span><span class=p>():</span>
-    <span class=nb>print</span><span class=p>(</span><span class=s1>&#39;Coroutine starts&#39;</span><span class=p>)</span>
-    <span class=k>while</span> <span class=kc>True</span><span class=p>:</span>
-        <span class=n>name</span> <span class=o>=</span> <span class=p>(</span><span class=k>yield</span><span class=p>)</span> <span class=c1># returns control to call and restarts from here when invoked when a value</span>
-        <span class=k>if</span> <span class=n>name</span> <span class=o>==</span> <span class=s1>&#39;Pikachu&#39;</span><span class=p>:</span>
-            <span class=nb>print</span><span class=p>(</span><span class=s1>&#39;Pika Pika&#39;</span><span class=p>)</span>
-        <span class=k>elif</span> <span class=n>name</span> <span class=o>==</span> <span class=s1>&#39;Charmander&#39;</span><span class=p>:</span>
-            <span class=nb>print</span><span class=p>(</span><span class=s1>&#39;Char&#39;</span><span class=p>)</span>
-        <span class=k>else</span><span class=p>:</span>
-            <span class=nb>print</span><span class=p>(</span><span class=s1>&#39;Unidentified&#39;</span><span class=p>)</span>
-
-<span class=n>coroutine</span> <span class=o>=</span> <span class=n>foo</span><span class=p>()</span>
-<span class=n>coroutine</span><span class=o>.</span><span class=fm>__next__</span><span class=p>()</span> <span class=c1># prints and stops at `name = (yield)`</span>
-
-<span class=n>coroutine</span><span class=o>.</span><span class=n>send</span><span class=p>(</span><span class=s1>&#39;Pikachu&#39;</span><span class=p>)</span> <span class=c1># Pika Pika</span>
-<span class=n>coroutine</span><span class=o>.</span><span class=n>send</span><span class=p>(</span><span class=s1>&#39;Squirtle&#39;</span><span class=p>)</span> <span class=c1># Unidentified</span>
-</code></pre></div><hr>
-<p>Concurrency has become the fundamental of modern programming as even systems as
+not parallelism.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>foo</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s1>&#39;Coroutine starts&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>while</span> <span class=kc>True</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>name</span> <span class=o>=</span> <span class=p>(</span><span class=k>yield</span><span class=p>)</span> <span class=c1># returns control to call and restarts from here when invoked when a value</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>name</span> <span class=o>==</span> <span class=s1>&#39;Pikachu&#39;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=nb>print</span><span class=p>(</span><span class=s1>&#39;Pika Pika&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>elif</span> <span class=n>name</span> <span class=o>==</span> <span class=s1>&#39;Charmander&#39;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=nb>print</span><span class=p>(</span><span class=s1>&#39;Char&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=nb>print</span><span class=p>(</span><span class=s1>&#39;Unidentified&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>coroutine</span> <span class=o>=</span> <span class=n>foo</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>coroutine</span><span class=o>.</span><span class=fm>__next__</span><span class=p>()</span> <span class=c1># prints and stops at `name = (yield)`</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>coroutine</span><span class=o>.</span><span class=n>send</span><span class=p>(</span><span class=s1>&#39;Pikachu&#39;</span><span class=p>)</span> <span class=c1># Pika Pika</span>
+</span></span><span class=line><span class=cl><span class=n>coroutine</span><span class=o>.</span><span class=n>send</span><span class=p>(</span><span class=s1>&#39;Squirtle&#39;</span><span class=p>)</span> <span class=c1># Unidentified</span>
+</span></span></code></pre></div><hr><p>Concurrency has become the fundamental of modern programming as even systems as
 small as mobile phones come with multiple cores. Hence, understanding
-concurrency would let us write efficient and powerful software.</p>
-<h2 id=references>References</h2>
-<ul>
-<li><a href=https://blog.golang.org/concurrency-is-not-parallelism>Concurrency is not parallelism - Rob Pike</a></li>
-<li><a href=https://thinkster.io/tutorials/learn-rxjs-observables/what-is-rxjs>What is RxJS?</a></li>
-<li><a href=https://www.geeksforgeeks.org/coroutine-in-python/>Coroutine in python</a></li>
-<li><a href="https://www.youtube.com/watch?v=_hfBv0a09Jc">KotlinConf 2017 - Introduction to Coroutines by Roman Elizarov</a></li>
-</ul>
-</div>
-<footer class="post-footer clearfix">
-<p class=post-tags>
-<span>Tagged:</span>
-<a href=/tags/concurrency/>concurrency</a>
-</p>
-<div class=share>
-<a class=icon-linkedin href="https://www.linkedin.com/shareArticle?mini=true&title=Concurrency%20and%20Parallelelism&url=%2f2018%2fconcurrency-and-parallelism%2f&summary=" onclick="return window.open(this.href,'linkedin-share','width=554,height=481'),!1" aria-label="Share on LinkedIn">
-<i class="fa fa-linkedin" aria-hidden=true></i>
-</a>
-</div>
-</footer>
-<div class=comments>
-<div id=disqus_thread></div>
-<script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return}var b=document,a=b.createElement('script');a.async=!0,a.src='//aravind-vasudev-blog.disqus.com/embed.js',a.setAttribute('data-timestamp',+new Date),(b.head||b.body).appendChild(a)})()</script>
-<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
-<a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
-</div>
-</article>
-</div>
-</div>
-</div>
-<footer class=footer>
-<div class=container>
-<div class=site-title-wrapper>
-<h1 class=site-title>
-<a href=/>Blog</a>
-</h1>
-<a class="button-square button-jump-top js-jump-top" href=# aria-label="Back to Top">
-<i class="fa fa-angle-up" aria-hidden=true></i>
-</a>
-</div>
-<p class=footer-copyright>
-<span>&copy; 2021 / Powered by <a href=https://gohugo.io/>Hugo</a></span>
-</p>
-<p class=footer-copyright>
-<span>SEND ANY CORRECTIONS/OPINIONS TO ARAVIND_VASUDEVAN [AT] OUTLOOK [DOT] COM</span>
-</p>
-</div>
-</footer>
-<script src=/js/jquery-1.11.3.min.js></script>
+concurrency would let us write efficient and powerful software.</p><h2 id=references>References</h2><ul><li><a href=https://blog.golang.org/concurrency-is-not-parallelism>Concurrency is not parallelism - Rob Pike</a></li><li><a href=https://thinkster.io/tutorials/learn-rxjs-observables/what-is-rxjs>What is RxJS?</a></li><li><a href=https://www.geeksforgeeks.org/coroutine-in-python/>Coroutine in python</a></li><li><a href="https://www.youtube.com/watch?v=_hfBv0a09Jc">KotlinConf 2017 - Introduction to Coroutines by Roman Elizarov</a></li></ul></div><footer class="post-footer clearfix"><p class=post-tags><span>Tagged:</span>
+<a href=/tags/concurrency/>concurrency</a></p><div class=share><a class=icon-linkedin href="https://www.linkedin.com/shareArticle?mini=true&title=Concurrency%20and%20Parallelelism&url=%2f2018%2fconcurrency-and-parallelism%2f&summary=" onclick='return window.open(this.href,"linkedin-share","width=554,height=481"),!1' aria-label="Share on LinkedIn"><i class="fa fa-linkedin" aria-hidden=true></i></a></div></footer><div class=comments><div id=disqus_thread></div><script type=application/javascript>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//aravind-vasudev-blog.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div></article></div></div></div><footer class=footer><div class=container><div class=site-title-wrapper><h1 class=site-title><a href=/>Blog</a></h1><a class="button-square button-jump-top js-jump-top" href=# aria-label="Back to Top"><i class="fa fa-angle-up" aria-hidden=true></i></a></div><p class=footer-copyright><span>&copy; 2022 / Powered by <a href=https://gohugo.io/>Hugo</a></span></p><p class=footer-copyright><span>SEND ANY CORRECTIONS/OPINIONS TO ARAVIND_VASUDEVAN [AT] OUTLOOK [DOT] COM</span></p></div></footer><script src=/js/jquery-1.11.3.min.js></script>
 <script src=/js/jquery.fitvids.js></script>
-<script src=/js/scripts.js></script>
-</body>
-</html>
+<script src=/js/scripts.js></script></body></html>
