@@ -3,8 +3,11 @@ title:  "Solving Wordle"
 date:   2022-01-23 00:00:00 +0530
 categories: [programming]
 tags: [bot, solver]
-draft: true
 ---
+
+> I started writing this article around January 2022 but never got around
+publishing it. Given its September already, I'm going ahead and publishing the
+draft. This is not intended to be read/shared but to just keep this blog going.
 
 I have been playing [wordle](https://www.powerlanguage.co.uk/wordle/)
 continously for the past week with my colleagues. It's a simple game where you
