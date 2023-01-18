@@ -1,0 +1,122 @@
+<!doctype html><html prefix="og: http://ogp.me/ns#"><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><title>Pinning Git Submodule To A Revision &#183; Aravind Vasudevan</title><meta name=description content="This blog requires some understanding of git plumbing commands and the basics of submodules. The resources below are a good start.
+Git Tools - Submodules Git Internals The submodules chapter within the git book is pretty extensive on how to use git submodules. However, it misses covering some real-world details.
+Recently, I was working on pinning my submodule to a specific revision and rolling that revision using a script. At first, this seems pretty straightforward from the documentation."><meta name=HandheldFriendly content="True"><meta name=MobileOptimized content="320"><meta name=generator content="Hugo 0.110.0"><meta name=robots content="index,follow"><meta name=viewport content="width=device-width,initial-scale=1"><meta property="og:title" content="Pinning Git Submodule To A Revision"><meta property="og:description" content="This blog requires some understanding of git plumbing commands and the basics of submodules. The resources below are a good start.
+Git Tools - Submodules Git Internals The submodules chapter within the git book is pretty extensive on how to use git submodules. However, it misses covering some real-world details.
+Recently, I was working on pinning my submodule to a specific revision and rolling that revision using a script. At first, this seems pretty straightforward from the documentation."><meta property="og:type" content="article"><meta property="og:url" content="/2023/pinning-git-submodule-to-a-revision/"><link rel=stylesheet href=/dist/site.css><link rel=stylesheet href=/dist/syntax.css><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic"><link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css integrity=sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN crossorigin=anonymous></head><body><script type=application/javascript>var dnt=navigator.doNotTrack||window.doNotTrack||navigator.msDoNotTrack,doNotTrack=dnt=="1"||dnt=="yes";doNotTrack||(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-83211075-2","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"))</script><div id=wrapper><header class=site-header><div class=container><div class=site-title-wrapper><h1 class=site-title><a href=/>Blog</a></h1><a class=button-square href=/index.xml aria-label=RSS><i class="fa fa-rss" aria-hidden=true></i></a>
+<a class="button-square button-social hint--top" data-hint=Github aria-label=Github href=https://github.com/AravindVasudev rel=me><i class="fa fa-github-alt" aria-hidden=true></i></a>
+<a class="button-square button-social hint--top" data-hint=LinkedIn aria-label=LinkedIn href=https://linkedin.com/in/aravindvasudev/ rel=me><i class="fa fa-linkedin" aria-hidden=true></i></a>
+<a class="button-square button-social hint--top" data-hint=Email aria-label="Send an Email" href=mailto:aravind_vasudevan@outlook.com><i class="fa fa-envelope" aria-hidden=true></i></a></div><ul class=site-nav><li class=site-nav-item><a href=/>Blog</a></li><li class=site-nav-item><a href=/misc/>Misc</a></li><li class=site-nav-item><a href=/about/>About</a></li></ul></div></header><div id=container><div class=container><article class=post-container itemscope itemtype=http://schema.org/BlogPosting><header class=post-header><h1 class=post-title itemprop="name headline">Pinning Git Submodule To A Revision</h1><p class=post-date><span>Published <time datetime=2023-01-18 itemprop=datePublished>Wed, Jan 18, 2023</time></span>
+<span>by</span>
+<span itemscope itemprop=author itemtype=https://schema.org/Person><span itemprop=name><a href=https://github.com/AravindVasudev itemprop=url rel=author>Aravind Vasudevan</a></span></span></p><p class="post-reading post-line"><span>Estimated reading time: 4 min</span></p></header><div class="post-content clearfix" itemprop=articleBody><p>This blog requires some understanding of git plumbing commands and the basics of
+submodules. The resources below are a good start.</p><ul><li><a href=https://git-scm.com/book/en/v2/Git-Tools-Submodules>Git Tools - Submodules</a></li><li><a href=https://git-scm.com/book/en/v2/Git-Internals-Plumbing-and-Porcelain>Git Internals</a></li></ul><p>The submodules chapter within the git book is pretty extensive on how to use
+git submodules. However, it misses covering some real-world details.</p><p>Recently, I was working on pinning my submodule to a specific revision and
+rolling that revision using a script. At first, this seems pretty
+straightforward from the documentation. All the information about the
+submodules are stored within the <code>.gitmodules</code>, which itself is
+version-controlled. However, looking deep into the
+<a href=https://git-scm.com/docs/gitmodules>structure of the <code>.gitmodule</code> file</a>, you
+would notice it barely stores any information about your submodule. What&rsquo;s
+going on here?</p><h2 id=whats-going-on-here>What&rsquo;s Going On Here?</h2><p>Let&rsquo;s start with a quick working example. Let&rsquo;s create a project called <code>root</code>.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>$ mkdir root <span class=o>&amp;&amp;</span> <span class=nb>cd</span> root
+</span></span><span class=line><span class=cl>$ git init
+</span></span><span class=line><span class=cl>Initialized empty Git repository in <span class=o>[</span>redacted<span class=o>]</span>/root/.git/
+</span></span></code></pre></div><p>Now let&rsquo;s add a commit to this with a file.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl><span class=c1># Initially there are no objects.</span>
+</span></span><span class=line><span class=cl>$ find .git/objects -type f
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Let&#39;s add one object.</span>
+</span></span><span class=line><span class=cl>$ <span class=nb>echo</span> <span class=s2>&#34;Vanakkam&#34;</span> &gt; foo.txt
+</span></span><span class=line><span class=cl>$ git add foo.txt
+</span></span><span class=line><span class=cl>$ find .git/objects -type f
+</span></span><span class=line><span class=cl>.git/objects/fb/ad2da8dc6369c73410958835e183efd7f81fa1
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Let&#39;s commit it. We then would have three objects as expected.</span>
+</span></span><span class=line><span class=cl><span class=c1># The file, the tree, and the commit.</span>
+</span></span><span class=line><span class=cl>$ git commit -m <span class=s2>&#34;one&#34;</span>
+</span></span><span class=line><span class=cl>$ find .git/objects -type f
+</span></span><span class=line><span class=cl>.git/objects/fb/ad2da8dc6369c73410958835e183efd7f81fa1
+</span></span><span class=line><span class=cl>.git/objects/3f/2747c176e397abdaf3d9a8d9e338ef91046922
+</span></span><span class=line><span class=cl>.git/objects/1d/fbe5acff92b9ab9589dbb3ad38c8134f048495
+</span></span></code></pre></div><p>Now, let&rsquo;s go ahead and add a submodule to this project. This is where things
+start getting interesting.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl><span class=c1># Add wordle-bot as a submodule.</span>
+</span></span><span class=line><span class=cl>$ git submodule add git@github.com:AravindVasudev/wordle-bot.git
+</span></span><span class=line><span class=cl>$ git status
+</span></span><span class=line><span class=cl>On branch main
+</span></span><span class=line><span class=cl>Changes to be committed:
+</span></span><span class=line><span class=cl>  <span class=o>(</span>use <span class=s2>&#34;git restore --staged &lt;file&gt;...&#34;</span> to unstage<span class=o>)</span>
+</span></span><span class=line><span class=cl>	new file:   .gitmodules
+</span></span><span class=line><span class=cl>	new file:   wordle-bot
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># The generated .gitmodules stores a record for the submodule.</span>
+</span></span><span class=line><span class=cl>$ cat .gitmodules
+</span></span><span class=line><span class=cl><span class=o>[</span>submodule <span class=s2>&#34;wordle-bot&#34;</span><span class=o>]</span>
+</span></span><span class=line><span class=cl>	<span class=nv>path</span> <span class=o>=</span> wordle-bot
+</span></span><span class=line><span class=cl>	<span class=nv>url</span> <span class=o>=</span> git@github.com:AravindVasudev/wordle-bot.git
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Now, let&#39;s commit these changes.</span>
+</span></span><span class=line><span class=cl>$ git commit -m <span class=s2>&#34;two&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>main d302323<span class=o>]</span> two
+</span></span><span class=line><span class=cl> <span class=m>2</span> files changed, <span class=m>4</span> insertions<span class=o>(</span>+<span class=o>)</span>
+</span></span><span class=line><span class=cl> create mode <span class=m>100644</span> .gitmodules
+</span></span><span class=line><span class=cl> create mode <span class=m>160000</span> wordle-bot
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># The .git/objects only has six objects now.</span>
+</span></span><span class=line><span class=cl><span class=c1># Two files (foo.txt, .gitmodules), two trees, and two commits.</span>
+</span></span><span class=line><span class=cl><span class=c1># It&#39;s missing all the objects for the wordle-bot project.</span>
+</span></span><span class=line><span class=cl>$ find .git/objects -type f
+</span></span><span class=line><span class=cl>.git/objects/69/fe9cb5d8f4a5d69be2b919069fd23d98c27c41
+</span></span><span class=line><span class=cl>.git/objects/93/6a915147da8e0f77d2163ca79e457f56b6543a
+</span></span><span class=line><span class=cl>.git/objects/fb/ad2da8dc6369c73410958835e183efd7f81fa1
+</span></span><span class=line><span class=cl>.git/objects/3f/2747c176e397abdaf3d9a8d9e338ef91046922
+</span></span><span class=line><span class=cl>.git/objects/d3/02323142d61ece98a80e740c96f1e0294f2c53
+</span></span><span class=line><span class=cl>.git/objects/1d/fbe5acff92b9ab9589dbb3ad38c8134f048495
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># The tree does not point to any files within wordle-bot, but only a special</span>
+</span></span><span class=line><span class=cl><span class=c1># file for the submodule itself.</span>
+</span></span><span class=line><span class=cl>$ git cat-file -p HEAD^<span class=o>{</span>tree<span class=o>}</span>
+</span></span><span class=line><span class=cl><span class=m>100644</span> blob 936a915147da8e0f77d2163ca79e457f56b6543a	.gitmodules
+</span></span><span class=line><span class=cl><span class=m>100644</span> blob fbad2da8dc6369c73410958835e183efd7f81fa1	foo.txt
+</span></span><span class=line><span class=cl><span class=m>160000</span> commit 4ab3252c6c882050337da221bec585d2705b09d8	wordle-bot
+</span></span></code></pre></div><p>If you closely look at the file-mode for the submodule, it&rsquo;s created with a
+special <code>160000</code> mode. From the documentation,</p><blockquote><p>a special mode in Git that basically means you’re recording a commit as a
+directory entry rather than a subdirectory or a file.</p></blockquote><p>So where are the objects for the submodule wordle-bot?</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl><span class=c1># The .git within the submodule is a file not a directory.</span>
+</span></span><span class=line><span class=cl>$ <span class=nb>cd</span> wordle-bot <span class=o>&amp;&amp;</span> cat .git
+</span></span><span class=line><span class=cl>gitdir: ../.git/modules/wordle-bot
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># The path within the .git file stores the objects for that submodule.</span>
+</span></span><span class=line><span class=cl>$ find .git/modules/wordle-bot/objects -type f
+</span></span><span class=line><span class=cl>.git/modules/wordle-bot/objects/pack/pack-4384d5306de21839e99a7d68ff9b70d6f3adcf84.pack
+</span></span><span class=line><span class=cl>.git/modules/wordle-bot/objects/pack/pack-4384d5306de21839e99a7d68ff9b70d6f3adcf84.idx
+</span></span></code></pre></div><p>The <code>.git</code> within the submodule is a file instead of a directory, which points
+to a subdirectory within the main <code>.git</code> directory, which holds the objects
+for the submodule.</p><p>The entry in the tree for the submodule is called a
+<a href=https://git-scm.com/docs/gitsubmodules>gitlink</a>. The gitlink entry contains
+the object name of the commit that the superproject expects the submodule’s
+working directory to be at.</p><h2 id=pinning-submodule-to-a-specific-revision>Pinning submodule to a specific revision</h2><p>Now, back to the original problem. After analyzing what git does under the hood,
+this is pretty straightforward again.</p><p>We just have to check out the revision we want the submodule to be pinned to
+and commit the super project with the updated gitlink.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl><span class=c1># Update the submodule&#39;s revision.</span>
+</span></span><span class=line><span class=cl>$ <span class=nb>cd</span> wordle-bot <span class=o>&amp;&amp;</span> git checkout 33fc484ae2d63736e9762eb6f9442295bd5ad971
+</span></span><span class=line><span class=cl>HEAD is now at 33fc484 Disable chrome logs
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># You can see the unstaged changes to the submodule&#39;s revision.</span>
+</span></span><span class=line><span class=cl>$ <span class=nb>cd</span> .. <span class=o>&amp;&amp;</span> git status
+</span></span><span class=line><span class=cl>On branch main
+</span></span><span class=line><span class=cl>Changes not staged <span class=k>for</span> commit:
+</span></span><span class=line><span class=cl>  <span class=o>(</span>use <span class=s2>&#34;git add &lt;file&gt;...&#34;</span> to update what will be committed<span class=o>)</span>
+</span></span><span class=line><span class=cl>  <span class=o>(</span>use <span class=s2>&#34;git restore &lt;file&gt;...&#34;</span> to discard changes in working directory<span class=o>)</span>
+</span></span><span class=line><span class=cl>	modified:   wordle-bot <span class=o>(</span>new commits<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>no changes added to commit <span class=o>(</span>use <span class=s2>&#34;git add&#34;</span> and/or <span class=s2>&#34;git commit -a&#34;</span><span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Commit the revision.</span>
+</span></span><span class=line><span class=cl>$ git add wordle-bot <span class=o>&amp;&amp;</span> git commit -m <span class=s2>&#34;three&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>main 49f94ec<span class=o>]</span> three
+</span></span><span class=line><span class=cl> <span class=m>1</span> file changed, <span class=m>1</span> insertion<span class=o>(</span>+<span class=o>)</span>, <span class=m>1</span> deletion<span class=o>(</span>-<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># The gitlink now points to the revision we checked out above.</span>
+</span></span><span class=line><span class=cl>$ git cat-file -p HEAD^<span class=o>{</span>tree<span class=o>}</span>
+</span></span><span class=line><span class=cl><span class=m>100644</span> blob 936a915147da8e0f77d2163ca79e457f56b6543a	.gitmodules
+</span></span><span class=line><span class=cl><span class=m>100644</span> blob fbad2da8dc6369c73410958835e183efd7f81fa1	foo.txt
+</span></span><span class=line><span class=cl><span class=m>160000</span> commit 33fc484ae2d63736e9762eb6f9442295bd5ad971	wordle-bot
+</span></span></code></pre></div><p>So long!</p></div><footer class="post-footer clearfix"><p class=post-tags><span>Tagged:</span>
+<a href=/tags/git/>git</a></p><div class=share><a class=icon-linkedin href="https://www.linkedin.com/shareArticle?mini=true&title=Pinning%20Git%20Submodule%20To%20A%20Revision&url=%2f2023%2fpinning-git-submodule-to-a-revision%2f&summary=" onclick='return window.open(this.href,"linkedin-share","width=554,height=481"),!1' aria-label="Share on LinkedIn"><i class="fa fa-linkedin" aria-hidden=true></i></a></div></footer><div class=comments><div id=disqus_thread></div><script type=application/javascript>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//aravind-vasudev-blog.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div></article></div></div></div><footer class=footer><div class=container><div class=site-title-wrapper><h1 class=site-title><a href=/>Blog</a></h1><a class="button-square button-jump-top js-jump-top" href=# aria-label="Back to Top"><i class="fa fa-angle-up" aria-hidden=true></i></a></div><p class=footer-copyright><span>&copy; 2023 / Powered by <a href=https://gohugo.io/>Hugo</a></span></p><p class=footer-copyright><span>SEND ANY CORRECTIONS/OPINIONS TO ARAVIND_VASUDEVAN [AT] OUTLOOK [DOT] COM</span></p></div></footer><script src=/js/jquery-1.11.3.min.js></script>
+<script src=/js/jquery.fitvids.js></script>
+<script src=/js/scripts.js></script></body></html>
