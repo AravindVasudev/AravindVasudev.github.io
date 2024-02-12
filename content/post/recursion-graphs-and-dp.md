@@ -6,10 +6,10 @@ tags: [data structures]
 ---
 
 This write-up aims to connect graph theory with solving dynamic programming
-problems. Instead of delving into the basics of these concepts, we will be
-focusing on building an intuition for using these concepts. We will start by
-exploring the idea behind recursion, followed by graphs, and finally wrapping up
-with top-down dynamic programming.
+problems. Instead of delving into the basics of these concepts, we will focus on
+building an intuition for using these concepts. We will start by exploring the
+idea behind recursion, followed by graphs, and finally wrap up with top-down
+dynamic programming.
 
 ## Recursion
 
@@ -24,10 +24,10 @@ Fibonacci(1) = 1
 For all n > 1, Fibonacci(n) = Fibonacci(n - 1) + Fibonacci(n - 2)
 ```
 
-This idea of defining a problem as its subproblems is a common in mathematics
-and hence most examples we find are based on equations such as the one above.
-How about we focus on solving a lame coding problem with recursion. Say we want
-to find the sum of all integers in an array:
+This idea of defining a problem as its subproblems is common in mathematics, and
+hence most examples we find is based on equations such as the one above. How
+about we focus on solving a lame coding problem with recursion. Say we want to
+find the sum of all integers in an array:
 
 ```python
 def total(arr: List[int]) -> int:
@@ -51,7 +51,7 @@ total([1, 2, 3, 4, 5])
             -> 1 + 2 + 3 + 4 + 5 + 0
 ```
 
-The stopping condition `if not arr: return 0` which stops the code from stack
+The stopping condition `if not arr: return 0` that stops the code from stack
 overflow is called the base case. And the line that defines the core logic
 `return arr[0] + total(arr[1:])` is called the recursive case. This pattern is
 common for all recursive functions.
@@ -96,10 +96,10 @@ mappings, recursive implementations are more intuitive to write over iterative
 code.
 
 Say we are writing a function to find all files within a given directory that
-ends with a given suffix. We could potentially use an API to get the list of
-all files within that directory and do a suffix check. However, directories
-can have subdirectories (i.e., one-to-many mappings). Well, we could repeat
-the same operations for the subdirectory too recursively:
+ends with a given suffix. We could use an API to get the list of all files
+within that directory and do a suffix check. However, directories can have
+subdirectories (i.e., one-to-many mappings). Well, we could repeat the same
+operations for the subdirectory too recursively:
 
 ```
 fn find(directory, suffix)
@@ -142,7 +142,7 @@ Voilà, we just traversed a graph! To be specific, a special kind of graph calle
 a tree using a technique called Depth-First Search (DFS). When our recursive
 code finds a subdirectory, it explores that subdirectory completely before
 looking at the rest of the items in the current directory, i.e., it explores
-the depth of the the directory tree first here then the breadth, hence the name.
+the depth of the the directory tree first and then the breadth, hence the name.
 
 Now let's look at what would change if the problem involved many-to-many
 mapping. Let's run the above example with a directory containing recursive
@@ -272,15 +272,14 @@ numDecodings("1111")
 In the above example, we trace out the entire graph for `1111`. We can clearly
 see that there are enough duplicate calls for `numDecodings("11")` and
 `numDecodings("1")`. Now imagine tracing the same graph for
-`numDecodings("111111111111111111111111111111111111111111111")`. The amount of
-repeated calls we will be making for the same index is significantly high. Even
-though we are not dealing with infinite recursive issue that we dealt with in
-the `find()` with symlinks example, we still have "cycles" that end up repeating
-the same operation. Since we make two recursive call for every index, the
-solution space forms a fully completed binary tree of height N, where N is the
-length of the input string. We know that the number of the nodes in this tree
-would be 2^N and hence the time complexity for this implementation would be
-O(2^N).
+`numDecodings("111111111111111111111111111111111111111111111")`. We make a lot
+of repeated calls for the same indices. Even though we are not dealing with
+infinite recursive issue that we dealt with in the `find()` with symlinks
+example, we still have "cycles" that end up repeating the same operation. Since
+we make two recursive call for every index, the solution space forms a fully
+completed binary tree of height N, where N is the length of the input string. We
+know that the number of the nodes in this tree would be 2^N and hence the time
+complexity for this implementation would be O(2^N).
 
 If we maintained a visited in a similar fashion and stored the result for each
 index, we could cut down all the duplicate computation of `numDecodings`.
@@ -326,12 +325,12 @@ class Solution:
         return decode(0, {})
 ```
 
-The `memo` here simply maps the unique state (i.e., the index) to its result.
-It helps in avoiding duplicate calculations. And this forms the fundamental idea
-of dynamic programming. This problem has "optimal substructure", i.e., the
-optimal way to decode `index` is the sum of optimal way to decode `index + 1`
-and `index + 2`. Maybe this doesn't make much sense for this problem but this
-idea is more handy in problems where optimization is required (see
+The `memo` here maps the unique state (i.e., the index) to its result. It helps
+in avoiding duplicate calculations. And this forms the fundamental idea of
+dynamic programming. This problem has "optimal substructure", i.e., the optimal
+way to decode `index` is the sum of optimal way to decode `index + 1` and
+`index + 2`. Maybe this doesn't make much sense for this problem but this idea
+is more handy in problems where optimization is required (see
 [coin-change problem](https://leetcode.com/problems/coin-change/)). We also
 have "overlapping subproblems", i.e., we recompute same indices over and over
 again. Pruning those calls with our `memo` cache significantly reduces
