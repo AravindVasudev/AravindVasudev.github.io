@@ -1,7 +1,7 @@
 <!doctype html><html prefix="og: http://ogp.me/ns#"><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>Recursion, Graphs, and Dynamic Programming &#183; Aravind Vasudevan</title>
-<meta name=description content="This write-up aims to connect graph theory with solving dynamic programming problems. Instead of delving into the basics of these concepts, we will be focusing on building an intuition for using these concepts. We will start by exploring the idea behind recursion, followed by graphs, and finally wrapping up with top-down dynamic programming.
+<meta name=description content="This write-up aims to connect graph theory with solving dynamic programming problems. Instead of delving into the basics of these concepts, we will focus on building an intuition for using these concepts. We will start by exploring the idea behind recursion, followed by graphs, and finally wrap up with top-down dynamic programming.
 Recursion Recursion is defining a problem in terms of itself.
-What does this even mean? We all would have seen the classic example of generating the Nth fibonacci sequence using recursion:"><meta name=HandheldFriendly content="True"><meta name=MobileOptimized content="320"><meta name=generator content="Hugo 0.122.0"><meta name=robots content="index,follow"><meta name=viewport content="width=device-width,initial-scale=1"><meta property="og:title" content="Recursion, Graphs, and Dynamic Programming"><meta property="og:description" content="This write-up aims to connect graph theory with solving dynamic programming problems. Instead of delving into the basics of these concepts, we will be focusing on building an intuition for using these concepts. We will start by exploring the idea behind recursion, followed by graphs, and finally wrapping up with top-down dynamic programming.
+What does this even mean? We all would have seen the classic example of generating the Nth fibonacci sequence using recursion:"><meta name=HandheldFriendly content="True"><meta name=MobileOptimized content="320"><meta name=generator content="Hugo 0.122.0"><meta name=robots content="index,follow"><meta name=viewport content="width=device-width,initial-scale=1"><meta property="og:title" content="Recursion, Graphs, and Dynamic Programming"><meta property="og:description" content="This write-up aims to connect graph theory with solving dynamic programming problems. Instead of delving into the basics of these concepts, we will focus on building an intuition for using these concepts. We will start by exploring the idea behind recursion, followed by graphs, and finally wrap up with top-down dynamic programming.
 Recursion Recursion is defining a problem in terms of itself.
 What does this even mean? We all would have seen the classic example of generating the Nth fibonacci sequence using recursion:"><meta property="og:type" content="article"><meta property="og:url" content="/2024/recursion-graphs-and-dp/"><link rel=stylesheet href=/dist/site.css><link rel=stylesheet href=/dist/syntax.css><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic"><link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css integrity=sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN crossorigin=anonymous></head><body><script>var dnt=navigator.doNotTrack||window.doNotTrack||navigator.msDoNotTrack,doNotTrack=dnt=="1"||dnt=="yes";doNotTrack||(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-83211075-2","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"))</script><div id=wrapper><header class=site-header><div class=container><div class=site-title-wrapper><h1 class=site-title><a href=/>Blog</a></h1><a class=button-square href=/index.xml aria-label=RSS><i class="fa fa-rss" aria-hidden=true></i></a>
 <a class="button-square button-social hint--top" data-hint=Github aria-label=Github href=https://github.com/AravindVasudev rel=me><i class="fa fa-github-alt" aria-hidden=true></i>
@@ -9,17 +9,17 @@ What does this even mean? We all would have seen the classic example of generati
 </a><a class="button-square button-social hint--top" data-hint=Email aria-label="Send an Email" href=mailto:aravind_vasudevan@outlook.com><i class="fa fa-envelope" aria-hidden=true></i></a></div><ul class=site-nav><li class=site-nav-item><a href=/>Blog</a></li><li class=site-nav-item><a href=/misc/>Misc</a></li><li class=site-nav-item><a href=/about/>About</a></li></ul></div></header><div id=container><div class=container><article class=post-container itemscope itemtype=http://schema.org/BlogPosting><header class=post-header><h1 class=post-title itemprop="name headline">Recursion, Graphs, and Dynamic Programming</h1><p class=post-date><span>Published <time datetime=2024-02-11 itemprop=datePublished>Sun, Feb 11, 2024</time></span>
 <span>by</span>
 <span itemscope itemprop=author itemtype=https://schema.org/Person><span itemprop=name><a href=https://github.com/AravindVasudev itemprop=url rel=author>Aravind Vasudevan</a></span></span></p><p class="post-reading post-line"><span>Estimated reading time: 9 min</span></p></header><div class="post-content clearfix" itemprop=articleBody><p>This write-up aims to connect graph theory with solving dynamic programming
-problems. Instead of delving into the basics of these concepts, we will be
-focusing on building an intuition for using these concepts. We will start by
-exploring the idea behind recursion, followed by graphs, and finally wrapping up
-with top-down dynamic programming.</p><h2 id=recursion>Recursion</h2><blockquote><p>Recursion is defining a problem in terms of itself.</p></blockquote><p>What does this even mean? We all would have seen the classic example of
+problems. Instead of delving into the basics of these concepts, we will focus on
+building an intuition for using these concepts. We will start by exploring the
+idea behind recursion, followed by graphs, and finally wrap up with top-down
+dynamic programming.</p><h2 id=recursion>Recursion</h2><blockquote><p>Recursion is defining a problem in terms of itself.</p></blockquote><p>What does this even mean? We all would have seen the classic example of
 generating the Nth fibonacci sequence using recursion:</p><pre tabindex=0><code>Fibonacci(0) = 0
 Fibonacci(1) = 1
 For all n &gt; 1, Fibonacci(n) = Fibonacci(n - 1) + Fibonacci(n - 2)
-</code></pre><p>This idea of defining a problem as its subproblems is a common in mathematics
-and hence most examples we find are based on equations such as the one above.
-How about we focus on solving a lame coding problem with recursion. Say we want
-to find the sum of all integers in an array:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>total</span><span class=p>(</span><span class=n>arr</span><span class=p>:</span> <span class=n>List</span><span class=p>[</span><span class=nb>int</span><span class=p>])</span> <span class=o>-&gt;</span> <span class=nb>int</span><span class=p>:</span>
+</code></pre><p>This idea of defining a problem as its subproblems is common in mathematics, and
+hence most examples we find is based on equations such as the one above. How
+about we focus on solving a lame coding problem with recursion. Say we want to
+find the sum of all integers in an array:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>total</span><span class=p>(</span><span class=n>arr</span><span class=p>:</span> <span class=n>List</span><span class=p>[</span><span class=nb>int</span><span class=p>])</span> <span class=o>-&gt;</span> <span class=nb>int</span><span class=p>:</span>
 </span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=ow>not</span> <span class=n>arr</span><span class=p>:</span>
 </span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=mi>0</span>
 </span></span><span class=line><span class=cl>
@@ -31,7 +31,7 @@ to find the sum of all integers in an array:</p><div class=highlight><pre tabind
 </span></span><span class=line><span class=cl>        <span class=o>-&gt;</span> <span class=mi>1</span> <span class=o>+</span> <span class=mi>2</span> <span class=o>+</span> <span class=mi>3</span> <span class=o>+</span> <span class=mi>4</span> <span class=o>+</span> <span class=n>total</span><span class=p>([</span><span class=mi>5</span><span class=p>])</span>
 </span></span><span class=line><span class=cl>          <span class=o>-&gt;</span> <span class=mi>1</span> <span class=o>+</span> <span class=mi>2</span> <span class=o>+</span> <span class=mi>3</span> <span class=o>+</span> <span class=mi>4</span> <span class=o>+</span> <span class=mi>5</span> <span class=o>+</span> <span class=n>total</span><span class=p>([])</span>
 </span></span><span class=line><span class=cl>            <span class=o>-&gt;</span> <span class=mi>1</span> <span class=o>+</span> <span class=mi>2</span> <span class=o>+</span> <span class=mi>3</span> <span class=o>+</span> <span class=mi>4</span> <span class=o>+</span> <span class=mi>5</span> <span class=o>+</span> <span class=mi>0</span>
-</span></span></code></pre></div><p>The stopping condition <code>if not arr: return 0</code> which stops the code from stack
+</span></span></code></pre></div><p>The stopping condition <code>if not arr: return 0</code> that stops the code from stack
 overflow is called the base case. And the line that defines the core logic
 <code>return arr[0] + total(arr[1:])</code> is called the recursive case. This pattern is
 common for all recursive functions.</p><p>In most examples involving a single recursive call, you might be better off writing
@@ -63,10 +63,10 @@ case. It is more intuitive to read in my opinion but YMMV.</p><h2 id=graphs>Grap
 (one-to-one mapping), for problems that involve one-to-many or many-to-many
 mappings, recursive implementations are more intuitive to write over iterative
 code.</p><p>Say we are writing a function to find all files within a given directory that
-ends with a given suffix. We could potentially use an API to get the list of
-all files within that directory and do a suffix check. However, directories
-can have subdirectories (i.e., one-to-many mappings). Well, we could repeat
-the same operations for the subdirectory too recursively:</p><pre tabindex=0><code>fn find(directory, suffix)
+ends with a given suffix. We could use an API to get the list of all files
+within that directory and do a suffix check. However, directories can have
+subdirectories (i.e., one-to-many mappings). Well, we could repeat the same
+operations for the subdirectory too recursively:</p><pre tabindex=0><code>fn find(directory, suffix)
   1. if the directory is empty, stop.
   2. foreach item in directory:
     2.1. if item is a subdirectory, find(item, suffix)
@@ -97,7 +97,7 @@ with recursion.</p><p>Voilà, we just traversed a graph! To be specific, a speci
 a tree using a technique called Depth-First Search (DFS). When our recursive
 code finds a subdirectory, it explores that subdirectory completely before
 looking at the rest of the items in the current directory, i.e., it explores
-the depth of the the directory tree first here then the breadth, hence the name.</p><p>Now let&rsquo;s look at what would change if the problem involved many-to-many
+the depth of the the directory tree first and then the breadth, hence the name.</p><p>Now let&rsquo;s look at what would change if the problem involved many-to-many
 mapping. Let&rsquo;s run the above example with a directory containing recursive
 symlinks:</p><pre tabindex=0><code>foo/
   bar/
@@ -190,15 +190,14 @@ a Time Limit Exceeded (TLE). Let&rsquo;s take a look at an example to see why:</
 </code></pre><p>In the above example, we trace out the entire graph for <code>1111</code>. We can clearly
 see that there are enough duplicate calls for <code>numDecodings("11")</code> and
 <code>numDecodings("1")</code>. Now imagine tracing the same graph for
-<code>numDecodings("111111111111111111111111111111111111111111111")</code>. The amount of
-repeated calls we will be making for the same index is significantly high. Even
-though we are not dealing with infinite recursive issue that we dealt with in
-the <code>find()</code> with symlinks example, we still have &ldquo;cycles&rdquo; that end up repeating
-the same operation. Since we make two recursive call for every index, the
-solution space forms a fully completed binary tree of height N, where N is the
-length of the input string. We know that the number of the nodes in this tree
-would be 2^N and hence the time complexity for this implementation would be
-O(2^N).</p><p>If we maintained a visited in a similar fashion and stored the result for each
+<code>numDecodings("111111111111111111111111111111111111111111111")</code>. We make a lot
+of repeated calls for the same indices. Even though we are not dealing with
+infinite recursive issue that we dealt with in the <code>find()</code> with symlinks
+example, we still have &ldquo;cycles&rdquo; that end up repeating the same operation. Since
+we make two recursive call for every index, the solution space forms a fully
+completed binary tree of height N, where N is the length of the input string. We
+know that the number of the nodes in this tree would be 2^N and hence the time
+complexity for this implementation would be O(2^N).</p><p>If we maintained a visited in a similar fashion and stored the result for each
 index, we could cut down all the duplicate computation of <code>numDecodings</code>.
 By pruning all the duplicate calls, we only call <code>numDecodings</code> once for each
 index, hence cutting down the time complexity from O(2^N) to O(N).</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>Solution</span><span class=p>:</span>
@@ -237,12 +236,12 @@ index, hence cutting down the time complexity from O(2^N) to O(N).</p><div class
 </span></span><span class=line><span class=cl>           <span class=k>return</span> <span class=n>ways</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>decode</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=p>{})</span>
-</span></span></code></pre></div><p>The <code>memo</code> here simply maps the unique state (i.e., the index) to its result.
-It helps in avoiding duplicate calculations. And this forms the fundamental idea
-of dynamic programming. This problem has &ldquo;optimal substructure&rdquo;, i.e., the
-optimal way to decode <code>index</code> is the sum of optimal way to decode <code>index + 1</code>
-and <code>index + 2</code>. Maybe this doesn&rsquo;t make much sense for this problem but this
-idea is more handy in problems where optimization is required (see
+</span></span></code></pre></div><p>The <code>memo</code> here maps the unique state (i.e., the index) to its result. It helps
+in avoiding duplicate calculations. And this forms the fundamental idea of
+dynamic programming. This problem has &ldquo;optimal substructure&rdquo;, i.e., the optimal
+way to decode <code>index</code> is the sum of optimal way to decode <code>index + 1</code> and
+<code>index + 2</code>. Maybe this doesn&rsquo;t make much sense for this problem but this idea
+is more handy in problems where optimization is required (see
 <a href=https://leetcode.com/problems/coin-change/>coin-change problem</a>). We also
 have &ldquo;overlapping subproblems&rdquo;, i.e., we recompute same indices over and over
 again. Pruning those calls with our <code>memo</code> cache significantly reduces
