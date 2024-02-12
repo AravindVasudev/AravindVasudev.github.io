@@ -1,0 +1,253 @@
+<!doctype html><html prefix="og: http://ogp.me/ns#"><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>Recursion, Graphs, and Dynamic Programming &#183; Aravind Vasudevan</title>
+<meta name=description content="This write-up aims to connect graph theory with solving dynamic programming problems. Instead of delving into the basics of these concepts, we will be focusing on building an intuition for using these concepts. We will start by exploring the idea behind recursion, followed by graphs, and finally wrapping up with top-down dynamic programming.
+Recursion Recursion is defining a problem in terms of itself.
+What does this even mean? We all would have seen the classic example of generating the Nth fibonacci sequence using recursion:"><meta name=HandheldFriendly content="True"><meta name=MobileOptimized content="320"><meta name=generator content="Hugo 0.122.0"><meta name=robots content="index,follow"><meta name=viewport content="width=device-width,initial-scale=1"><meta property="og:title" content="Recursion, Graphs, and Dynamic Programming"><meta property="og:description" content="This write-up aims to connect graph theory with solving dynamic programming problems. Instead of delving into the basics of these concepts, we will be focusing on building an intuition for using these concepts. We will start by exploring the idea behind recursion, followed by graphs, and finally wrapping up with top-down dynamic programming.
+Recursion Recursion is defining a problem in terms of itself.
+What does this even mean? We all would have seen the classic example of generating the Nth fibonacci sequence using recursion:"><meta property="og:type" content="article"><meta property="og:url" content="/2024/recursion-graphs-and-dp/"><link rel=stylesheet href=/dist/site.css><link rel=stylesheet href=/dist/syntax.css><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic"><link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css integrity=sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN crossorigin=anonymous></head><body><script>var dnt=navigator.doNotTrack||window.doNotTrack||navigator.msDoNotTrack,doNotTrack=dnt=="1"||dnt=="yes";doNotTrack||(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-83211075-2","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"))</script><div id=wrapper><header class=site-header><div class=container><div class=site-title-wrapper><h1 class=site-title><a href=/>Blog</a></h1><a class=button-square href=/index.xml aria-label=RSS><i class="fa fa-rss" aria-hidden=true></i></a>
+<a class="button-square button-social hint--top" data-hint=Github aria-label=Github href=https://github.com/AravindVasudev rel=me><i class="fa fa-github-alt" aria-hidden=true></i>
+</a><a class="button-square button-social hint--top" data-hint=LinkedIn aria-label=LinkedIn href=https://linkedin.com/in/aravindvasudev/ rel=me><i class="fa fa-linkedin" aria-hidden=true></i>
+</a><a class="button-square button-social hint--top" data-hint=Email aria-label="Send an Email" href=mailto:aravind_vasudevan@outlook.com><i class="fa fa-envelope" aria-hidden=true></i></a></div><ul class=site-nav><li class=site-nav-item><a href=/>Blog</a></li><li class=site-nav-item><a href=/misc/>Misc</a></li><li class=site-nav-item><a href=/about/>About</a></li></ul></div></header><div id=container><div class=container><article class=post-container itemscope itemtype=http://schema.org/BlogPosting><header class=post-header><h1 class=post-title itemprop="name headline">Recursion, Graphs, and Dynamic Programming</h1><p class=post-date><span>Published <time datetime=2024-02-11 itemprop=datePublished>Sun, Feb 11, 2024</time></span>
+<span>by</span>
+<span itemscope itemprop=author itemtype=https://schema.org/Person><span itemprop=name><a href=https://github.com/AravindVasudev itemprop=url rel=author>Aravind Vasudevan</a></span></span></p><p class="post-reading post-line"><span>Estimated reading time: 9 min</span></p></header><div class="post-content clearfix" itemprop=articleBody><p>This write-up aims to connect graph theory with solving dynamic programming
+problems. Instead of delving into the basics of these concepts, we will be
+focusing on building an intuition for using these concepts. We will start by
+exploring the idea behind recursion, followed by graphs, and finally wrapping up
+with top-down dynamic programming.</p><h2 id=recursion>Recursion</h2><blockquote><p>Recursion is defining a problem in terms of itself.</p></blockquote><p>What does this even mean? We all would have seen the classic example of
+generating the Nth fibonacci sequence using recursion:</p><pre tabindex=0><code>Fibonacci(0) = 0
+Fibonacci(1) = 1
+For all n &gt; 1, Fibonacci(n) = Fibonacci(n - 1) + Fibonacci(n - 2)
+</code></pre><p>This idea of defining a problem as its subproblems is a common in mathematics
+and hence most examples we find are based on equations such as the one above.
+How about we focus on solving a lame coding problem with recursion. Say we want
+to find the sum of all integers in an array:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>total</span><span class=p>(</span><span class=n>arr</span><span class=p>:</span> <span class=n>List</span><span class=p>[</span><span class=nb>int</span><span class=p>])</span> <span class=o>-&gt;</span> <span class=nb>int</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=ow>not</span> <span class=n>arr</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=n>arr</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>+</span> <span class=n>total</span><span class=p>(</span><span class=n>arr</span><span class=p>[</span><span class=mi>1</span><span class=p>:])</span>
+</span></span></code></pre></div><p>The above fn has two branches:</p><ol><li>if the array is empty, return 0</li><li>else, return the sum of the first element and the rest of the array.</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>total</span><span class=p>([</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>,</span> <span class=mi>4</span><span class=p>,</span> <span class=mi>5</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>  <span class=o>-&gt;</span> <span class=mi>1</span> <span class=o>+</span> <span class=n>total</span><span class=p>([</span><span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>,</span> <span class=mi>4</span><span class=p>,</span> <span class=mi>5</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span> <span class=mi>1</span> <span class=o>+</span> <span class=mi>2</span> <span class=o>+</span> <span class=n>total</span><span class=p>([</span><span class=mi>3</span><span class=p>,</span> <span class=mi>4</span><span class=p>,</span> <span class=mi>5</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>      <span class=o>-&gt;</span> <span class=mi>1</span> <span class=o>+</span> <span class=mi>2</span> <span class=o>+</span> <span class=mi>3</span> <span class=o>+</span> <span class=n>total</span><span class=p>([</span><span class=mi>4</span><span class=p>,</span> <span class=mi>5</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>        <span class=o>-&gt;</span> <span class=mi>1</span> <span class=o>+</span> <span class=mi>2</span> <span class=o>+</span> <span class=mi>3</span> <span class=o>+</span> <span class=mi>4</span> <span class=o>+</span> <span class=n>total</span><span class=p>([</span><span class=mi>5</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>          <span class=o>-&gt;</span> <span class=mi>1</span> <span class=o>+</span> <span class=mi>2</span> <span class=o>+</span> <span class=mi>3</span> <span class=o>+</span> <span class=mi>4</span> <span class=o>+</span> <span class=mi>5</span> <span class=o>+</span> <span class=n>total</span><span class=p>([])</span>
+</span></span><span class=line><span class=cl>            <span class=o>-&gt;</span> <span class=mi>1</span> <span class=o>+</span> <span class=mi>2</span> <span class=o>+</span> <span class=mi>3</span> <span class=o>+</span> <span class=mi>4</span> <span class=o>+</span> <span class=mi>5</span> <span class=o>+</span> <span class=mi>0</span>
+</span></span></code></pre></div><p>The stopping condition <code>if not arr: return 0</code> which stops the code from stack
+overflow is called the base case. And the line that defines the core logic
+<code>return arr[0] + total(arr[1:])</code> is called the recursive case. This pattern is
+common for all recursive functions.</p><p>In most examples involving a single recursive call, you might be better off writing
+iterative code, especially if your language doesn&rsquo;t support
+<a href=https://en.wikipedia.org/wiki/Tail_call>tail call optimization</a>. However, I
+personally feel most recursive breakdowns are intuitive.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># Recursive.</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>fetchData</span><span class=p>(</span><span class=nb>id</span><span class=p>:</span> <span class=nb>str</span><span class=p>,</span> <span class=n>retries</span><span class=o>=</span><span class=mi>3</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=n>retries</span> <span class=o>==</span> <span class=mi>0</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>raise</span> <span class=ne>Exception</span><span class=p>(</span><span class=s2>&#34;Request failed.&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>request</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;http://foo.bar/</span><span class=si>{</span><span class=nb>id</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=k>except</span> <span class=ne>TimeoutError</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>fetchData</span><span class=p>(</span><span class=nb>id</span><span class=p>,</span> <span class=n>retries</span> <span class=o>-</span> <span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Iterative.</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>fetchData</span><span class=p>(</span><span class=nb>id</span><span class=p>:</span> <span class=nb>str</span><span class=p>,</span> <span class=n>retries</span><span class=o>=</span><span class=mi>3</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>  <span class=k>for</span> <span class=n>_</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>retries</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>      <span class=k>return</span> <span class=n>request</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;http://foo.bar/</span><span class=si>{</span><span class=nb>id</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>except</span> <span class=ne>TimeoutError</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>      <span class=k>pass</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=k>raise</span> <span class=ne>Exception</span><span class=p>(</span><span class=s2>&#34;Request failed.&#34;</span><span class=p>)</span>
+</span></span></code></pre></div><p>In the above example, we retry the request <code>retries</code> times before throwing an
+exception. The recursive approach simply mentions throwing an exception when
+we are done retrying as its base case and retrying on failure as its recursive
+case. It is more intuitive to read in my opinion but YMMV.</p><h2 id=graphs>Graphs</h2><p>Unlike the above example where we only have one recursion call
+(one-to-one mapping), for problems that involve one-to-many or many-to-many
+mappings, recursive implementations are more intuitive to write over iterative
+code.</p><p>Say we are writing a function to find all files within a given directory that
+ends with a given suffix. We could potentially use an API to get the list of
+all files within that directory and do a suffix check. However, directories
+can have subdirectories (i.e., one-to-many mappings). Well, we could repeat
+the same operations for the subdirectory too recursively:</p><pre tabindex=0><code>fn find(directory, suffix)
+  1. if the directory is empty, stop.
+  2. foreach item in directory:
+    2.1. if item is a subdirectory, find(item, suffix)
+      2.1.1. Add to results.
+    2.2. Otherwise, do a suffix check and add to results.
+  3. return results.
+</code></pre><p>Now let&rsquo;s turn the above recursive definition to code:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>find</span><span class=p>(</span><span class=n>path</span><span class=p>:</span> <span class=nb>str</span><span class=p>,</span> <span class=n>suffix</span><span class=p>:</span> <span class=nb>str</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=n>List</span><span class=p>[</span><span class=nb>str</span><span class=p>]:</span>
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;&#34;&#34; Finds files within `path` which match the `suffix`. &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=n>files</span> <span class=o>=</span> <span class=n>os</span><span class=o>.</span><span class=n>listdir</span><span class=p>(</span><span class=n>path</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># if the directory is empty, return [].</span>
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=ow>not</span> <span class=n>files</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=n>matches</span> <span class=o>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl>  <span class=k>for</span> <span class=n>file</span> <span class=ow>in</span> <span class=n>files</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>filePath</span> <span class=o>=</span> <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=n>path</span><span class=p>,</span> <span class=n>file</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>isfile</span><span class=p>(</span><span class=n>filePath</span><span class=p>):</span> <span class=c1># If file, check suffix.</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>file</span><span class=o>.</span><span class=n>endswith</span><span class=p>(</span><span class=n>suffix</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>          <span class=n>matches</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>file</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span><span class=p>:</span> <span class=c1># if subdirectory, recurse.</span>
+</span></span><span class=line><span class=cl>      <span class=n>matches</span><span class=o>.</span><span class=n>extend</span><span class=p>(</span><span class=n>find</span><span class=p>(</span><span class=n>filePath</span><span class=p>,</span> <span class=n>suffix</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=n>matches</span>
+</span></span></code></pre></div><p>As long as we can breakdown the problem into a base case and a recursive case,
+problems involving one-to-many and many-to-many mappings are intuitive to solve
+with recursion.</p><p>Voilà, we just traversed a graph! To be specific, a special kind of graph called
+a tree using a technique called Depth-First Search (DFS). When our recursive
+code finds a subdirectory, it explores that subdirectory completely before
+looking at the rest of the items in the current directory, i.e., it explores
+the depth of the the directory tree first here then the breadth, hence the name.</p><p>Now let&rsquo;s look at what would change if the problem involved many-to-many
+mapping. Let&rsquo;s run the above example with a directory containing recursive
+symlinks:</p><pre tabindex=0><code>foo/
+  bar/
+    baz/ ---&gt; symlink to foo/
+
+find(&#34;/foo&#34;, &#34;js&#34;)
+OSError: [Errno 62] Too many levels of symbolic links: &#39;/foo/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar/bar&#39;
+</code></pre><p>The <code>find()</code> keeps following the symlink indefinitely until it hits an OS error.
+We could patch this function by ensuring we only visited a path once:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>find</span><span class=p>(</span><span class=n>path</span><span class=p>:</span> <span class=nb>str</span><span class=p>,</span> <span class=n>suffix</span><span class=p>:</span> <span class=nb>str</span><span class=p>,</span> <span class=n>visited</span><span class=p>:</span> <span class=n>Set</span><span class=p>[</span><span class=nb>str</span><span class=p>])</span> <span class=o>-&gt;</span> <span class=n>List</span><span class=p>[</span><span class=nb>str</span><span class=p>]:</span>
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;&#34;&#34; Finds files within `path` which match the `suffix`. &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=c1># Resolve symlink and check if already visited.</span>
+</span></span><span class=line><span class=cl>  <span class=n>path</span> <span class=o>=</span> <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>realpath</span><span class=p>(</span><span class=n>path</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=n>path</span> <span class=ow>in</span> <span class=n>visited</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=n>visited</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>path</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=n>files</span> <span class=o>=</span> <span class=n>os</span><span class=o>.</span><span class=n>listdir</span><span class=p>(</span><span class=n>path</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># if the directory is empty, return [].</span>
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=ow>not</span> <span class=n>files</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=n>matches</span> <span class=o>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl>  <span class=k>for</span> <span class=n>file</span> <span class=ow>in</span> <span class=n>files</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>filePath</span> <span class=o>=</span> <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=n>path</span><span class=p>,</span> <span class=n>file</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>isfile</span><span class=p>(</span><span class=n>filePath</span><span class=p>):</span> <span class=c1># If file, check suffix.</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>file</span><span class=o>.</span><span class=n>endswith</span><span class=p>(</span><span class=n>suffix</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>          <span class=n>matches</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>file</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span><span class=p>:</span> <span class=c1># if subdirectory, recurse.</span>
+</span></span><span class=line><span class=cl>      <span class=n>matches</span><span class=o>.</span><span class=n>extend</span><span class=p>(</span><span class=n>find</span><span class=p>(</span><span class=n>filePath</span><span class=p>,</span> <span class=n>suffix</span><span class=p>,</span> <span class=n>visited</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=n>matches</span>
+</span></span></code></pre></div><p>Even though this example might not completely fit the many-to-many template, it
+still suffers from the same problem that many-to-many relations have: cycles.
+Following these cycles would let us go in an infinite recursion. This can
+usually be handled by storing the all the previously visited path and avoiding
+those cyclic paths.</p><p>How is this tied to graphs you ask? Graph is a mathematical model, in that, you
+don&rsquo;t need to define a class or an adjendency matrix to use its algorithms. A
+lot of problems which can broken down into recursive definitions can be solved
+using graph algorithms.</p><p>Now let&rsquo;s use this idea to solve
+<a href=https://leetcode.com/problems/decode-ways/>decode-ways</a> from leetcode. tl;dr
+of the description is to find the number of ways the given number can be decoded
+into a string.</p><p>Let&rsquo;s think of the path you could take to decode the number as a graph:</p><pre tabindex=0><code>decodeWays(&#34;12&#34;)
+  --&gt; char[1] + decodeWays(&#34;2&#34;) --&gt; char[1] + char[2] + decodeWays(&#34;&#34;) # 1 way.
+  --&gt; char[12] + decodeWays(&#34;&#34;) # 1 way.
+=========================================
+                2 ways
+=========================================
+</code></pre><p>At every index, we can conditionally decode one or two characters. And based on
+that, we could decode the rest of the string. As shown in the above example,
+the solution space can hence be represented as a graph. The substring would be
+the node and the way to get to it (either by decoding one digit or two) would
+be the edge. We could DFS through it the same way we did for the <code>find()</code> fn.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>Solution</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>numDecodings</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>s</span><span class=p>:</span> <span class=nb>str</span><span class=p>,</span> <span class=n>index</span><span class=p>:</span> <span class=nb>int</span> <span class=o>=</span> <span class=mi>0</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=nb>int</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=c1># If done decoding the entire string</span>
+</span></span><span class=line><span class=cl>        <span class=c1># We have found one path.</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>index</span> <span class=o>==</span> <span class=nb>len</span><span class=p>(</span><span class=n>s</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1># If the current digit is &#34;0&#34;, we</span>
+</span></span><span class=line><span class=cl>        <span class=c1># can&#39;t decode since the table goes from 1</span>
+</span></span><span class=line><span class=cl>        <span class=c1># to 26. For example, if the input is,</span>
+</span></span><span class=line><span class=cl>        <span class=c1># &#34;012&#34;, there is no way to decode it.</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>s</span><span class=p>[</span><span class=n>index</span><span class=p>]</span> <span class=o>==</span> <span class=s2>&#34;0&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1># Number of paths from decoding the current</span>
+</span></span><span class=line><span class=cl>        <span class=c1># digit.</span>
+</span></span><span class=line><span class=cl>        <span class=n>ways</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>numDecodings</span><span class=p>(</span><span class=n>s</span><span class=p>,</span> <span class=n>index</span> <span class=o>+</span> <span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1># If current digit and next digit combined is</span>
+</span></span><span class=line><span class=cl>        <span class=c1># decodable, add those possibilities too.</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=n>index</span> <span class=o>+</span> <span class=mi>1</span> <span class=o>&lt;</span> <span class=nb>len</span><span class=p>(</span><span class=n>s</span><span class=p>)</span> <span class=ow>and</span> 
+</span></span><span class=line><span class=cl>            <span class=nb>int</span><span class=p>(</span><span class=n>s</span><span class=p>[</span><span class=n>index</span><span class=p>:</span><span class=n>index</span><span class=o>+</span><span class=mi>2</span><span class=p>])</span> <span class=o>&lt;=</span> <span class=mi>26</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>            <span class=n>ways</span> <span class=o>+=</span> <span class=bp>self</span><span class=o>.</span><span class=n>numDecodings</span><span class=p>(</span><span class=n>s</span><span class=p>,</span> <span class=n>index</span> <span class=o>+</span> <span class=mi>2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>ways</span>
+</span></span></code></pre></div><p>The above problem significantly jumps in complexity compared to the <code>find()</code>
+example. However, the fundamental idea is the same. By treating the solution
+space as a graph, we can DFS through it to reach the end nodes and aggregate
+the result.</p><h2 id=dynamic-programming>Dynamic Programming</h2><p>If you tried submitting the above example for
+<a href=https://leetcode.com/problems/decode-ways/>decode-ways</a>, you would be hit with
+a Time Limit Exceeded (TLE). Let&rsquo;s take a look at an example to see why:</p><pre tabindex=0><code>numDecodings(&#34;1111&#34;)
+  --&gt; char[1] + numDecodings(&#34;111&#34;) --&gt; char[1] + char[1] + numDecodings(&#34;11&#34;) --&gt; char[1] + char[1] + char[1] + numDecodings(&#34;1&#34;) --&gt; char[1] + char[1] + char[1] + char[1]
+                                    --&gt; char[1] + char[11] + numDecodings(&#34;1&#34;) --&gt; char[1] + char[11] + char[1]
+  --&gt; char[11] + numDecodings(&#34;11&#34;)
+                                    --&gt; char[11] + char[1] + numDecodings(&#34;1&#34;) --&gt; char[11] + char[1] + char[1]
+                                    --&gt; char[11] + char[11]
+</code></pre><p>In the above example, we trace out the entire graph for <code>1111</code>. We can clearly
+see that there are enough duplicate calls for <code>numDecodings("11")</code> and
+<code>numDecodings("1")</code>. Now imagine tracing the same graph for
+<code>numDecodings("111111111111111111111111111111111111111111111")</code>. The amount of
+repeated calls we will be making for the same index is significantly high. Even
+though we are not dealing with infinite recursive issue that we dealt with in
+the <code>find()</code> with symlinks example, we still have &ldquo;cycles&rdquo; that end up repeating
+the same operation. Since we make two recursive call for every index, the
+solution space forms a fully completed binary tree of height N, where N is the
+length of the input string. We know that the number of the nodes in this tree
+would be 2^N and hence the time complexity for this implementation would be
+O(2^N).</p><p>If we maintained a visited in a similar fashion and stored the result for each
+index, we could cut down all the duplicate computation of <code>numDecodings</code>.
+By pruning all the duplicate calls, we only call <code>numDecodings</code> once for each
+index, hence cutting down the time complexity from O(2^N) to O(N).</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>Solution</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=c1># The pythonic way of implementing this would be to use</span>
+</span></span><span class=line><span class=cl>    <span class=c1># @functools.cache decorator.</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>numDecodings</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>s</span><span class=p>:</span> <span class=nb>str</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=nb>int</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>def</span> <span class=nf>decode</span><span class=p>(</span><span class=n>index</span><span class=p>:</span> <span class=nb>int</span><span class=p>,</span> <span class=n>memo</span><span class=p>:</span> <span class=n>Mapping</span><span class=p>[</span><span class=nb>int</span><span class=p>,</span> <span class=nb>int</span><span class=p>])</span> <span class=o>-&gt;</span> <span class=nb>int</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>           <span class=c1># If done decoding the entire string</span>
+</span></span><span class=line><span class=cl>           <span class=c1># We have found one path.</span>
+</span></span><span class=line><span class=cl>           <span class=k>if</span> <span class=n>index</span> <span class=o>==</span> <span class=nb>len</span><span class=p>(</span><span class=n>s</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>               <span class=k>return</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>           <span class=c1># If the current digit is &#34;0&#34;, we</span>
+</span></span><span class=line><span class=cl>           <span class=c1># can&#39;t decode since the table goes from 1</span>
+</span></span><span class=line><span class=cl>           <span class=c1># to 26. For example, if the input is,</span>
+</span></span><span class=line><span class=cl>           <span class=c1># &#34;012&#34;, there is no way to decode it.</span>
+</span></span><span class=line><span class=cl>           <span class=k>if</span> <span class=n>s</span><span class=p>[</span><span class=n>index</span><span class=p>]</span> <span class=o>==</span> <span class=s2>&#34;0&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>               <span class=k>return</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>           <span class=c1># If already computed, return stored result.</span>
+</span></span><span class=line><span class=cl>           <span class=k>if</span> <span class=n>index</span> <span class=ow>in</span> <span class=n>memo</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>             <span class=k>return</span> <span class=n>memo</span><span class=p>[</span><span class=n>index</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>           <span class=c1># Number of paths from decoding the current</span>
+</span></span><span class=line><span class=cl>           <span class=c1># digit.</span>
+</span></span><span class=line><span class=cl>           <span class=n>ways</span> <span class=o>=</span> <span class=n>decode</span><span class=p>(</span><span class=n>index</span> <span class=o>+</span> <span class=mi>1</span><span class=p>,</span> <span class=n>memo</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>           <span class=c1># If current digit and next digit combined is</span>
+</span></span><span class=line><span class=cl>           <span class=c1># decodable, add those possibilities too.</span>
+</span></span><span class=line><span class=cl>           <span class=k>if</span> <span class=p>(</span><span class=n>index</span> <span class=o>+</span> <span class=mi>1</span> <span class=o>&lt;</span> <span class=nb>len</span><span class=p>(</span><span class=n>s</span><span class=p>)</span> <span class=ow>and</span> 
+</span></span><span class=line><span class=cl>               <span class=nb>int</span><span class=p>(</span><span class=n>s</span><span class=p>[</span><span class=n>index</span><span class=p>:</span><span class=n>index</span><span class=o>+</span><span class=mi>2</span><span class=p>])</span> <span class=o>&lt;=</span> <span class=mi>26</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>               <span class=n>ways</span> <span class=o>+=</span> <span class=n>decode</span><span class=p>(</span><span class=n>index</span> <span class=o>+</span> <span class=mi>2</span><span class=p>,</span> <span class=n>memo</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>           <span class=c1># Store the result.</span>
+</span></span><span class=line><span class=cl>           <span class=n>memo</span><span class=p>[</span><span class=n>index</span><span class=p>]</span> <span class=o>=</span> <span class=n>ways</span>
+</span></span><span class=line><span class=cl>           <span class=k>return</span> <span class=n>ways</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>decode</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=p>{})</span>
+</span></span></code></pre></div><p>The <code>memo</code> here simply maps the unique state (i.e., the index) to its result.
+It helps in avoiding duplicate calculations. And this forms the fundamental idea
+of dynamic programming. This problem has &ldquo;optimal substructure&rdquo;, i.e., the
+optimal way to decode <code>index</code> is the sum of optimal way to decode <code>index + 1</code>
+and <code>index + 2</code>. Maybe this doesn&rsquo;t make much sense for this problem but this
+idea is more handy in problems where optimization is required (see
+<a href=https://leetcode.com/problems/coin-change/>coin-change problem</a>). We also
+have &ldquo;overlapping subproblems&rdquo;, i.e., we recompute same indices over and over
+again. Pruning those calls with our <code>memo</code> cache significantly reduces
+computation.</p><p>Voilà, we solved a DP problem! There is definitively a lot more to each of the
+topics covered here. But the fundamental take away of this write-up is to build
+the intuition to think of your problem space as a graph of inter-connected
+states and traversing it optimally. So long!</p></div><footer class="post-footer clearfix"><p class=post-tags><span>Tagged:</span>
+<a href=/tags/data-structures/>data structures</a></p><div class=share><a class=icon-linkedin href="https://www.linkedin.com/shareArticle?mini=true&title=Recursion%2c%20Graphs%2c%20and%20Dynamic%20Programming&url=%2f2024%2frecursion-graphs-and-dp%2f&summary=" onclick='return window.open(this.href,"linkedin-share","width=554,height=481"),!1' aria-label="Share on LinkedIn"><i class="fa fa-linkedin" aria-hidden=true></i></a></div></footer><div class=comments><div id=disqus_thread></div><script>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//aravind-vasudev-blog.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div></article></div></div></div><footer class=footer><div class=container><div class=site-title-wrapper><h1 class=site-title><a href=/>Blog</a></h1><a class="button-square button-jump-top js-jump-top" href=# aria-label="Back to Top"><i class="fa fa-angle-up" aria-hidden=true></i></a></div><p class=footer-copyright><span>&copy; 2024 / Powered by <a href=https://gohugo.io/>Hugo</a></span></p><p class=footer-copyright><span>SEND ANY CORRECTIONS/OPINIONS TO ARAVIND_VASUDEVAN [AT] OUTLOOK [DOT] COM</span></p></div></footer><script src=/js/jquery-1.11.3.min.js></script><script src=/js/jquery.fitvids.js></script><script src=/js/scripts.js></script></body></html>
