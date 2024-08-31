@@ -3,7 +3,7 @@ layout: default
 title:  "Hi there!"
 ---
 
-I am Aravind, a software engineer at [Google](https://www.google.com/). I am passionate about distributed systems and have a general obsession for good tech. I am also a Carnegie Mellon Alumni.
+I'm Aravind, a software engineer who’s all about building cool distributed systems and geeking out over the latest tech. I’m currently working on backend systems at [Meta](https://www.facebook.com/), and before that, I tackled Chrome Infrastructure at [Google](https://www.google.com/). Oh, and I’m a Carnegie Mellon alum too!
 
 Reach out to me: `aravind_vasudevan [at] outlook [dot] com`
 
