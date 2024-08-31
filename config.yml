@@ -3,10 +3,14 @@ title: "Blog"
 theme: ghostwriter
 languageCode: en-us
 googleAnalytics: "UA-83211075-2"
-disqusShortname: "aravind-vasudev-blog"
 pygmentsUseClasses: true
 pygmentsCodefences: true
 enableEmoji: true
+
+config:
+  services:
+   disqus:
+    shortname: "aravind-vasudev-blog"
 
 markup:
   highlight:
