@@ -31,11 +31,10 @@ privacy:
     respectDoNotTrack: true
     useSessionStorage: false
 
-author:
-  name: "Aravind Vasudevan"
-  profile: "https://github.com/AravindVasudev"
-
 params:
+  author:
+    name: "Aravind Vasudevan"
+    profile: "https://github.com/AravindVasudev"
   mainSections:
     - post
   intro: true
