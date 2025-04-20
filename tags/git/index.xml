@@ -1,3 +1,16 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Git on Blog</title><link>/tags/git/</link><description>Recent content in Git on Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 18 Jan 2023 00:00:00 +0530</lastBuildDate><atom:link href="/tags/git/index.xml" rel="self" type="application/rss+xml"/><item><title>Pinning Git Submodule To A Revision</title><link>/2023/pinning-git-submodule-to-a-revision/</link><pubDate>Wed, 18 Jan 2023 00:00:00 +0530</pubDate><guid>/2023/pinning-git-submodule-to-a-revision/</guid><description>This blog requires some understanding of git plumbing commands and the basics of submodules. The resources below are a good start.
-Git Tools - Submodules Git Internals The submodules chapter within the git book is pretty extensive on how to use git submodules. However, it misses covering some real-world details.
-Recently, I was working on pinning my submodule to a specific revision and rolling that revision using a script. At first, this seems pretty straightforward from the documentation.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Git on Blog</title><link>/tags/git/</link><description>Recent content in Git on Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 18 Jan 2023 00:00:00 +0530</lastBuildDate><atom:link href="/tags/git/index.xml" rel="self" type="application/rss+xml"/><item><title>Pinning Git Submodule To A Revision</title><link>/2023/pinning-git-submodule-to-a-revision/</link><pubDate>Wed, 18 Jan 2023 00:00:00 +0530</pubDate><guid>/2023/pinning-git-submodule-to-a-revision/</guid><description>&lt;p>This blog requires some understanding of git plumbing commands and the basics of
+submodules. The resources below are a good start.&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules">Git Tools - Submodules&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://git-scm.com/book/en/v2/Git-Internals-Plumbing-and-Porcelain">Git Internals&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>The submodules chapter within the git book is pretty extensive on how to use
+git submodules. However, it misses covering some real-world details.&lt;/p>
+&lt;p>Recently, I was working on pinning my submodule to a specific revision and
+rolling that revision using a script. At first, this seems pretty
+straightforward from the documentation. All the information about the
+submodules are stored within the &lt;code>.gitmodules&lt;/code>, which itself is
+version-controlled. However, looking deep into the
+&lt;a href="https://git-scm.com/docs/gitmodules">structure of the &lt;code>.gitmodule&lt;/code> file&lt;/a>, you
+would notice it barely stores any information about your submodule. What&amp;rsquo;s
+going on here?&lt;/p></description></item></channel></rss>

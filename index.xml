@@ -1,25 +1,140 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog</title><link>/</link><description>Recent content on Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sat, 31 Aug 2024 00:00:00 +0530</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>My Tech Interviewing Checklist</title><link>/misc/tech-interviewing-checklist/</link><pubDate>Sat, 31 Aug 2024 00:00:00 +0530</pubDate><guid>/misc/tech-interviewing-checklist/</guid><description>Disclaimer: This article is basically a dump of my disorganized notes I took during my interview prep, don&amp;rsquo;t expect it to be good.
-Preparing for coding interviews definitely gets our nerves rattling, even if we’ve been coding for years. No matter how seasoned you are, the pressure of interviews can still be overwhelming.
-Before my Google interview, a friend pointed me to the blog Get that job at Google. The author introduces the concept of the &amp;ldquo;Interview Anti-Loop&amp;rdquo; which really stuck with me.</description></item><item><title>Recursion, Graphs, and Dynamic Programming</title><link>/2024/recursion-graphs-and-dp/</link><pubDate>Sun, 11 Feb 2024 00:00:00 +0530</pubDate><guid>/2024/recursion-graphs-and-dp/</guid><description>This write-up aims to connect graph theory with solving dynamic programming problems. Instead of delving into the basics of these concepts, we will focus on building an intuition for using these concepts. We will start by exploring the idea behind recursion, followed by graphs, and finally wrap up with top-down dynamic programming.
-Recursion Recursion is defining a problem in terms of itself.
-What does this even mean? We all would have seen the classic example of generating the Nth fibonacci sequence using recursion:</description></item><item><title>Pinning Git Submodule To A Revision</title><link>/2023/pinning-git-submodule-to-a-revision/</link><pubDate>Wed, 18 Jan 2023 00:00:00 +0530</pubDate><guid>/2023/pinning-git-submodule-to-a-revision/</guid><description>This blog requires some understanding of git plumbing commands and the basics of submodules. The resources below are a good start.
-Git Tools - Submodules Git Internals The submodules chapter within the git book is pretty extensive on how to use git submodules. However, it misses covering some real-world details.
-Recently, I was working on pinning my submodule to a specific revision and rolling that revision using a script. At first, this seems pretty straightforward from the documentation.</description></item><item><title>Solving Wordle</title><link>/2022/solving-wordle/</link><pubDate>Sun, 23 Jan 2022 00:00:00 +0530</pubDate><guid>/2022/solving-wordle/</guid><description>I started writing this article around January 2022 but never got around publishing it. Given its September already, I&amp;rsquo;m going ahead and publishing the draft. This is not intended to be read/shared but to just keep this blog going.
-I have been playing wordle continously for the past week with my colleagues. It&amp;rsquo;s a simple game where you guess a five letter word within six chances. At each guess, the game tells you how many letters you got right, how many letters are in the word in a different position, and how many aren&amp;rsquo;t present in the answer.</description></item><item><title>Listening to the other side</title><link>/2021/listening-to-the-other-side/</link><pubDate>Tue, 09 Feb 2021 00:00:00 +0530</pubDate><guid>/2021/listening-to-the-other-side/</guid><description>Hi there, lurker. It’s been over a year since I posted anything so I thought I should amuse you with a rant. So much has changed since I wrote my last blog. I moved out of my country and completed a master&amp;rsquo;s degree. Yup, I’m wiser now. I also survived a global pandemic using my life-long training of self-isolation. It feels like I was made for this very movement. Since you’re reading this, I assume you survived too.</description></item><item><title>Introduction to Aspect Oriented Programming</title><link>/2019/introduction-to-aop/</link><pubDate>Sat, 30 Mar 2019 00:00:00 +0530</pubDate><guid>/2019/introduction-to-aop/</guid><description>In a medium to large codebase, many-a-time, you might notice code that shouldn&amp;rsquo;t be in some class/method by design but is necessary. This can be anything from simple logging to transaction handling. As the codebase scales, this keeps adding up to a point where the code becomes laborious to manage.
-Aspect-Oriented Programming provides a way to modularize these kinds of cross-cutting concerns with Aspects. Here is a basic example,
-@Aspect class LoggingAspect { // Aspect Logger LOGGER = Logger.</description></item><item><title>Bootstrapping your vimrc</title><link>/2018/bootstrapping-your-vimrc/</link><pubDate>Sun, 26 Aug 2018 00:00:00 +0530</pubDate><guid>/2018/bootstrapping-your-vimrc/</guid><description>When I first started with vim, I had trouble understanding how vim configuration worked and it was hard for me to use the plain vim. So I had to copy the .vimrc of a friend and as time moved, I kept adding over it to a point where my vim started slowing down. So, last week I spent some time on rewriting my .vimrc from scratch and I made another &amp;ldquo;light-weight&amp;rdquo; version of .</description></item><item><title>Concurrency and Parallelelism</title><link>/2018/concurrency-and-parallelism/</link><pubDate>Mon, 30 Jul 2018 00:00:00 +0530</pubDate><guid>/2018/concurrency-and-parallelism/</guid><description>We live in a universe where literally every system can multiprocess (Some claim that the universe itself is a parallel system but I&amp;rsquo;m going to leave that for another blog) but most of our programs are sequential. This is mainly because parallel systems are arduous to design.
-Concurrent systems grow in complexity exponentially because the more concurrent the system gets, more the places it could fail. Handling for all the failable cases is what makes concurrent design laborious.</description></item><item><title>Writing your first JSP and Servlet using Vim</title><link>/2018/writing-your-first-jsp-and-servlet-using-vim/</link><pubDate>Fri, 29 Jun 2018 00:00:00 +0530</pubDate><guid>/2018/writing-your-first-jsp-and-servlet-using-vim/</guid><description>Moving to Java from scripting languages can be a tedious process. A lot of times, it is hard to understand what the IDE does in the background to serve our web application. Hence, I&amp;rsquo;m writing these quick bite-sized notes as I learn.
-Servlets and JSPs run on a Servlet Container such as Apache Tomcat, Jetty, etc. When we write a Servlet in an IDE such as Eclipse, the IDE takes care of building the class and serving it.</description></item><item><title>Hacking out an object detector using brain.js</title><link>/2018/hacking-out-an-object-detector-using-brainjs/</link><pubDate>Thu, 05 Apr 2018 04:00:00 +0530</pubDate><guid>/2018/hacking-out-an-object-detector-using-brainjs/</guid><description>Two weeks back, I had to demo my final year project which uses Deep Learning. Being a novice myself, I know how difficult it is to wrap our minds around DL. So, I wanted to build an intuitive demo with real-world applications which would help me to explain my project. (The world has had enough MNIST classifiers!).
-I planned on building an object detector but also eschewed from &amp;ldquo;production-ready&amp;rdquo; deep-learning frameworks because those are quite convoluted for a beginner to understand.</description></item><item><title>Undoing screw-ups in Mercurial</title><link>/2018/undoing-screw-ups-in-hg/</link><pubDate>Mon, 26 Mar 2018 04:00:00 +0530</pubDate><guid>/2018/undoing-screw-ups-in-hg/</guid><description>In the last three months of using Mercurial at my internship, I have screwed up a lot of times. From adding wrong files to pushing bad commits, I have done it all. So, as the end of my internship is nearing, I&amp;rsquo;m making a list of fixes that I learned during this journey.
-Adding all files Most of us have a muscle memory of doing this:
-git/hg add . git/hg commit -m &amp;#34;foo&amp;#34; git/hg push But if you are working on a legacy codebase which is as old as time itself, you will have to look twice for a ignore file before adding everything.</description></item><item><title>Moving to Antergos from Ubuntu</title><link>/2017/moving-to-antergos/</link><pubDate>Tue, 15 Aug 2017 01:00:00 +0530</pubDate><guid>/2017/moving-to-antergos/</guid><description>Nine months ago, I decided that I had enough with Windows and planned to completely move to GNU/Linux (Yeah, it&amp;rsquo;s not Linux, it&amp;rsquo;s GNU/Linux). Since I own only one laptop, I do not prefer distro jumping and needed to settle down with something. After googling for a while, I picked Ubuntu.
-Ubuntu, with some fixes and theming, is a really awesome distro to dive into. Except for the WiFi issue, which is partially fixable, everything seemed nice about it.</description></item><item><title>My day 1 of learning Kotlin</title><link>/2017/my-day-1-with-kotlin/</link><pubDate>Sun, 21 May 2017 05:00:00 +0530</pubDate><guid>/2017/my-day-1-with-kotlin/</guid><description>I was reluctant to learn Android until now because of Java. With all the new languages out there, Java&amp;rsquo;s verbose nature and lack of syntactic sugar is not the most pleasing language to code in. Even though language alternatives like Scala, Clojure, and Kotlin exist for Android, I stuck with hybrid app development due to the lack of proper documentation for these alternatives.
-A couple of days back, the Android team announced first-class support for kotlin and I started seeing a lot of Kotlin praise and tutorial coming up across the internet community.</description></item><item><title>Web Scraping 101 (part 2): Build an Anna University Result Scraper</title><link>/2017/web-scraping-101-part2/</link><pubDate>Sat, 14 Jan 2017 02:51:00 +0530</pubDate><guid>/2017/web-scraping-101-part2/</guid><description>This is the follow-up to Web Scraping 101: Build a simple web scraper using PHP. If you haven&amp;rsquo;t seen it yet, I&amp;rsquo;d highly recommend you to read that before continuing.
-In this tutorial, we will be building a simple web scraper that extracts the result from Anna University&amp;rsquo;s website. This tutorial is strictly for educational purposes.
-AU Scraper We are going to do this in 4 simple steps:
-Step 1: read the website and create the DOM Anna University provides a nice little endpoint using which we can view our result by sending a GET Request.</description></item><item><title>Web Scraping 101 : Build a simple web scraper using PHP</title><link>/2017/web-scraping-101/</link><pubDate>Fri, 13 Jan 2017 12:48:00 +0530</pubDate><guid>/2017/web-scraping-101/</guid><description>There are times when we want to extract data from a website. In most cases, you are provided with an API, but that&amp;rsquo;s not always plausible. So, when a website does not provide an API, the only way to get the data from the website is to scrape it off yourself.
-In this tutorial, we are going to build a simple scraper using PHP to extract data from Wikipedia (I&amp;rsquo;d highly recommend you to use Wikipedia API over this.</description></item><item><title>How to create a context menu using JQuery in 3 steps !</title><link>/2016/how-to-create-a-context-menu/</link><pubDate>Thu, 08 Dec 2016 14:30:00 +0530</pubDate><guid>/2016/how-to-create-a-context-menu/</guid><description>Say Google Drive or WhatsApp web or any other web application with native feel, they all have one thing in common: A Context Menu. A while ago, when I wanted to add one to my web app, like any other programmer, I binged it (&amp;#x1f602;). Jokes Apart, to my surprise, I couldn&amp;rsquo;t find a single proper tutorial to do that.
-After spending a long time searching, I found a couple of StackOverflow answers which were in pure JS and CSS (&amp;#x1f616;).</description></item><item><title>Hello World</title><link>/2016/hello-world/</link><pubDate>Thu, 08 Dec 2016 13:50:00 +0530</pubDate><guid>/2016/hello-world/</guid><description>This is my first blog. Here&amp;rsquo;s a line of python to generate an asterisk triangle:
-&amp;gt;&amp;gt;&amp;gt; print(&amp;#34;\n&amp;#34;.join([&amp;#34;*&amp;#34; * i for i in range(int(input()) + 1)])) 5 * ** *** **** *****</description></item><item><title>Hi there!</title><link>/about/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/about/</guid><description>I&amp;rsquo;m Aravind, a software engineer who’s all about building cool distributed systems and geeking out over the latest tech. I’m currently working on backend systems at Meta, and before that, I tackled Chrome Infrastructure at Google. Oh, and I’m a Carnegie Mellon alum too!
-Reach out to me: aravind_vasudevan [at] outlook [dot] com
-Quick Links Resume Github Projects LinkedIn</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog</title><link>/</link><description>Recent content on Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sat, 31 Aug 2024 00:00:00 +0530</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>My Tech Interviewing Checklist</title><link>/misc/tech-interviewing-checklist/</link><pubDate>Sat, 31 Aug 2024 00:00:00 +0530</pubDate><guid>/misc/tech-interviewing-checklist/</guid><description>&lt;p>&lt;em>Disclaimer: This article is basically a dump of my disorganized notes I took during my interview prep, don&amp;rsquo;t expect it to be good.&lt;/em>&lt;/p>
+&lt;p>Preparing for coding interviews definitely gets our nerves rattling, even if we’ve been coding for years. No matter how seasoned you are, the pressure of interviews can still be overwhelming.&lt;/p>
+&lt;p>Before my Google interview, a friend pointed me to the blog &lt;a href="https://steve-yegge.blogspot.com/2008/03/get-that-job-at-google.html">Get that job at Google&lt;/a>. The author introduces the concept of the &amp;ldquo;Interview Anti-Loop&amp;rdquo; which really stuck with me. It’s basically the idea that, no matter how prepared you are, there will always be someone who thinks you’re not the right fit or a problem you can’t solve on the spot.&lt;/p></description></item><item><title>Recursion, Graphs, and Dynamic Programming</title><link>/2024/recursion-graphs-and-dp/</link><pubDate>Sun, 11 Feb 2024 00:00:00 +0530</pubDate><guid>/2024/recursion-graphs-and-dp/</guid><description>&lt;p>This write-up aims to connect graph theory with solving dynamic programming
+problems. Instead of delving into the basics of these concepts, we will focus on
+building an intuition for using these concepts. We will start by exploring the
+idea behind recursion, followed by graphs, and finally wrap up with top-down
+dynamic programming.&lt;/p>
+&lt;h2 id="recursion">Recursion&lt;/h2>
+&lt;blockquote>
+&lt;p>Recursion is defining a problem in terms of itself.&lt;/p>&lt;/blockquote>
+&lt;p>What does this even mean? We all would have seen the classic example of
+generating the Nth fibonacci sequence using recursion:&lt;/p></description></item><item><title>Pinning Git Submodule To A Revision</title><link>/2023/pinning-git-submodule-to-a-revision/</link><pubDate>Wed, 18 Jan 2023 00:00:00 +0530</pubDate><guid>/2023/pinning-git-submodule-to-a-revision/</guid><description>&lt;p>This blog requires some understanding of git plumbing commands and the basics of
+submodules. The resources below are a good start.&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules">Git Tools - Submodules&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://git-scm.com/book/en/v2/Git-Internals-Plumbing-and-Porcelain">Git Internals&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>The submodules chapter within the git book is pretty extensive on how to use
+git submodules. However, it misses covering some real-world details.&lt;/p>
+&lt;p>Recently, I was working on pinning my submodule to a specific revision and
+rolling that revision using a script. At first, this seems pretty
+straightforward from the documentation. All the information about the
+submodules are stored within the &lt;code>.gitmodules&lt;/code>, which itself is
+version-controlled. However, looking deep into the
+&lt;a href="https://git-scm.com/docs/gitmodules">structure of the &lt;code>.gitmodule&lt;/code> file&lt;/a>, you
+would notice it barely stores any information about your submodule. What&amp;rsquo;s
+going on here?&lt;/p></description></item><item><title>Solving Wordle</title><link>/2022/solving-wordle/</link><pubDate>Sun, 23 Jan 2022 00:00:00 +0530</pubDate><guid>/2022/solving-wordle/</guid><description>&lt;blockquote>
+&lt;p>I started writing this article around January 2022 but never got around
+publishing it. Given its September already, I&amp;rsquo;m going ahead and publishing the
+draft. This is not intended to be read/shared but to just keep this blog going.&lt;/p>&lt;/blockquote>
+&lt;p>I have been playing &lt;a href="https://www.powerlanguage.co.uk/wordle/">wordle&lt;/a>
+continously for the past week with my colleagues. It&amp;rsquo;s a simple game where you
+guess a five letter word within six chances. At each guess, the game tells you
+how many letters you got right, how many letters are in the word in a different
+position, and how many aren&amp;rsquo;t present in the answer. The game gives you a new
+puzzle everyday. The game became so popular that even google added an easter
+egg.&lt;/p></description></item><item><title>Listening to the other side</title><link>/2021/listening-to-the-other-side/</link><pubDate>Tue, 09 Feb 2021 00:00:00 +0530</pubDate><guid>/2021/listening-to-the-other-side/</guid><description>&lt;p>Hi there, lurker. It’s been over a year since I posted anything so I thought I
+should amuse you with a rant. So much has changed since I wrote my last blog. I
+moved out of my country and completed a master&amp;rsquo;s degree. Yup, I’m wiser now. I
+also survived a global pandemic using my life-long training of self-isolation.
+It feels like I was made for this very movement. Since you’re reading this, I
+assume you survived too. Congrats on staying alive! Vaccines are almost here,
+and if what I read on all the conspiracy forums were legit, Bill Gates chan can
+finally know how I feel. Hopefully, we will all get microchipped before the end
+of this year and go back to regular life.&lt;/p></description></item><item><title>Introduction to Aspect Oriented Programming</title><link>/2019/introduction-to-aop/</link><pubDate>Sat, 30 Mar 2019 00:00:00 +0530</pubDate><guid>/2019/introduction-to-aop/</guid><description>&lt;p>In a medium to large codebase, many-a-time, you might notice code that shouldn&amp;rsquo;t be in some class/method by design but is necessary. This can be anything from simple logging to transaction handling. As the codebase scales, this keeps adding up to a point where the code becomes laborious to manage.&lt;/p>
+&lt;p>&lt;img src="/images/blog/aop_1.png" alt="codebase on fire!">&lt;/p>
+&lt;p>Aspect-Oriented Programming provides a way to modularize these kinds of cross-cutting concerns with &lt;em>Aspects&lt;/em>. Here is a basic example,&lt;/p></description></item><item><title>Bootstrapping your vimrc</title><link>/2018/bootstrapping-your-vimrc/</link><pubDate>Sun, 26 Aug 2018 00:00:00 +0530</pubDate><guid>/2018/bootstrapping-your-vimrc/</guid><description>&lt;p>When I first started with vim, I had trouble understanding how vim configuration worked
+and it was hard for me to use the plain vim. So I had to copy the .vimrc of a friend
+and as time moved, I kept adding over it to a point where my vim started
+slowing down. So, last week I spent some time on rewriting my .vimrc from scratch and I
+made another &amp;ldquo;light-weight&amp;rdquo; version of .vimrc and aliased to &amp;lsquo;vi&amp;rsquo; for minor editing in
+my system and for using it in a colleague&amp;rsquo;s / ssh machine. I then realized that I&amp;rsquo;ve made
+a perfect .vimrc for a novice to build upon. Here, I present to you my sexy and slim .vimrc:&lt;/p></description></item><item><title>Concurrency and Parallelelism</title><link>/2018/concurrency-and-parallelism/</link><pubDate>Mon, 30 Jul 2018 00:00:00 +0530</pubDate><guid>/2018/concurrency-and-parallelism/</guid><description>&lt;p>We live in a universe where literally every system can multiprocess (Some claim
+that the universe itself is a parallel system but I&amp;rsquo;m going to leave
+that for another blog) but most of our programs are sequential. This is mainly
+because parallel systems are arduous to design.&lt;/p>
+&lt;p>Concurrent systems grow in complexity exponentially because the more concurrent the
+system gets, more the places it could fail. Handling for all the failable cases is
+what makes concurrent design laborious. Moreover, many developers find it hard
+to differentiate concurrency from parallelism.&lt;/p></description></item><item><title>Writing your first JSP and Servlet using Vim</title><link>/2018/writing-your-first-jsp-and-servlet-using-vim/</link><pubDate>Fri, 29 Jun 2018 00:00:00 +0530</pubDate><guid>/2018/writing-your-first-jsp-and-servlet-using-vim/</guid><description>&lt;p>Moving to Java from scripting languages can be a tedious process. A lot of times, it is hard to understand what the IDE does in the background to serve our web application. Hence, I&amp;rsquo;m writing these quick bite-sized notes as I learn.&lt;/p>
+&lt;p>Servlets and JSPs run on a Servlet Container such as Apache Tomcat, Jetty, etc. When we write a Servlet in an IDE such as Eclipse, the IDE takes care of building the class and serving it. This note will help you write your first servlet without an IDE (you can even use notepad to follow along).&lt;/p></description></item><item><title>Hacking out an object detector using brain.js</title><link>/2018/hacking-out-an-object-detector-using-brainjs/</link><pubDate>Thu, 05 Apr 2018 04:00:00 +0530</pubDate><guid>/2018/hacking-out-an-object-detector-using-brainjs/</guid><description>&lt;p>Two weeks back, I had to demo my final year project which uses Deep Learning.
+Being a novice myself, I know how difficult it is to wrap our minds around DL. So,
+I wanted to build an intuitive demo with real-world applications which would help me
+to explain my project. (The world has had enough MNIST classifiers!).&lt;/p>
+&lt;p>I planned on building an object detector but also eschewed from &amp;ldquo;production-ready&amp;rdquo;
+deep-learning frameworks because those are quite convoluted for a beginner to
+understand. So after a lot of considerations, I picked
+&lt;a href="https://github.com/BrainJS/brain.js">&lt;em>brain.js&lt;/em>&lt;/a>. Brain.js is a fork of an
+older javascript neural network library, brain, which went unmaintained few years
+back. It has a steep learning curve, easy to use, and runs on the browser.&lt;/p></description></item><item><title>Undoing screw-ups in Mercurial</title><link>/2018/undoing-screw-ups-in-hg/</link><pubDate>Mon, 26 Mar 2018 04:00:00 +0530</pubDate><guid>/2018/undoing-screw-ups-in-hg/</guid><description>&lt;p>In the last three months of using Mercurial at my internship, I have screwed up a lot of times.
+From adding wrong files to pushing bad commits, I have done it all. So, as the end of
+my internship is nearing, I&amp;rsquo;m making a list of fixes that I learned during this journey.&lt;/p>
+&lt;hr>
+&lt;h2 id="adding-all-files">Adding all files&lt;/h2>
+&lt;p>Most of us have a muscle memory of doing this:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-php" data-lang="php">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">git&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="nx">hg&lt;/span> &lt;span class="nx">add&lt;/span> &lt;span class="o">.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">git&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="nx">hg&lt;/span> &lt;span class="nx">commit&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="nx">m&lt;/span> &lt;span class="s2">&amp;#34;foo&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">git&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="nx">hg&lt;/span> &lt;span class="nx">push&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>But if you are working on a legacy codebase which is as old as time itself, you
+will have to look twice for a ignore file before adding everything. Trust me on this,
+you don&amp;rsquo;t want to look like a halfwit who is just discovering what a version control is
+at your internship.&lt;/p></description></item><item><title>Moving to Antergos from Ubuntu</title><link>/2017/moving-to-antergos/</link><pubDate>Tue, 15 Aug 2017 01:00:00 +0530</pubDate><guid>/2017/moving-to-antergos/</guid><description>&lt;p>Nine months ago, I decided that I had enough with Windows and planned to
+completely move to GNU/Linux (Yeah, it&amp;rsquo;s not Linux, it&amp;rsquo;s GNU/Linux).
+Since I own only one laptop, I do not prefer distro jumping and needed to
+settle down with something. After googling for a while, I picked Ubuntu.&lt;/p>
+&lt;p>&lt;img src="/images/blog/close_windows.jpeg" alt="">&lt;/p>
+&lt;p>Ubuntu, with some fixes and theming, is a really awesome distro to dive into.
+Except for the WiFi issue, which is partially fixable, everything seemed nice
+about it. But, being a developer, I tend to stick with latest releases of my
+development tools and Ubuntu&amp;rsquo;s release cycle wasn&amp;rsquo;t doing it for me. I tried
+using PPAs but after a while, I started adding more and more PPAs that I started
+losing count of. I heard a lot about Arch Linux&amp;rsquo;s rolling release but was
+too afraid to break my only computer. After getting suggestions from a friend,
+I decided to finally move to Arch Linux. I was too lazy to install it from scratch so
+chose Antergos instead, which provides an awesome UI for installation.&lt;/p></description></item><item><title>My day 1 of learning Kotlin</title><link>/2017/my-day-1-with-kotlin/</link><pubDate>Sun, 21 May 2017 05:00:00 +0530</pubDate><guid>/2017/my-day-1-with-kotlin/</guid><description>&lt;p>I was reluctant to learn Android until now because of Java. With all the new
+languages out there, Java&amp;rsquo;s verbose nature and lack of syntactic sugar is not the
+most pleasing language to code in. Even though language alternatives like Scala,
+Clojure, and Kotlin exist for Android, I stuck with hybrid app development due to
+the lack of proper documentation for these alternatives.&lt;/p>
+&lt;p>A couple of days back, the Android team announced first-class support for kotlin
+and I started seeing a lot of Kotlin praise and tutorial coming up across the
+internet community. I couldn&amp;rsquo;t care less about it until I came across these:&lt;/p></description></item><item><title>Web Scraping 101 (part 2): Build an Anna University Result Scraper</title><link>/2017/web-scraping-101-part2/</link><pubDate>Sat, 14 Jan 2017 02:51:00 +0530</pubDate><guid>/2017/web-scraping-101-part2/</guid><description>&lt;p>This is the follow-up to &lt;a href="../web-scraping-101/">Web Scraping 101: Build a simple web scraper using PHP&lt;/a>.
+If you haven&amp;rsquo;t seen it yet, I&amp;rsquo;d highly recommend you to read that before continuing.&lt;/p>
+&lt;p>In this tutorial, we will be building a simple web scraper that extracts the
+result from Anna University&amp;rsquo;s website. This tutorial is strictly for educational
+purposes.&lt;/p>
+&lt;hr>
+&lt;h2 id="au-scraper">AU Scraper&lt;/h2>
+&lt;p>We are going to do this in 4 simple steps:&lt;/p>
+&lt;h3 id="step-1-read-the-website-and-create-the-dom">Step 1: read the website and create the DOM&lt;/h3>
+&lt;p>Anna University provides a nice little endpoint using which we can view our result
+by sending a GET Request.&lt;/p></description></item><item><title>Web Scraping 101 : Build a simple web scraper using PHP</title><link>/2017/web-scraping-101/</link><pubDate>Fri, 13 Jan 2017 12:48:00 +0530</pubDate><guid>/2017/web-scraping-101/</guid><description>&lt;p>There are times when we want to extract data from a website. In most cases,
+you are provided with an API, but that&amp;rsquo;s not always plausible. So, when a website
+does not provide an API, the only way to get the data from the website is to scrape it off yourself.&lt;/p>
+&lt;p>In this tutorial, we are going to build a simple scraper using PHP to extract data from Wikipedia
+(I&amp;rsquo;d highly recommend you to use &lt;a href="https://www.mediawiki.org/wiki/API:Main_page">Wikipedia API&lt;/a> over this.
+This is just for the tutorial purpose.) and another scraper that extracts
+Anna University result.&lt;/p></description></item><item><title>How to create a context menu using JQuery in 3 steps !</title><link>/2016/how-to-create-a-context-menu/</link><pubDate>Thu, 08 Dec 2016 14:30:00 +0530</pubDate><guid>/2016/how-to-create-a-context-menu/</guid><description>&lt;p>Say Google Drive or WhatsApp web or any other web application with native feel,
+they all have one thing in common: A Context Menu. A while ago, when I wanted to
+add one to my web app, like any other programmer, I binged it (&amp;#x1f602;). Jokes Apart,
+to my surprise, I couldn&amp;rsquo;t find a single proper tutorial to do that.&lt;/p>
+&lt;p>After spending a long time searching, I found a couple of StackOverflow answers
+which were in pure JS and CSS (&amp;#x1f616;). Hence I created this tutorial explaining
+how I did it.&lt;/p></description></item><item><title>Hello World</title><link>/2016/hello-world/</link><pubDate>Thu, 08 Dec 2016 13:50:00 +0530</pubDate><guid>/2016/hello-world/</guid><description>&lt;p>This is my first blog. Here&amp;rsquo;s a line of python to generate an asterisk triangle:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;gt;&amp;gt;&amp;gt;&lt;/span> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="s2">&amp;#34;*&amp;#34;&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">input&lt;/span>&lt;span class="p">())&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)]))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="mi">5&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">**&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">***&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">****&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*****&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Hi there!</title><link>/about/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/about/</guid><description>&lt;p>I&amp;rsquo;m Aravind, a software engineer who’s all about building cool distributed systems and geeking out over the latest tech. I’m currently working on backend systems at &lt;a href="https://www.facebook.com/">Meta&lt;/a>, and before that, I tackled Chrome Infrastructure at &lt;a href="https://www.google.com/">Google&lt;/a>. Oh, and I’m a Carnegie Mellon alum too!&lt;/p>
+&lt;p>Reach out to me: &lt;code>aravind_vasudevan [at] outlook [dot] com&lt;/code>&lt;/p>
+&lt;h3 id="quick-links">Quick Links&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/AravindVasudev/resume/raw/master/aravind_vasudevan.pdf">Resume&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/AravindVasudev">Github Projects&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.linkedin.com/in/aravindvasudev/">LinkedIn&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>
